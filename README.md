@@ -16,11 +16,7 @@ How to run Django V1.0
 	- Go to: http://127.0.0.1:8000
 
 
-Docker - Backend:
-	1. navigate to /Backend
-    Build (if its your first time): docker build -t backend_rate_my_course . 
-    Run: 
 
-    
-
-	docker run -p 8000:8000 backend_rate_my_course python3 ./rateMyCourse/manage.py runserver localhost:8000
+Run Docker-compose: // this is backend version ONLY
+	- docker-compose -build
+	- navigate to http://127.0.0.1:8000
