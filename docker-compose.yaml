@@ -10,18 +10,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-      
 
-
-  # fontend:
-  #   restart: always
-  #   command : npm start
-  #   container_name: fronte
-  #   build:
-  #     context: ./frontend/
-  #     dockerfile: Dockerfile
-  #   stdin_open: true
-  #   depends_on:
-  #     - backend
-  #   ports:
-  #     - "3000:3000"
+  frontend:
+    restart: always
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
