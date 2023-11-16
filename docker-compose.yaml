@@ -15,7 +15,7 @@ services:
     restart: always
     container_name: frontend
     build:
-      context: ./frontend
+      context: ./frontend/rate_my_course
       dockerfile: Dockerfile
     stdin_open: true
     ports:
