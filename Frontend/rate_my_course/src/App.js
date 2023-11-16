@@ -1,9 +1,11 @@
+import React from 'react'
+import LandingPage from './pages/LandingPage.js';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="">Welcome to Rate My Course</h1>
+        <LandingPage />
       </header>
     </div>
   );
