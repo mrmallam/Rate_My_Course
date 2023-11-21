@@ -18,7 +18,7 @@ const LoginPage = (props) => {
         // use this function later
     }
 
-    return <div className={"mainContainer"}>
+    return <div className={"mainContainer"} id="loginPageMainContainer">
         <div className="innerContainer">
 
         
