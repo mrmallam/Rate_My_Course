@@ -9,6 +9,7 @@ import '../styles/LoginPage.css';
 const SignupPage = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError] = useState("")
     
@@ -57,9 +58,9 @@ const SignupPage = (props) => {
                     Confirm Password: 
                 </div>
                 <input
-                    value={email}
+                    value={confirmPassword}
                     placeholder="Confirm Password"
-                    onChange={ev => setPassword(ev.target.value)}
+                    onChange={ev => setConfirmPassword(ev.target.value)}
                     className={"inputBox"} />
                 <label className="errorLabel">{passwordError}</label>
             </div>
