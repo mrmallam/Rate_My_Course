@@ -10,13 +10,13 @@ export default function Header() {
         <img src={LogoRed} className='h-24 w-24 ml-10' alt='logo' />
 
         <div>
-            <Link to="/home/signup">
+            <Link to="/signup">
               <button className=" rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-3">
                   Sign Up
               </button>
             </Link>
 
-            <Link to="/home/login">
+            <Link to="/login">
               <button className=" rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-3 mr-10">
                   Log In
               </button>
