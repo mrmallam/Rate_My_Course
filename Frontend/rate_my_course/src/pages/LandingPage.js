@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'; 
-import LogoWhite from '../resources/logo-white.png';
+import rateMyCourse_white_logo from '../resources/logo-white.png';
+import UniDiv from '../components/UniDiv';
 import '../styles/LandingPage.css';
 
 function LandingPage() {
@@ -9,7 +10,7 @@ function LandingPage() {
         <Header />
 
         <div className='flex flex-col items-center justify-center'>
-          <img src={LogoWhite} className=' max-h-72' alt='logo' />
+          <img src={rateMyCourse_white_logo} className=' max-h-72' alt='logo' />
 
           <div className="flex items-center border-2 border-red-500 shadow-lg w-full md:w-1/4  h-14">
             <input
@@ -35,9 +36,13 @@ function LandingPage() {
             </div>
           </div>
 
-
+          < UniDiv />
+          < UniDiv />
+          < UniDiv />
+          < UniDiv />
+          < UniDiv />
+          < UniDiv />
         </div>
-
       </div>
     );
   }
