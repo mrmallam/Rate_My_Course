@@ -7,7 +7,7 @@ import '../styles/LandingPage.css';
 function LandingPage() {
     return (
       <div className="">
-        <Header />
+        {/* <Header />  */} {/* Header is not needed here */}
 
         <div className='flex flex-col items-center justify-center'>
           <img src={rateMyCourse_white_logo} className=' max-h-72' alt='logo' />
