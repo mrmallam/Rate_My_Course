@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../styles/LoginPage.css';
 import '../styles/AccountSettings.css';
 
-import CustomButton from "../components/Button";
+import CustomButton from "../components/CustomButton";
 
 
 const AccountSettingsMain = () => {
