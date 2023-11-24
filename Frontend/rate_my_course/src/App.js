@@ -8,7 +8,8 @@ import Header from './components/Header.js';
 import LandingPage from './pages/LandingPage.js';
 import SignupPage from './pages/SignupPage.js';
 import LoginPage from './pages/LoginPage.js';
-
+import ReviewPage from './pages/ReviewPage.js';
+import SearchResultsPage from './pages/SearchResultsPage.js';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route exact path = "/home" Component={LandingPage}/>
         <Route exact path = "/signup" Component={SignupPage}/>
         <Route exact path = "/login" Component={LoginPage}/>
+        <Route exact path = "/review" Component={ReviewPage}/>
+        <Route exact path = "/results" Component={SearchResultsPage}/>
         
       </Routes>
 
