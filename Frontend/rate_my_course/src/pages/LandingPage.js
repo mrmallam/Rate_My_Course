@@ -1,50 +1,70 @@
-import React from 'react'
-import Header from '../components/Header'; 
+import React, {useEffect} from 'react'
+import SearchComponent from '../components/SearchComponent';
 import rateMyCourse_white_logo from '../resources/logo-white.png';
 import UniDiv from '../components/UniDiv';
 import '../styles/LandingPage.css';
+import { useState } from 'react';
+
+// Dummy data
+const universities = [
+  { id: 1, name: 'University of Example', location: 'Example City', reviewNum: 407 },
+  { id: 2, name: 'Sample State University', location: 'Sampleville', reviewNum: 30 },
+  { id: 3, name: 'Test University', location: 'Test City', reviewNum: 50 },
+  { id: 4, name: 'Another University', location: 'Another City', reviewNum: 100 },
+  { id: 5, name: 'Example University', location: 'Example City', reviewNum: 4 },
+];
 
 function LandingPage() {
-    return (
-      <div className="">
-        {/* <Header />  */} {/* Header is not needed here */}
+  const [isChecked, setIsChecked] = useState(false);
+  // Initialize searchResults with the full list of universities
+  const [searchResults, setSearchResults] = useState(universities);
 
-        <div className='flex flex-col items-center justify-center'>
-          <img src={rateMyCourse_white_logo} className=' max-h-72' alt='logo' />
+  useEffect(() => {
+    // Sort the results when isChecked changes
+    if (isChecked) {
+      const sortedResults = [...searchResults].sort((a, b) => a.name.localeCompare(b.name));
+      setSearchResults(sortedResults);
+    } else {
+      setSearchResults(universities);
+    }
+  }, [isChecked]);
 
-          <div className="flex items-center border-2 border-red-500 shadow-lg w-full md:w-1/4  h-14">
-            <input
-              className="flex-1 px-6 h-full rounded-l-full text-gray-700 leading-tight focus:outline-none"
-              id="search"
-              type="text"
-              placeholder="Enter University..."
-            />
-            <button className="w-12 h-full text-red-500 flex items-center justify-center">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M11 16C6.58 16 3 12.42 3 8c0-4.42 3.58-8 8-8s8 4.58 8 8c0 3.58-2.92 6.42-6.62 7.93"></path></svg>
-            </button>
-          </div>
+  const handleOnChange = () => {
+    setIsChecked(!isChecked);
+  };
 
-          <div className='flex justify-between mt-5 text-sm' style={{ width: '21rem' }}>
-            <p  className=' mt-1'>00 Results</p>
+  const handleSearchResults = (results) => {
+    // Apply sorting to the new search results if isChecked is true
+    const sortedResults = isChecked
+      ? [...results].sort((a, b) => a.name.localeCompare(b.name))
+      : results;
+    setSearchResults(sortedResults);
+  };
 
-            <div className='flex justify-between'>
-              <label className="switch">
-                <input type="checkbox" checked/>
-                <span className="slider round"></span>
-              </label>
-              <p className=' mt-1 ml-2'>Sort A-Z</p>
-            </div>
-          </div>
+  return (
+    <div className='flex flex-col items-center justify-center'>
+      <img src={rateMyCourse_white_logo} className=' max-h-72' alt='logo' />
 
-          < UniDiv />
-          < UniDiv />
-          < UniDiv />
-          < UniDiv />
-          < UniDiv />
-          < UniDiv />
+      <SearchComponent data={universities} onSearchResults={handleSearchResults} />
+
+      <div className='flex justify-between text-sm mt-5 w-3/4 md:w-4/12'>
+        {/* number of results */}
+        <p className=' mt-1'>{searchResults.length} Results</p>
+
+        {/* sort by A-Z */}
+        <div className='flex justify-between'>
+          <label className="switch">
+            <input type="checkbox" checked={isChecked} onChange={handleOnChange} />
+            <span className="slider round"></span>
+          </label>
+          <p className=' mt-1 ml-2'>Sort A-Z</p>
         </div>
       </div>
-    );
-  }
-  
-  export default LandingPage;
+
+      {/* Display search results */}
+      { searchResults.map(result => <UniDiv data={result} />) }
+    </div>
+  );
+}
+
+export default LandingPage;
