@@ -10,6 +10,8 @@ import SignupPage from './pages/SignupPage.js';
 import LoginPage from './pages/LoginPage.js';
 import AccountSettingsPassword from './pages/AccountSettingsPassword.js';
 import AccountSettingsMain from './pages/AccountSettingsMain.js';
+import MyReviews from './pages/MyReviews.js';
+
 
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
         <Route exact path = "/login" Component={LoginPage}/>
         <Route exact path = "/AccountSettings/Main" Component={AccountSettingsPassword }/>
         <Route path = "/AccountSettings/Main/Password" Component={AccountSettingsMain}/>
+        <Route exact path = "/MyReviews" Component={MyReviews}/>
         
       </Routes>
 
