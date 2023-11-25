@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import rateMyCourse_white_logo from '../resources/logo-white.png';
-
+import APIService from '../APIService';
 
 import '../styles/LoginPage.css';
 
@@ -14,9 +14,13 @@ const LoginPage = (props) => {
     
     const navigate = useNavigate();
         
-    const onButtonClick = () => {
-        // use this function later
+    const loginBtn = () => {
+        APIService.LoginUser({email, password})
+        .then(resp => console.log(resp))
+        .catch(error => console.log(error))
     }
+
+
 
     return <div className={"mainContainer"} id="loginPageMainContainer">
         <div className="innerContainer">
@@ -45,6 +49,7 @@ const LoginPage = (props) => {
                     Password:
                 </div>
                 <input
+                    type="password"
                     value={password}
                     placeholder="Password"
                     onChange={ev => setPassword(ev.target.value)}
@@ -54,7 +59,7 @@ const LoginPage = (props) => {
 
             </div>
             <br />
-            <button className="loginButton">Login</button>
+            <button onClick = {loginBtn} className="loginButton">Login</button>
             
         </div>
     </div>

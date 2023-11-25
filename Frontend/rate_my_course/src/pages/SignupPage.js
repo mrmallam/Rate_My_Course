@@ -45,6 +45,7 @@ const SignupPage = (props) => {
                     Password:
                 </div>
                 <input
+                    type="password"
                     value={password}
                     placeholder="Password"
                     onChange={ev => setPassword(ev.target.value)}
