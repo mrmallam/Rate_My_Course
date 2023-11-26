@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+}
+
+.mainContainer--account{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#accountCounterDiv {
+
+}
+
+.entireDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 120px;
+
+}
+
+.labelContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 53px;
+}
+
+
+#textFieldContainer--accountSettingsAccount{
+    gap: 30px;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding-left: 20px;
+}
+
+
+.editButtonsContainer button {
+    border-radius: 10px;
+}
+
+.editButtonsContainer {
+    width: 200px;
+    margin-left: 30px;
+    color: white;
+}
+
+
+.editButtons {
+    display: flex;
+    flex-direction: row;
+    gap:5px
+}
+
+.editButtons button {
+    width: 500px;
+    height: 30px;
+}
+
+
+#inputBox--accountSettingsAccount{
+    border: 1px solid red;
+    
+
+}
+
+#saveButton {
+    background-color: rgb(12, 179, 12);   
+}
+
+#saveButton:hover {
+    background-color: rgb(25, 117, 25); 
+    box-shadow: 0 0 0 2px black;
+  
+
+}
+
+#cancelButton {
+    background-color: rgb(224, 20, 20);
+}
+
+#cancelButton:hover {
+    background-color: rgb(146, 33, 33);
+    box-shadow: 0 0 0 2px black;
+
+
+}
+
+#editButton {
+    background-color: gray;
+    width: 50%;
+    height: 30px;
+}
+
+#editButton:hover {
+    background-color: rgb(80, 79, 79);
+    box-shadow: 0 0 0 2px black;
+}
+
