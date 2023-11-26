@@ -287,8 +287,8 @@ const AccountSettingsAccount = () => {
     const initialData = {
         firstName: "John",
         lastName: "Doe",
-        yearOfStudy: "3",
         university: "University of Calgary",
+        yearOfStudy: "3",
         email: "john_doe@ucalgary.ca",
     };
 
