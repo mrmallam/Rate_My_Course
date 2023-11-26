@@ -9,8 +9,8 @@ from .models import Persons
 class PersonsViewSet(viewsets.ModelViewSet):
     queryset = Persons.objects.all()
     serializer_class = PersonsSerializer
-    # permission_classes = [IsAuthenticated]
-    # authentication_classes = (TokenAuthentication, )
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication, )
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):

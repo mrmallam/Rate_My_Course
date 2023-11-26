@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'api',
+    'corsheaders',
 ]
 
 # REST_FRAMEWORK = {
@@ -56,7 +57,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+# Must delete this line before deploying to production
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'rateMyCourse.urls'
 

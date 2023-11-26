@@ -14,6 +14,8 @@ function LandingPage() {
 
   return (
     <div className='flex flex-col items-center justify-center'>
+      <Header showLoginButtons={true}/>
+
       <img src={rateMyCourse_white_logo} className=' max-h-72' alt='logo' />
 
       <div className="flex items-center border-2 border-red-500 shadow-lg h-14">

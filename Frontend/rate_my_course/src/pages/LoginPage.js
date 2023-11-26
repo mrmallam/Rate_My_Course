@@ -1,26 +1,39 @@
-import React, { useState } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 import rateMyCourse_white_logo from '../resources/logo-white.png';
 import APIService from '../APIService';
+import {useCookies} from 'react-cookie';
 
 import '../styles/LoginPage.css';
 
 
 const LoginPage = (props) => {
-    const [email, setEmail] = useState("")
+    const [username, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError] = useState("")
+    const [token, setToken] = useCookies(['mytoken'])
     
+    const { setIsLoggedIn } = useContext(UserContext);
     const navigate = useNavigate();
-        
+    
+    // useEffect(() => {
+    //     if(token['mytoken']) {
+    //         console.log("here");
+    //         navigate('/home');
+    //     }
+    // }, [token, navigate]);
+
     const loginBtn = () => {
-        APIService.LoginUser({email, password})
-        .then(resp => console.log(resp))
+        APIService.LoginUser({username, password})
+        .then(resp => {
+            setToken("mytoken", resp.token);
+            setIsLoggedIn(true); // Update the login state
+            navigate('/home');
+        })
         .catch(error => console.log(error))
     }
-
-
 
     return <div className={"mainContainer"} id="loginPageMainContainer">
         <div className="innerContainer">
@@ -36,7 +49,7 @@ const LoginPage = (props) => {
                     Email: 
                 </div>
                 <input
-                    value={email}
+                    value={username}
                     placeholder="Email address"
                     onChange={ev => setEmail(ev.target.value)}
                     className={"inputBox"} />
