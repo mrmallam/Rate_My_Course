@@ -293,6 +293,9 @@ const AccountSettingsAccount = () => {
     };
 
     const [data, setData] = useState(initialData);
+    const [tempData, setTempData] = useState({}); // State to store temporary changes, used when user clicks 'cancel' button previous text will be restored
+    const [isEditPressed, setEditPressed] = useState(false);  // user can only edit one field at a time, track this
+
     const [editMode, setEditMode] = useState({
         firstName: false,
         lastName: false,
@@ -301,18 +304,21 @@ const AccountSettingsAccount = () => {
         email: false,
     });
 
-    const [tempData, setTempData] = useState({}); // State to store temporary changes
 
     const handleEditClick = (field) => {
-        setTempData((prevTempData) => ({
-            ...prevTempData,
-            [field]: data[field],
-        }));
+        if (!isEditPressed) {
+            setTempData((prevTempData) => ({
+                ...prevTempData,
+                [field]: data[field],
+            }));
 
-        setEditMode((prevEditMode) => ({
-            ...prevEditMode,
-            [field]: true,
-        }));
+            setEditMode((prevEditMode) => ({
+                ...prevEditMode,
+                [field]: true,
+            }));
+            
+            setEditPressed(true);
+        }
     };
 
     const handleSaveClick = (field) => {
@@ -320,6 +326,8 @@ const AccountSettingsAccount = () => {
             ...prevEditMode,
             [field]: false,
         }));
+
+        setEditPressed(false);
     };
 
     const handleCancelClick = (field) => {
@@ -333,6 +341,9 @@ const AccountSettingsAccount = () => {
             ...prevData,
             [field]: tempData[field],
         }));
+
+
+        setEditPressed(false);
     };
 
     const handleInputChange = (field, value) => {
@@ -348,11 +359,11 @@ const AccountSettingsAccount = () => {
             
             <div className="entireDiv">
                 <div className="labelContainer">
-                    <label>Name:</label>
-                    <label>Last Name:</label>
-                    <label>University:</label>
-                    <label>Year of Study:</label>
-                    <label>Email:</label>
+                    <label>Name</label>
+                    <label>Last Name</label>
+                    <label>University</label>
+                    <label>Year of Study</label>
+                    <label>Email</label>
                 </div>
                 <div className="textFieldContainer" id="textFieldContainer--accountSettingsAccount">
                     {Object.keys(data).map((field) => (
