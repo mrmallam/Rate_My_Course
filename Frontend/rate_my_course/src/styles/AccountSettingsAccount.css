@@ -19,15 +19,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 120px;
+    padding-left: 90px;
 
 }
 
 .labelContainer{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: 53px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-wrap:wrap;
 }
 
 
@@ -67,11 +70,10 @@
 }
 
 
-#inputBox--accountSettingsAccount{
+/* #inputBox--accountSettingsAccount{
     border: 1px solid red;
-    
 
-}
+} */
 
 #saveButton {
     background-color: rgb(12, 179, 12);   
