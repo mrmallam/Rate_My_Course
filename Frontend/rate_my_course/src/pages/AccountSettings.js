@@ -42,6 +42,7 @@ const AccountSettings = () => {
                     Password
                 </button>
             </div>
+            <div id="accountSettingsDividerBar"></div>
 
             <div className="componentContainer">
                 {activePage === 'password' && <AccountSettingsPassword/>}
