@@ -9,6 +9,7 @@ import thumbsDown from '../resources/thumbs-down.svg';
 import bookMark from '../resources/bookmark.svg';
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
+    const [showPopup, setShowPopup] = useState(false);
     var name = "Jane Doe";
     var yearOfStudy = "3rd Year";
     var course = "Computer Science"
@@ -16,8 +17,24 @@ const MyReviews = () => {
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
+    const handleNewReviewClick = () => {
+        setShowPopup(true);
+    };
+
+    const handlePopupClose = () => {
+        setShowPopup(false);
+    };
+
+    const PopupContent = () => (
+        <div className="popup">
+            {/* Your form elements go here */}
+            <button onClick={handlePopupClose}>X</button>
+            <div>Test</div>
+        </div>
+    );
     return (
         <div className="flex flex-col">
+            <div className={`${showPopup ? 'overlay' : ''}`}></div>
             <div className="top-row">
                 <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
             </div>
@@ -63,7 +80,13 @@ const MyReviews = () => {
             <div className="content">
                 {activeTab === 'myReviews' && (
                     <div className="review-content">
-                        <button className="new-review-button">New Review</button>
+                        <button
+                            className={`new-review-button ${showPopup ? 'disabled' : ''}`}
+                            onClick={handleNewReviewClick}
+                            disabled={showPopup}
+                        >
+                            New Review
+                        </button>
                         <div className="reviews">
                             <div className="review">
                                 <div className="review-information">
@@ -152,6 +175,7 @@ const MyReviews = () => {
                     </div>
                 )}
             </div>
+            {showPopup && <PopupContent />}
         </div>
     )
 }
