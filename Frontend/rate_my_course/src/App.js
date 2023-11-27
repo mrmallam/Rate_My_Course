@@ -21,6 +21,7 @@ function App() {
           {/* <Header/> */}
           <Routes>
             {/* <LandingPage /> */}
+            <Route exact path = "/" Component={LandingPage}/>
             <Route exact path = "/home" Component={LandingPage}/>
             <Route exact path = "/signup" Component={SignupPage}/>
             <Route exact path = "/login" Component={LoginPage}/>
