@@ -15,6 +15,24 @@
 
 }
 
+.userProfile--account{
+    width: 40px;
+    height: auto;
+}
+.userProfile--account img{
+}
+
+#accountImage {
+    width: 200px;
+    height: 200px;    
+    border-radius: 100px;
+    padding-top: 10px;
+    
+    border: 1px solid grey;
+    object-fit:fill;
+    margin-bottom: 30px;
+}
+
 .entireDiv {
     display: flex;
     justify-content: center;

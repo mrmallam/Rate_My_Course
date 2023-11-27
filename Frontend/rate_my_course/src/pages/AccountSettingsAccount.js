@@ -283,6 +283,10 @@
 import React, { useState } from "react";
 import '../styles/AccountSettingsAccount.css';
 
+// import {ReactComponent as UserAccountSettingsProfilePicture} from '../resources/user_profile.svg';
+
+import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
+
 const AccountSettingsAccount = () => {
     const initialData = {
         firstName: "John",
@@ -356,6 +360,9 @@ const AccountSettingsAccount = () => {
     return (
         <div className="mainContainer--account">
             <div class="titleContainer">Account Details</div>
+
+                <img id="accountImage" src={UserAccountSettingsProfilePicture} alt="user-profile-logo"/>
+            
             
             <div className="entireDiv">
                 <div className="labelContainer">
