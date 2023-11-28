@@ -24,6 +24,9 @@ function RatingSet ({label, rating, setRating}) {
 }
 
 function Reviews() {
+    const [university, setUniversity] = useState('');
+    const [courseNum, setCourseNum] = useState('');
+    const [courseCode, setCourseCode] = useState('');
     const [professor, setProfessor] = useState('');
     const [difficulty, setDifficulty] = useState(5);
     const [workload, setWorkload] = useState(5);
@@ -39,6 +42,27 @@ function Reviews() {
         <div className='form-container'>
           <div className='ml-4'>
             <input
+                type="text"
+                value={university}
+                onChange={(e) => setUniversity(e.target.value)}
+                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5"
+                placeholder="University"
+              />
+              <input
+                type="text"
+                value={courseCode}
+                onChange={(e) => setCourseCode(e.target.value)}
+                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5"
+                placeholder="Course Code"
+              />
+              <input
+                type="text"
+                value={courseNum}
+                onChange={(e) => setCourseNum(e.target.value)}
+                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5"
+                placeholder="Course Number"
+              />
+              <input
                 type="text"
                 value={professor}
                 onChange={(e) => setProfessor(e.target.value)}
@@ -58,14 +82,14 @@ function Reviews() {
           <textarea
                 value={comments}
                 onChange={(e) => setComments(e.target.value)}
-                className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5'
+                className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'
                 placeholder='What do you want others to know about this class?'
           ></textarea>
         </div>
         <div className='buttons-container'>
-            <button className='rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-1'>
+            <button className='rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-3'>
                 Cancel</button>
-            <button className='rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-1'>
+            <button className='rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-3'>
                 Submit</button>
         </div>
       </div>
