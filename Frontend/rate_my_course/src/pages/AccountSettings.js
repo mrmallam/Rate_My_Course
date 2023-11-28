@@ -8,29 +8,14 @@ import AccountSettingsMain from "./AccountSettingsAccount";
 
 
 const AccountSettings = () => {
-    // const [password, setPassword] = useState("")
-    // const [confirmPassword, setConfirmPassword] = useState("")
-    // const [confirmPassword2, setConfirmPassword2] = useState("")
-
-
-    // const [passwordError, setPasswordError] = useState("")
-
-    // const[showChangePasswordPage, setChangePasswordPage] = useState(false);
-    // const[showAccountPage, setAccountPage] = useState(false);
-
-    // const [activePage, setActivePage] = useState('account');
 
     const [activePage, setActivePage] = useState('account');
 
 
     const handleButtonClick = (page) => {
-        // setActivePage(page);
-        // document.getElementById(page).style.backgroundColor = "green";
         setActivePage(page === activePage ? page : page);
     };
 
-
-    
 
     return (
         <div className="mainContainer--accountSettings">
@@ -44,7 +29,7 @@ const AccountSettings = () => {
             </div>
             <div id="accountSettingsDividerBar"></div>
 
-            <div className="componentContainer">
+            <div id="componentContainer">
                 {activePage === 'password' && <AccountSettingsPassword/>}
                 {activePage === 'account' && <AccountSettingsMain/>}
             </div>
