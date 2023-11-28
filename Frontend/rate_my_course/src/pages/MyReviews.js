@@ -89,7 +89,6 @@ const MyReviews = () => {
                         >
                             New Review
                         </button>
-                        <div className="reviews">
                             <div className="review">
                                 <div className="review-information">
                                     <div className="review-header">
@@ -112,13 +111,11 @@ const MyReviews = () => {
                                         <img src = {deleteImage} className="icons" alt="delete-image"/>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 )}
                 {activeTab === 'ratedReviews' && (
                     <div className="rated-reviews">
-                        <div className="reviews">
                             <div className="review">
                                 <div className="review-information">
                                     <div className="review-header">
@@ -141,7 +138,6 @@ const MyReviews = () => {
                                         <img src = {thumbsDown} className="thumbs-down" alt="delete-image"/>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 )}
@@ -155,7 +151,6 @@ const MyReviews = () => {
                                     <img src = {bookMark} className="bookmark" alt="bookmark"/>
                                     SENG 513
                                 </div>
-                                <div className="reviews">
                                     <div className="review">
                                         <div className="review-information">
                                             <div className="review-header">
@@ -169,7 +164,6 @@ const MyReviews = () => {
                                             <div className="review-body">
                                                 <p>information</p>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
