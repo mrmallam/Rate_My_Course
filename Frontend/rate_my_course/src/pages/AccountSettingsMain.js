@@ -11,11 +11,6 @@ const AccountSettingsMain = () => {
     const [yearOfStudy, setyearOfStudy] = useState("")
     const [university, setUniversity] = useState("")
     const [email, setEmail] = useState("")
-
-
-
-
-
     const [passwordError, setPasswordError] = useState("")
 
 

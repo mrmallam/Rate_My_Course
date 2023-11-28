@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import arrowLeft from '../resources/arrow-left.svg';
 import '../styles/MyReviews.css';
-import userImage from '../resources/user-image.svg';
+import adminImage from '../resources/admin-image.svg';
 import editImage from '../resources/edit.svg';
 import deleteImage from '../resources/delete.svg';
 import thumbsUp from '../resources/thumbs-up-green.svg';
@@ -41,8 +41,8 @@ const MyReviews = () => {
                 <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
             </div>
             <div className="user-info">
-                <div className="userImage">
-                    <img src = {userImage} className="user-image" alt="user-image"/>
+                <div className="adminImage">
+                    <img src = {adminImage} className="admin-image w-24 h-24" alt="admin-image"/>
                 </div>
                 <div className="flex flex-col">
                     <div className="user-name">
@@ -62,33 +62,18 @@ const MyReviews = () => {
             <div className='nav-bar'>
                 <div
                     className={`nav-bar-item ${activeTab === 'myReviews' ? 'active' : ''}`}
-                    onClick={() => handleTabClick('myReviews')}
-                >
-                    <p>My Reviews</p>
-                </div>
-                <div
-                    className={`nav-bar-item ${activeTab === 'ratedReviews' ? 'active' : ''}`}
-                    onClick={() => handleTabClick('ratedReviews')}
-                >
-                    <p>Rated Reviews</p>
-                </div>
-                <div 
-                    className={`nav-bar-item ${activeTab === 'watchedCourses' ? 'active' : ''}`}
-                    onClick={() => handleTabClick('watchedCourses')}
-                >
-                    <p>Watched Courses</p>
+                    onClick={() => handleTabClick('myReviews')}>
+                    <p>Reported Posts</p>
                 </div>
             </div>
+
+            <div className='ml-8 mt-2 mb-6 font-bold w-1/6'>
+                <span className="text-md text-black">3 Reports Pending:</span>
+            </div>
+
             <div className="content">
                 {activeTab === 'myReviews' && (
                     <div className="review-content">
-                        <button
-                            className={`new-review-button ${showPopup ? 'disabled' : ''}`}
-                            onClick={handleNewReviewClick}
-                            disabled={showPopup}
-                        >
-                            New Review
-                        </button>
                         <div className="reviews">
                             <div className="review">
                                 <div className="review-information">
