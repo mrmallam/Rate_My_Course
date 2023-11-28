@@ -21,7 +21,10 @@ const AccountSettingsPassword = () => {
 
         // use backend to confirm the old password given by user is correct
         // replace "old11" with password from backend
+
         if (typedOldPassword === "old11") {
+
+            // if old password and both new passwords match --> success! 
             if (newPassword === confirmNewPassword) {
                 console.log("passwords match!"); // test 
                 setOldPasswordError(""); // clear password error message
