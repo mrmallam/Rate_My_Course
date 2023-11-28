@@ -1,15 +1,48 @@
 import React, { useState } from "react";
 import '../styles/AccountSettingsPassword.css';
-import CustomButton from '../components/CustomButton';
 
 
 const AccountSettingsPassword = () => {
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const [confirmPassword2, setConfirmPassword2] = useState("")
+
+    // this is the old password
+    const testOldPassword = "old11";
+
+    const [oldPassword, setOldPassword] = useState("")
+    const [newPassword, setConfirmPassword] = useState("")
+    const [confirmNewPassword, setConfirmNewPassword] = useState("")
 
 
-    const [passwordError, setPasswordError] = useState("")
+    // error messages
+    const [oldPasswordError, setOldPasswordError] = useState("");
+    const [newPasswordError, setNewPasswordError] = useState("");
+    const [confirmNewPasswordError, setConfirmNewPasswordError] = useState("");
+
+    const handlePasswordChange = (typedOldPassword) => {
+
+        // use backend to confirm the old password given by user is correct
+        // replace "old11" with password from backend
+        if (typedOldPassword === "old11") {
+            if (newPassword === confirmNewPassword) {
+                console.log("passwords match!"); // test 
+                setOldPasswordError(""); // clear password error message
+                setConfirmNewPasswordError("");
+            }
+
+            // if old password matches but new passwords don't
+            else {
+                setConfirmNewPasswordError("New passwords do not match");
+                setOldPasswordError("");
+            }
+        }
+
+        // if old password doesn't match
+        else {
+            setOldPasswordError("Incorrect old password");
+            setConfirmNewPasswordError("");
+        }
+    }
+
+
 
 
     return (
@@ -21,24 +54,24 @@ const AccountSettingsPassword = () => {
                 <div className="inputContainer--accountSettingsPassword">
                     <input
                         type="password"
-                        value={password}
+                        value={oldPassword}
                         placeholder="Enter Current Password"
-                        onChange={ev => setPassword(ev.target.value)}
+                        onChange={ev => setOldPassword(ev.target.value)}
                         className={"inputBox"}
                         id="currentPassword" />
-                    <label className="errorLabel">{passwordError}</label>
+                    <label className="errorLabel">{oldPasswordError}</label>
                 </div>
                 <br />
 
                 <div className="inputContainer--accountSettingsPassword">
                     <input
                         type="password"
-                        value={confirmPassword}
+                        value={newPassword}
                         placeholder="Enter New Password"
                         onChange={ev => setConfirmPassword(ev.target.value)}
                         className={"inputBox"} 
                         id="newPassword"/>
-                    <label className="errorLabel">{passwordError}</label>
+                    <label className="errorLabel">{newPasswordError}</label>
                 </div>
 
                 <br></br>
@@ -46,20 +79,18 @@ const AccountSettingsPassword = () => {
                 <div className="inputContainer--accountSettingsPassword">
                     <input
                         type="password"
-                        value={confirmPassword2}
+                        value={confirmNewPassword}
                         placeholder="Re-type New Password"
-                        onChange={ev => setConfirmPassword2(ev.target.value)}
+                        onChange={ev => setConfirmNewPassword(ev.target.value)}
                         className={"inputBox"}
                         id="retypeNewPassword" />
-                    <label className="errorLabel">{passwordError}</label>
+                    <label className="errorLabel">{confirmNewPasswordError}</label>
                 </div>
 
-                {/* <button className="loginButton" id="changePasswordButton">Change Password</button> */}
             </div>
             <br></br>
-            {/* <CustomButton label={'Change Password'} width={'100%'}></CustomButton> */}
             <div className="changePasswordButtonContainer">
-                <button id="changePasswordButton">Change Password</button>
+                <button id="changePasswordButton" onClick={() => handlePasswordChange(oldPassword)}>Change Password</button>
             </div>
 
         </div>
