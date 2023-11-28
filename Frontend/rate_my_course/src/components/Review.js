@@ -81,12 +81,6 @@ export default function Review() {
                 placeholder='What do you want others to know about this class?'
           ></textarea>
         </div>
-        <div className='buttons-container'>
-            <button className='rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-3'>
-                Cancel</button>
-            <button className='rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-3'>
-                Submit</button>
-        </div>
       </div>
   )
 } 

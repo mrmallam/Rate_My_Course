@@ -13,6 +13,12 @@ function Reviews() {
             <h1 className="text-3xl">SENG 513</h1>
             </div>
             <Review/>
+            <div className='buttons-container'>
+                <button className='rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-3'>
+                    Cancel</button>
+                <button className='rounded-xl h-20 w-28 bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900 m-3'>
+                    Submit</button>
+            </div>
         </div>
     );
   }
