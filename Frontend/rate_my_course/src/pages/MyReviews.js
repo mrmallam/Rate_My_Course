@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import arrowLeft from '../resources/arrow-left.svg';
 import '../styles/MyReviews.css';
 import userImage from '../resources/user-image.svg';
-import editImage from '../resources/edit.svg';
-import deleteImage from '../resources/delete.svg';
 import thumbsUp from '../resources/thumbs-up-green.svg';
 import thumbsDown from '../resources/thumbs-down.svg';
 import bookMark from '../resources/bookmark.svg';
-import Reviews from '../components/Reviews';
+import Reviews from "../components/Reviews";
+import StaticReview from "../components/StaticReview";
+import EditableReview from "../components/EditableReview";
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);
-    var name = "Jane Doe";
-    var yearOfStudy = "3rd Year";
-    var course = "Computer Science"
-    var university = "University of Calgary";
+    let name = "Jane Doe";
+    let yearOfStudy = "3rd Year";
+    let course = "Computer Science"
+    let university = "University of Calgary";
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
@@ -28,11 +28,33 @@ const MyReviews = () => {
 
     const PopupContent = () => (
         <div className="popup">
-            {/* Your form elements go here */}
             <button onClick={handlePopupClose}>X</button>
-            <Reviews />
+            <StaticReview />
         </div>
     );
+
+    const coursesData = [
+        {
+            name: "SENG 513",
+            reviews: [
+            <StaticReview key={1} />,
+            <StaticReview key={2} />,
+            ],
+        },
+        {
+            name: "SENG 511",
+            reviews: [
+                <StaticReview key={1} />,
+                <StaticReview key={2} />,
+            ],
+            }
+    ];
+
+    const reviewData = [
+        <EditableReview key={1} />,
+        <EditableReview key={2} />
+    ];
+
     return (
         <div className="flex flex-col">
             <div className={`${showPopup ? 'overlay' : ''}`}></div>
@@ -89,29 +111,11 @@ const MyReviews = () => {
                             New Review
                         </button>
                         <div>
-                            <div className="review">
-                                <div className="review-information">
-                                    <div className="review-header">
-                                        <div className="review-course">
-                                            <p>CPSC 471</p>
-                                        </div>
-                                        <div className="review-rating">
-                                            <p>4/5</p>
-                                        </div>
-                                    </div>
-                                    <div className="review-body">
-                                        <p>This is a review for CPSC 471</p>
-                                    </div>
-                                </div>
-                                <div className="modifications">
-                                    <div className="edit-button">
-                                        <img src = {editImage} className="icons" alt="edit-image"/>
-                                    </div>
-                                    <div className="delete-button">
-                                        <img src = {deleteImage} className="icons" alt="delete-image"/>
-                                    </div>
-                                </div>
+                        {reviewData.map((editableReview, index) => (
+                            <div key={index} className="review">
+                                {editableReview}
                             </div>
+                            ))}
                         </div>
                     </div>
                 )}
@@ -119,24 +123,12 @@ const MyReviews = () => {
                     <div className="rated-reviews">
                         <div>
                             <div className="review">
-                                <div className="review-information">
-                                    <div className="review-header">
-                                        <div className="review-course">
-                                            <p>SENG 513</p>
-                                        </div>
-                                        <div className="review-rating">
-                                            <p>5/5</p>
-                                        </div>
-                                    </div>
-                                    <div className="review-body">
-                                        <p>information</p>
-                                    </div>
-                                </div>
+                                <StaticReview />
                                 <div className="modifications">
-                                    <div className="edit-button">
+                                    <div>
                                         <img src = {thumbsUp} className="icons" alt="thumbs-down"/>
                                     </div>
-                                    <div className="delete-button">
+                                    <div>
                                         <img src = {thumbsDown} className="thumbs-down" alt="delete-image"/>
                                     </div>
                                 </div>
@@ -148,31 +140,18 @@ const MyReviews = () => {
                     <div className="watched-courses">
                         <div className="header">Your watched course</div>
                         <div> Search Bar</div>
-                        <div className="courses">
-                            <div className="course">
-                                <div className="course-information">
-                                    <img src = {bookMark} className="bookmark" alt="bookmark"/>
-                                    SENG 513
-                                </div>
-                                <div>
-                                    <div className="review">
-                                        <div className="review-information">
-                                            <div className="review-header">
-                                                <div className="review-course">
-                                                    <p>SENG 513</p>
-                                                </div>
-                                                <div className="review-rating">
-                                                    <p>5/5</p>
-                                                </div>
-                                            </div>
-                                            <div className="review-body">
-                                                <p>information</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        {coursesData.map((course) => (
+                            <div key={course.name} className="course">
+                            <div className="course-information">
+                                <img src={bookMark} className="bookmark" alt="bookmark" />
+                                {course.name}
                             </div>
-                        </div>
+                            {/* Map over reviews to render StaticReview components */}
+                            {course.reviews.map((review, index) => (
+                                <StaticReview key={index} {...review} />
+                            ))}
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>

@@ -9,7 +9,7 @@
 
 .form-container {
   background-color: white; 
-  height: 500px;
+  min-height: 600px;
   flex-shrink: 0;
   width: 80%;
   display: flex;
