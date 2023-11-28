@@ -53,6 +53,14 @@ function Reviews() {
             className='form-input flex-grow py-2 px-4 border-2 border-red-600 shadow-lg my-4 mx-5'
             placeholder='What do you want others to know about this class?'
           ></textarea>
+          <div className='ml-8 mt-2 mb-2 font-bold'>
+              <span className="text-md text-black">Upvote This Post?</span>
+          </div>
+          <div className='ml-8 mt-2 mb-2 font-bold'>
+              <span className="text-md text-gray-400">12 others found this post useful</span>
+          </div>
+
+
         </div>
       </div>
     );
