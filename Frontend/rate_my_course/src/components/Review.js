@@ -1,29 +1,28 @@
-
+import React, { useState, useEffect } from 'react';
 import UniLogo from '../resources/logo-ucalgary.jpg'
 import '../styles/Reviews.css';
 
-import React, { useState } from 'react';
-
 
 function RatingSet ({label, rating, setRating}) {
-  const levels = [1,2,3,4,5];
-
-  return (
-    <div className="flex items-center space-x-2">
-      {levels.map((level) => (
-        <button
-          key={level}
-          className={`h-8 w-8 rounded-full ${rating >= level ? 'bg-red-500' : 'bg-red-200'}`}
-          onClick={() => setRating(level)}
-          aria-label={`Set ${label} to ${level}`}
-        />
-      ))}
-      <span>{label}</span>
-    </div>
-  );
+    const levels = [1,2,3,4,5];
+  
+    return (
+      <div className="flex items-center space-x-2">
+        {levels.map((level) => (
+          <button
+            key={level}
+            className={`h-5 w-5 sm:h-8 sm:w-8 rounded-full ${rating >= level ? 'bg-red-500' : 'bg-red-200'}`}
+            onClick={() => setRating(level)}
+            aria-label={`Set ${label} to ${level}`}
+          />
+        ))}
+        <span>{label}</span>
+      </div>
+    );
 }
 
-function Reviews() {
+
+export default function Review() {
     const [university, setUniversity] = useState('');
     const [courseNum, setCourseNum] = useState('');
     const [courseCode, setCourseCode] = useState('');
@@ -33,12 +32,8 @@ function Reviews() {
     const [usefulness, setUsefulness] = useState(5);
     const [comments, setComments] = useState('');
 
-    return (
-      <div className="review-container">    
-        <div className='class-header flex items-center'>
-          <img src={UniLogo} alt="University-Logo" className="w-24"/>
-          <h1 className="text-3xl">SENG 513</h1>
-        </div>
+  return (
+    <div className="review-container">    
         <div className='form-container'>
           <div className='ml-4'>
             <input
@@ -93,7 +88,5 @@ function Reviews() {
                 Submit</button>
         </div>
       </div>
-    );
-  }
-  
-  export default Reviews;
+  )
+} 
