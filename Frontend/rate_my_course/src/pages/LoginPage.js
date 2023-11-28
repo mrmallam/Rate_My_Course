@@ -45,10 +45,15 @@ const LoginPage = (props) => {
                     Password:
                 </div>
                 <input
+                    type="password"
                     value={password}
                     placeholder="Password"
                     onChange={ev => setPassword(ev.target.value)}
-                    className={"inputBox"} />
+                    className={"inputBox"} 
+                    secureTextEntry={true} 
+                />   
+                
+                
                 <label className="errorLabel">{passwordError}</label>
                 <button className="forgotPassword">Forgot Password?</button>
 

@@ -1,0 +1,49 @@
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.textFieldContainer {
+    display: inline-block;   
+
+}
+
+#changePasswordButton {
+    width: 100%;
+}
+
+#changePasswordButton:hover {
+    background-color: darkred;
+}
+
+.redLine {
+    position: absolute;
+    height: 100%;
+    border: 1px solid #BB1C1C;
+    left: 300px;
+}
+
+.selectionsContainer{
+    position: absolute;
+    left: 100px;
+
+}
+
+.selection:hover {
+    border: 2px solid #1751A8;
+}
+
+.textAndInput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
