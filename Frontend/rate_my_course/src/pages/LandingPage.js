@@ -43,7 +43,9 @@ function LandingPage() {
 
   return (
     <div className='flex flex-col items-center justify-center'>
-      <img src={rateMyCourse_white_logo} className=' max-h-72' alt='logo' />
+      <Header />
+
+      <img src={rateMyCourse_white_logo} className=' max-h-60' alt='logo' />
 
       <SearchComponent data={universities} onSearchResults={handleSearchResults} />
 
