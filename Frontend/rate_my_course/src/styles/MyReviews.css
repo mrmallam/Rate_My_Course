@@ -3,7 +3,6 @@
     margin-top: 20px;
     margin-left: 20px;
     font-size: 30px;
-    color: #3f51b5;
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -138,6 +137,8 @@
     padding: 20px;
     border: 1px solid #ccc;
     z-index: 1000;
+    width: 50%;
+    height: 600px;
 }
 
 .overlay {

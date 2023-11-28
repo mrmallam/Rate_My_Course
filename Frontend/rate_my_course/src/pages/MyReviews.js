@@ -7,6 +7,7 @@ import deleteImage from '../resources/delete.svg';
 import thumbsUp from '../resources/thumbs-up-green.svg';
 import thumbsDown from '../resources/thumbs-down.svg';
 import bookMark from '../resources/bookmark.svg';
+import Reviews from '../components/Reviews';
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);
@@ -29,7 +30,7 @@ const MyReviews = () => {
         <div className="popup">
             {/* Your form elements go here */}
             <button onClick={handlePopupClose}>X</button>
-            <div>Test</div>
+            <Reviews />
         </div>
     );
     return (
@@ -87,7 +88,7 @@ const MyReviews = () => {
                         >
                             New Review
                         </button>
-                        <div className="reviews">
+                        <div>
                             <div className="review">
                                 <div className="review-information">
                                     <div className="review-header">
@@ -116,7 +117,7 @@ const MyReviews = () => {
                 )}
                 {activeTab === 'ratedReviews' && (
                     <div className="rated-reviews">
-                        <div className="reviews">
+                        <div>
                             <div className="review">
                                 <div className="review-information">
                                     <div className="review-header">
@@ -153,7 +154,7 @@ const MyReviews = () => {
                                     <img src = {bookMark} className="bookmark" alt="bookmark"/>
                                     SENG 513
                                 </div>
-                                <div className="reviews">
+                                <div>
                                     <div className="review">
                                         <div className="review-information">
                                             <div className="review-header">
