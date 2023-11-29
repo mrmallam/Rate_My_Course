@@ -19,8 +19,8 @@ function OverallCourseReviews() {
   };
 
   return (
-    <div className='flex flex-col items-left justify-center mt-5 ml-5'>
-        <div className="flex items-center border-2 border-red-500 shadow-lg h-14 w-2/4">
+    <div className='flex flex-col items-left justify-center mt-5 mx-5 md:mx-10'>
+        <div className="flex items-center border-2 border-red-500 shadow-lg h-14 w-full md:w-2/4">
             <input
             className="flex-1 px-6 h-full rounded-full text-gray-700 leading-tight focus:outline-none"
             id="search"
@@ -32,9 +32,7 @@ function OverallCourseReviews() {
             </button>
         </div>
 
-        <div className='flex justify-between text-sm mt-5 w-2/4'>
-            <p  className=' mt-1'>00 Results</p>
-
+        <div className='flex justify-between text-sm mt-5 w-full md:w-1/2'>
             <div className='flex justify-between'>
                 <label className="switch">
                     <input type="checkbox" checked={isChecked} onChange={handleOnChange}/>
@@ -58,36 +56,40 @@ function OverallCourseReviews() {
                 <option value='CPSC'>Professor 1</option>
                 <option value='CPSC'>Professor 2</option>
             </select>
-
         </div>
 
-        <div className='h-72 mt-6 border-2 border-red-600 w-1/2 shadow-lg py-2 mb-6'>
+        <div className='h-auto md:h-auto mt-6 border-2 border-red-600 w-full md:w-2/3 shadow-lg py-2 mb-6 px-4 md:px-6'>
             <div className='flex items-center'>
                 <img src={uni_logo} className="h-16 md:h-20 object-contain" alt='logo' />
-                <span className="block text-lg md:text-2xl font-normal text-left">SENG 513</span>
+                <span className="block text-2xl font-normal text-left">SENG 513</span>
             </div>
-            <div className='mt-4 h-2/4 ml-4 flex'>
-                <div className='w-1/2'>
+            <div className='flex flex-col md:flex-row mt-4 ml-4'>
+                <div className='w-full'>
                     <span className="block text-gray-400 text-md ftext-left">Course Description:</span>
-                    <span className="block text-gray-400 mt-6 text-md ftext-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
+                    <span className="block text-gray-400 mt-6 text-md ftext-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
                 </div>
-                <div className=' ml-16'>
-                    <img src={Stars} className="md:h-14 object-contain" alt='stars' />
-                    <img src={Stars} className="md:h-14 object-contain" alt='stars' />
-                    <img src={Stars} className="md:h-14 object-contain" alt='stars' />
+                <div className='md:ml-8 w-full md:w-auto md:mt-0 mt-6'>
+                    <p className="block text-gray-400 text-md ftext-left">Average Difficulty:</p>
+                    <img src={Stars} className="h-16 md:h-18 object-contain md:mx-0" alt='stars' />
+                    <p className="block text-gray-400 text-md ftext-left">Average Quality:</p>
+                    <img src={Stars} className="h-16 md:h-18 object-contain md:mx-0" alt='stars' />
+                    <p className="block text-gray-400 text-md ftext-left">Average Usefulness:</p>
+                    <img src={Stars} className="h-16 md:h-18 object-contain md:mx-0" alt='stars' />
                 </div>
             </div>
         </div>
 
-        <button className='h-16 w-1/6 bg-red-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-red-900'>Leave a New Review
+        <button className='h-16 w-1/2 md:w-1/6 bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900'>Leave a New Review
         </button>
 
-        <div className='mt-6 bg-red-600 border-2 border-red-600 font-bold shadow-lg py-2 px-2 w-1/6'>
+        <span className="text-md mt-6 text-black">Showing 2 Reviews: </span>
+
+        <div className='mt-6 bg-red-600 border-2 border-red-600 font-bold shadow-lg py-2 px-2 w-1/2 md:w-1/6'>
             <span className="text-md text-white text-center">Review #1</span>
         </div>
         <Reviews/>
 
-        <div className='mt-6 bg-red-600 border-2 border-red-600 font-bold shadow-lg py-2 px-2 w-1/6'>
+        <div className='mt-6 bg-red-600 border-2 border-red-600 font-bold shadow-lg py-2 px-2 w-1/2 md:w-1/6'>
             <span className="text-md text-white text-center">Review #2</span>
         </div>
         <Reviews/>
