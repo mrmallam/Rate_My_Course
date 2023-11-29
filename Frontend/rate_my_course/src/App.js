@@ -11,6 +11,7 @@ import LandingPage from './pages/LandingPage.js';
 import SignupPage from './pages/SignupPage.js';
 import LoginPage from './pages/LoginPage.js';
 import AllCoursesUniversity from './pages/AllCoursesUniversity.js';
+import AccountSettings from './pages/AccountSettings.js';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
             <Route exact path = "/signup" Component={SignupPage}/>
             <Route exact path = "/login" Component={LoginPage}/>
             <Route exact path = "/allCourses" Component={AllCoursesUniversity}/>
-            
+            <Route exact path='/accountSettings' Component={AccountSettings}/> 
           </Routes>
         </BrowserRouter>
       </UserProvider>
