@@ -3,7 +3,7 @@ import uni_logo from '../resources/logo-ucalgary.jpg';
 
 export default function CourseDiv() {
   return (
-    <div className=' w-full md:w-4/12 h-24 mt-6 border-2 border-red-600 container shadow-lg py-2 flex items-center justify-between'>
+    <div className=' w-full md:w-1/2 h-24 mt-6 border-2 border-red-600 container shadow-lg py-2 flex items-center justify-between'>
         <img src={uni_logo} className="h-16 md:h-20 object-contain w-1/4 " alt='logo' />
 
         <div className='w-1/2 px-2 '>
@@ -42,7 +42,7 @@ export default function CourseDiv() {
             
         </div>
 
-        <span className="flex justify-start text-lg text-gray-600 text-left">Workload difficulty</span>
+        <span className="flex justify-start text-lg text-gray-600 text-left mr-3">Workload difficulty</span>
     </div>
   )
 }

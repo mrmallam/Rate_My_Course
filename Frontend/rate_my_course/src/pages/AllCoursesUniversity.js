@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../components/Header';
 import CourseDiv from '../components/CourseDiv';
 
 export default function AllCoursesUniversity() {
