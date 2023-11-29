@@ -7,6 +7,7 @@ import bookMarkBlank from '../resources/bookmark-blank.svg';
 import StaticReview from "../components/StaticReview";
 import EditableReview from "../components/EditableReview";
 import RatedReview from "../components/RatedReview";
+
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);

@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
+import adminImage from '../resources/admin-image.svg';
 import arrowLeft from '../resources/arrow-left.svg';
 import '../styles/MyReviews.css';
-import adminImage from '../resources/admin-image.svg';
-import editImage from '../resources/edit.svg';
-import deleteImage from '../resources/delete.svg';
-import thumbsUp from '../resources/thumbs-up-green.svg';
-import thumbsDown from '../resources/thumbs-down-red.svg';
+import userImage from '../resources/user-image.svg';
 import bookMark from '../resources/bookmark.svg';
+import bookMarkBlank from '../resources/bookmark-blank.svg';
+import StaticReview from "../components/StaticReview";
+import ReportedReview from "../components/ReportedReview";
+import RatedReview from "../components/RatedReview";
 
 
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('reportedPosts');
     const [showPopup, setShowPopup] = useState(false);
-    var name = "Jane Doe";
-    var yearOfStudy = "3rd Year";
+
+    var name = "John Smith";
+    var yearOfStudy = "Rate My Course Admin";
     var course = "Computer Science"
     var university = "University of Calgary";
+
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
@@ -29,13 +32,36 @@ const MyReviews = () => {
 
     const PopupContent = () => (
         <div className="popup">
-            {/* Your form elements go here */}
             <button onClick={handlePopupClose}>X</button>
             <div>Test</div>
         </div>
     );
+
+    const coursesData = [
+        {
+            name: "SENG 513",
+            reviews: [
+            <StaticReview key={1} />,
+            <StaticReview key={2} />,
+            ],
+        },
+        {
+            name: "SENG 511",
+            reviews: [
+                <StaticReview key={1} />,
+                <StaticReview key={2} />,
+            ],
+            }
+    ];
+
+    const reviewData = [
+        <ReportedReview key={1} />,
+        <ReportedReview key={2} />
+    ];
+
+    
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
             <div className={`${showPopup ? 'overlay' : ''}`}></div>
             <div className="top-row">
                 <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
@@ -59,7 +85,7 @@ const MyReviews = () => {
                     </div>
                 </div>
             </div>
-            <div className='nav-bar'>
+            <div className='nav-bar text-lg sm:text-base'>
                 <div
                     className={`nav-bar-item ${activeTab === 'reportedPosts' ? 'active' : ''}`}
                     onClick={() => handleTabClick('reportedPosts')}>
@@ -74,30 +100,19 @@ const MyReviews = () => {
             <div className="content">
                 {activeTab === 'reportedPosts' && (
                     <div className="review-content">
-                            <div className="review">
-                                <div className="review-information">
-                                    <div className="review-header">
-                                        <div className="review-course">
-                                            <p>CPSC 471</p>
-                                        </div>
-                                        <div className="review-rating">
-                                            <p>4/5</p>
-                                        </div>
-                                    </div>
-                                    <div className="review-body">
-                                        <p>This is a review for CPSC 471</p>
-                                    </div>
+                        <button
+                            className={`new-review-button ${showPopup ? 'disabled' : ''}`}
+                            onClick={handleNewReviewClick}
+                            disabled={showPopup}
+                        >
+                            New Review
+                        </button>
+                        <div>
+                            {reviewData.map((reportedReview, index) => (
+                                <div key={index} className="review">
+                                    {reportedReview}
                                 </div>
-                                <div className="modifications">
-                                    <div className="edit-button flex">
-                                        <button className='h-10 w-1/8 bg-green-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-green-900'>Approve
-                                        </button>
-                                    </div>
-                                    <div className="delete-button flex">
-                                        <button className='h-10 w-1/8 bg-red-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-red-900'>Remove
-                                        </button>                                    
-                                    </div>
-                                </div>
+                            ))}
                         </div>
                     </div>
                 )}
