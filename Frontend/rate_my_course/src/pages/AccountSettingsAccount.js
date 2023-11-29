@@ -4,6 +4,8 @@ import '../styles/AccountSettingsAccount.css';
 
 import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
 
+
+
 const AccountSettingsAccount = () => {
 
     // Initial user details
@@ -11,9 +13,19 @@ const AccountSettingsAccount = () => {
         firstName: "John",
         lastName: "Doe",
         university: "University of Calgary",
-        yearOfStudy: "3",
+        yearOfStudy: 3,
         email: "john_doe@ucalgary.ca",
     };
+
+    const fieldTypes = {
+        firstName: "text",
+        lastName: "text",
+        yearOfStudy: "number",
+        university: "text",
+        email: "email",
+    };
+
+
 
     const [data, setData] = useState(initialData);
     const [tempData, setTempData] = useState({}); // State to store temporary changes, used when user clicks 'cancel' button previous text will be restored
@@ -85,19 +97,23 @@ const AccountSettingsAccount = () => {
             
             
             <div className="entireDiv">
-                <div className="labelContainer">
-                    <label>Name</label>
-                    <label>Last Name</label>
-                    <label>University</label>
-                    <label>Year of Study</label>
-                    <label>Email</label>
-                </div>
+    
                 <div className="textFieldContainer" id="textFieldContainer--accountSettingsAccount">
                     {Object.keys(data).map((field) => (
                         <div key={field} className="inputContainer">
+                            
+                            {field === 'firstName' ? <label>First Name</label>
+                                : field === 'lastName' ? <label>Last Name</label>
+                                : field === 'university' ? <label>University</label>
+                                : field === 'yearOfStudy' ? <label>Year of Study</label>
+                                : field === 'email' ? <label>Email</label>
+                                : null
+                            }
+                            
                             <input
                                 className="inputBox" id="inputBox--accountSettingsAccount"
                                 value={data[field]}
+                                type={fieldTypes[field]}
                                 readOnly={!editMode[field]}
                                 onChange={(e) => handleInputChange(field, e.target.value)}
                             />

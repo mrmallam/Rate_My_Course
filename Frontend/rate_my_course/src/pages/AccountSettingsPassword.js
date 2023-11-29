@@ -17,6 +17,9 @@ const AccountSettingsPassword = () => {
     const [newPasswordError, setNewPasswordError] = useState("");
     const [confirmNewPasswordError, setConfirmNewPasswordError] = useState("");
 
+
+  
+
     const handlePasswordChange = (typedOldPassword) => {
 
         // use backend to confirm the old password given by user is correct
@@ -55,6 +58,8 @@ const AccountSettingsPassword = () => {
 
 
                 <div className="inputContainer--accountSettingsPassword">
+                    <label className="top-label">Enter Current Password</label>
+
                     <input
                         type="password"
                         value={oldPassword}
@@ -67,6 +72,8 @@ const AccountSettingsPassword = () => {
                 <br />
 
                 <div className="inputContainer--accountSettingsPassword">
+                    <label className="top-label">Enter New Password</label>
+
                     <input
                         type="password"
                         value={newPassword}
@@ -80,6 +87,8 @@ const AccountSettingsPassword = () => {
                 <br></br>
 
                 <div className="inputContainer--accountSettingsPassword">
+                    <label className="top-label">Confirm New Password</label>
+
                     <input
                         type="password"
                         value={confirmNewPassword}
@@ -102,3 +111,23 @@ const AccountSettingsPassword = () => {
 } 
 
 export default AccountSettingsPassword;
+
+
+// InputField.js
+
+// YourFormComponent.js
+
+// import React from 'react';
+// import InputField from './InputField';
+
+// const AccountSettingsPassword = () => {
+//   return (
+//     <div>
+//       <InputField label="Name" type="text" />
+//       <InputField label="Email" type="email" />
+//     </div>
+//   );
+// };
+
+// export default AccountSettingsPassword;
+
