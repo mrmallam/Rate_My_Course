@@ -2,6 +2,7 @@ import React, {useCallback, useEffect} from 'react'
 import SearchComponent from '../components/SearchComponent';
 import rateMyCourse_white_logo from '../resources/logo-white.png';
 import UniDiv from '../components/UniDiv';
+import Header from '../components/Header';
 import '../styles/LandingPage.css';
 import { useState } from 'react';
 
