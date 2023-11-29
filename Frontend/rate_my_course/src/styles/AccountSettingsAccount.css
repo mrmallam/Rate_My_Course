@@ -137,7 +137,7 @@
         justify-content: center;
         margin: 0px;
         padding: 0px;
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     .editButtons {
@@ -163,7 +163,7 @@
     #textFieldContainer--accountSettingsAccount {
         padding: 0px;
         margin: 0px;
-        gap: 90px;
+        gap: 25px;
     }
 
     .inputBox {
