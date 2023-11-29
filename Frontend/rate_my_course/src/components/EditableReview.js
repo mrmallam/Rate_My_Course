@@ -14,7 +14,12 @@ function RatingSet ({label, rating, setRating, editable}) {
       {levels.map((level) => (
         <button
           key={level}
-          className={`h-8 w-8 rounded-full ${rating >= level ? 'bg-red-500' : 'bg-red-200'} ${editable ? 'cursor-pointer' : 'cursor-default'}`}
+          className={`h-8 w-8 rounded-full ${
+            (rating >= level && editable) ? 'bg-red-600' :
+            (rating <= level && editable) ? 'bg-red-200' :
+            (rating >= level && !editable) ? 'bg-gray-600' :
+            'bg-gray-400' // default background color if not editable or other conditions are not met
+          } ${editable ? 'cursor-pointer' : 'cursor-default'}`}
           onClick={() => (editable ? setRating(level) : null)}
           aria-label={`Set ${label} to ${level}`}
         />
@@ -68,14 +73,15 @@ function EditableReview() {
 
     return (
     <div className='flex flex-row w-full'>
-      <div className="review-container border-2 border-red-600 w-11/12 flex flex-col items-center justify-center relative">    
+      <div className="review-container border-2 border-red-600 w-full flex flex-col items-center justify-center relative">    
         <div className='class-header flex items-center'>
           <img src={UniLogo} alt="University-Logo" className="w-24"/>
           <h1 className="text-3xl">SENG 513</h1>
         </div>
         <div className='form-container'>
           <div className='ml-4'>
-          <div className="form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default" style={{ backgroundColor: editable ? 'white' : '#A8A8A8' }}>
+          <div className={`form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
+              style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
             University: {editable ? (
               <input
                 type="text"
@@ -86,7 +92,8 @@ function EditableReview() {
               university
             )}
           </div>
-          <div className="form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default" style={{ backgroundColor: editable ? 'white' : '#A8A8A8' }}>
+          <div className={`form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
+          style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
             Course Name: {editable ? (
               <input
                 type="text"
@@ -97,7 +104,8 @@ function EditableReview() {
               courseName
             )}
           </div>
-          <div className="form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default" style={{ backgroundColor: editable ? 'white' : '#A8A8A8' }}>
+          <div className={`form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
+           style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
             Course Number: {editable ? (
               <input
                 type="text"
@@ -108,7 +116,8 @@ function EditableReview() {
               courseNum
             )}
           </div>
-          <div className="form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default" style={{ backgroundColor: editable ? 'white' : '#A8A8A8' }}>
+          <div className={`form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
+          style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
             Professor: {editable ? (
               <input
                 type="text"
@@ -133,8 +142,8 @@ function EditableReview() {
             readOnly={!editable}
             value={comments}
             onChange={handleCommentsChange}
-            className={`form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 ${editable ? 'cursor-text' : 'cursor-default'}`} 
-            style={{ backgroundColor: editable ? 'white' : '#A8A8A8' }}
+            className={`form-input flex-grow py-2 px-4 border-2  my-4 mx-5 ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`} 
+            style={{ backgroundColor: editable ? 'white' : '#EEEDED' } }
         />
         </div>
         </div>

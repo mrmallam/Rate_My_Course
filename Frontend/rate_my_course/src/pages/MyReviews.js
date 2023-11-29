@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import arrowLeft from '../resources/arrow-left.svg';
 import '../styles/MyReviews.css';
 import userImage from '../resources/user-image.svg';
-import thumbsUp from '../resources/thumbs-up-green.svg';
-import thumbsDown from '../resources/thumbs-down.svg';
 import bookMark from '../resources/bookmark.svg';
-import Reviews from "../components/Reviews";
+import bookMarkBlank from '../resources/bookmark-blank.svg';
 import StaticReview from "../components/StaticReview";
 import EditableReview from "../components/EditableReview";
+import RatedReview from "../components/RatedReview";
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);
+    const [coursesToRemove, setCoursesToRemove] = useState([]);
+
     let name = "Jane Doe";
     let yearOfStudy = "3rd Year";
     let course = "Computer Science"
@@ -32,6 +33,18 @@ const MyReviews = () => {
             <StaticReview />
         </div>
     );
+
+    const handleBookmarkClick = (courseName) => {
+        const isSelected = coursesToRemove.includes(courseName);
+
+        if (isSelected) {
+            // remove a course from the list of courses to be removed
+            setCoursesToRemove(coursesToRemove.filter(course => course !== courseName));
+        } else {
+            // add a course to the list of courses to be removed
+            setCoursesToRemove([...coursesToRemove, courseName]);
+        }
+    };
 
     const coursesData = [
         {
@@ -55,8 +68,12 @@ const MyReviews = () => {
         <EditableReview key={2} />
     ];
 
+    const likedReviews = [
+        <RatedReview key={1} />,
+        <RatedReview key={2} />
+    ];
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
             <div className={`${showPopup ? 'overlay' : ''}`}></div>
             <div className="top-row">
                 <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
@@ -80,7 +97,7 @@ const MyReviews = () => {
                     </div>
                 </div>
             </div>
-            <div className='nav-bar'>
+            <div className='nav-bar text-lg sm:text-base'>
                 <div
                     className={`nav-bar-item ${activeTab === 'myReviews' ? 'active' : ''}`}
                     onClick={() => handleTabClick('myReviews')}
@@ -111,10 +128,10 @@ const MyReviews = () => {
                             New Review
                         </button>
                         <div>
-                        {reviewData.map((editableReview, index) => (
-                            <div key={index} className="review">
-                                {editableReview}
-                            </div>
+                            {reviewData.map((editableReview, index) => (
+                                <div key={index} className="review">
+                                    {editableReview}
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -122,17 +139,11 @@ const MyReviews = () => {
                 {activeTab === 'ratedReviews' && (
                     <div className="rated-reviews">
                         <div>
-                            <div className="review">
-                                <StaticReview />
-                                <div className="modifications">
-                                    <div>
-                                        <img src = {thumbsUp} className="icons" alt="thumbs-down"/>
-                                    </div>
-                                    <div>
-                                        <img src = {thumbsDown} className="thumbs-down" alt="delete-image"/>
-                                    </div>
+                            {likedReviews.map((ratedReview, index) => (
+                                <div key={index} className="review">
+                                    {ratedReview}
                                 </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 )}
@@ -142,14 +153,18 @@ const MyReviews = () => {
                         <div> Search Bar</div>
                         {coursesData.map((course) => (
                             <div key={course.name} className="course">
-                            <div className="course-information">
-                                <img src={bookMark} className="bookmark" alt="bookmark" />
-                                {course.name}
-                            </div>
-                            {/* Map over reviews to render StaticReview components */}
-                            {course.reviews.map((review, index) => (
-                                <StaticReview key={index} {...review} />
-                            ))}
+                                <div className="course-information">
+                                    <img
+                                        src={coursesToRemove.includes(course.name) ? bookMarkBlank : bookMark}
+                                        className="bookmark"
+                                        alt="bookmark"
+                                        onClick={() => handleBookmarkClick(course.name)}
+                                    />
+                                    {course.name}
+                                </div>
+                                {course.reviews.map((review, index) => (
+                                    <StaticReview key={index} {...review} />
+                                ))}
                             </div>
                         ))}
                     </div>

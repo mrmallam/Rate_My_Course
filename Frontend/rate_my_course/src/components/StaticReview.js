@@ -27,7 +27,7 @@ function StaticReview() {
 
     return (
       <div className="container">    
-        <div className='form-container border-2 border-red-600 shadow-lg'>
+        <div className='staticReview-container border-2 border-red-600 shadow-lg'>
           <div className='ml-4'>
             <div className="rounded-full py-2 px-4 border-2 border-red-600 my-4 cursor-default w-1/2">
               Professor: {professor}
