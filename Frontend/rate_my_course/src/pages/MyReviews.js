@@ -7,6 +7,8 @@ import bookMarkBlank from '../resources/bookmark-blank.svg';
 import StaticReview from "../components/StaticReview";
 import EditableReview from "../components/EditableReview";
 import RatedReview from "../components/RatedReview";
+
+
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);
@@ -133,6 +135,28 @@ const MyReviews = () => {
                                     {editableReview}
                                 </div>
                             ))}
+                            <div className="review">
+                                <div className="review-information">
+                                    <div className="review-header">
+                                        <div className="review-course">
+                                            <p>CPSC 471</p>
+                                        </div>
+                                        <div className="review-rating">
+                                            <p>4/5</p>
+                                        </div>
+                                    </div>
+                                    <div className="review-body">
+                                        <p>This is a review for CPSC 471</p>
+                                    </div>
+                                </div>
+                                <div className="modifications">
+                                    <div className="edit-button">
+                                        <img src = {editImage} className="icons" alt="edit-image"/>
+                                    </div>
+                                    <div className="delete-button">
+                                        <img src = {deleteImage} className="icons" alt="delete-image"/>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 )}
@@ -144,6 +168,28 @@ const MyReviews = () => {
                                     {ratedReview}
                                 </div>
                             ))}
+                            <div className="review">
+                                <div className="review-information">
+                                    <div className="review-header">
+                                        <div className="review-course">
+                                            <p>SENG 513</p>
+                                        </div>
+                                        <div className="review-rating">
+                                            <p>5/5</p>
+                                        </div>
+                                    </div>
+                                    <div className="review-body">
+                                        <p>information</p>
+                                    </div>
+                                </div>
+                                <div className="modifications">
+                                    <div className="edit-button">
+                                        <img src = {thumbsUp} className="icons" alt="thumbs-down"/>
+                                    </div>
+                                    <div className="delete-button">
+                                        <img src = {thumbsDown} className="thumbs-down" alt="delete-image"/>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 )}
@@ -161,6 +207,23 @@ const MyReviews = () => {
                                         onClick={() => handleBookmarkClick(course.name)}
                                     />
                                     {course.name}
+                                    <img src = {bookMark} className="bookmark" alt="bookmark"/>
+                                    SENG 513
+                                </div>
+                                    <div className="review">
+                                        <div className="review-information">
+                                            <div className="review-header">
+                                                <div className="review-course">
+                                                    <p>SENG 513</p>
+                                                </div>
+                                                <div className="review-rating">
+                                                    <p>5/5</p>
+                                                </div>
+                                            </div>
+                                            <div className="review-body">
+                                                <p>information</p>
+                                            </div>
+                                    </div>
                                 </div>
                                 {course.reviews.map((review, index) => (
                                     <StaticReview key={index} {...review} />

@@ -13,6 +13,8 @@ import AccountSettingsPassword from './pages/AccountSettingsPassword.js';
 import AccountSettingsMain from './pages/AccountSettingsMain.js';
 import MyReviews from './pages/MyReviews.js';
 
+import AdminPage from './pages/AdminPage.js';
+
 import ReviewPage from './pages/ReviewPage.js';
 import SearchResultsPage from './pages/SearchResultsPage.js';
 import AllCoursesUniversity from './pages/AllCoursesUniversity.js';
@@ -32,6 +34,8 @@ function App() {
         <Route exact path = "/AccountSettings/Main" Component={AccountSettingsPassword }/>
         <Route path = "/AccountSettings/Main/Password" Component={AccountSettingsMain}/>
         <Route exact path = "/MyReviews" Component={MyReviews}/>
+
+        <Route exact path = "/AdminPage" Component={AdminPage}/>
         
         <Route exact path = "/review" Component={ReviewPage}/>
         <Route exact path = "/results" Component={SearchResultsPage}/>
