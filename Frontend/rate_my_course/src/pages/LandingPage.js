@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import SearchComponent from '../components/SearchComponent';
 import rateMyCourse_white_logo from '../resources/logo-white.png';
 import UniDiv from '../components/UniDiv';
+import Header from '../components/Header';
 import '../styles/LandingPage.css';
 import { useState } from 'react';
 
@@ -33,17 +34,19 @@ function LandingPage() {
     setIsChecked(!isChecked);
   };
 
-  const handleSearchResults = (results) => {
+  const handleSearchResults = useCallback((results) => {
     // Apply sorting to the new search results if isChecked is true
     const sortedResults = isChecked
       ? [...results].sort((a, b) => a.name.localeCompare(b.name))
       : results;
     setSearchResults(sortedResults);
-  };
+  }, [isChecked]);
 
   return (
     <div className='flex flex-col items-center justify-center'>
-      <img src={rateMyCourse_white_logo} className=' max-h-72' alt='logo' />
+      <Header />
+
+      <img src={rateMyCourse_white_logo} className=' max-h-60' alt='logo' />
 
       <SearchComponent data={universities} onSearchResults={handleSearchResults} />
 
