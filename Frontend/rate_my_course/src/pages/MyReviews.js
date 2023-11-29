@@ -2,20 +2,22 @@ import React, { useState, useEffect } from "react";
 import arrowLeft from '../resources/arrow-left.svg';
 import '../styles/MyReviews.css';
 import userImage from '../resources/user-image.svg';
-import editImage from '../resources/edit.svg';
-import deleteImage from '../resources/delete.svg';
-import thumbsUp from '../resources/thumbs-up-green.svg';
-import thumbsDown from '../resources/thumbs-down.svg';
 import bookMark from '../resources/bookmark.svg';
+import bookMarkBlank from '../resources/bookmark-blank.svg';
+import StaticReview from "../components/StaticReview";
+import EditableReview from "../components/EditableReview";
+import RatedReview from "../components/RatedReview";
 
 
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);
-    var name = "Jane Doe";
-    var yearOfStudy = "3rd Year";
-    var course = "Computer Science"
-    var university = "University of Calgary";
+    const [coursesToRemove, setCoursesToRemove] = useState([]);
+
+    let name = "Jane Doe";
+    let yearOfStudy = "3rd Year";
+    let course = "Computer Science"
+    let university = "University of Calgary";
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
@@ -29,13 +31,51 @@ const MyReviews = () => {
 
     const PopupContent = () => (
         <div className="popup">
-            {/* Your form elements go here */}
             <button onClick={handlePopupClose}>X</button>
-            <div>Test</div>
+            <StaticReview />
         </div>
     );
+
+    const handleBookmarkClick = (courseName) => {
+        const isSelected = coursesToRemove.includes(courseName);
+
+        if (isSelected) {
+            // remove a course from the list of courses to be removed
+            setCoursesToRemove(coursesToRemove.filter(course => course !== courseName));
+        } else {
+            // add a course to the list of courses to be removed
+            setCoursesToRemove([...coursesToRemove, courseName]);
+        }
+    };
+
+    const coursesData = [
+        {
+            name: "SENG 513",
+            reviews: [
+            <StaticReview key={1} />,
+            <StaticReview key={2} />,
+            ],
+        },
+        {
+            name: "SENG 511",
+            reviews: [
+                <StaticReview key={1} />,
+                <StaticReview key={2} />,
+            ],
+            }
+    ];
+
+    const reviewData = [
+        <EditableReview key={1} />,
+        <EditableReview key={2} />
+    ];
+
+    const likedReviews = [
+        <RatedReview key={1} />,
+        <RatedReview key={2} />
+    ];
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
             <div className={`${showPopup ? 'overlay' : ''}`}></div>
             <div className="top-row">
                 <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
@@ -59,7 +99,7 @@ const MyReviews = () => {
                     </div>
                 </div>
             </div>
-            <div className='nav-bar'>
+            <div className='nav-bar text-lg sm:text-base'>
                 <div
                     className={`nav-bar-item ${activeTab === 'myReviews' ? 'active' : ''}`}
                     onClick={() => handleTabClick('myReviews')}
@@ -89,6 +129,12 @@ const MyReviews = () => {
                         >
                             New Review
                         </button>
+                        <div>
+                            {reviewData.map((editableReview, index) => (
+                                <div key={index} className="review">
+                                    {editableReview}
+                                </div>
+                            ))}
                             <div className="review">
                                 <div className="review-information">
                                     <div className="review-header">
@@ -116,6 +162,12 @@ const MyReviews = () => {
                 )}
                 {activeTab === 'ratedReviews' && (
                     <div className="rated-reviews">
+                        <div>
+                            {likedReviews.map((ratedReview, index) => (
+                                <div key={index} className="review">
+                                    {ratedReview}
+                                </div>
+                            ))}
                             <div className="review">
                                 <div className="review-information">
                                     <div className="review-header">
@@ -145,9 +197,16 @@ const MyReviews = () => {
                     <div className="watched-courses">
                         <div className="header">Your watched course</div>
                         <div> Search Bar</div>
-                        <div className="courses">
-                            <div className="course">
+                        {coursesData.map((course) => (
+                            <div key={course.name} className="course">
                                 <div className="course-information">
+                                    <img
+                                        src={coursesToRemove.includes(course.name) ? bookMarkBlank : bookMark}
+                                        className="bookmark"
+                                        alt="bookmark"
+                                        onClick={() => handleBookmarkClick(course.name)}
+                                    />
+                                    {course.name}
                                     <img src = {bookMark} className="bookmark" alt="bookmark"/>
                                     SENG 513
                                 </div>
@@ -166,8 +225,11 @@ const MyReviews = () => {
                                             </div>
                                     </div>
                                 </div>
+                                {course.reviews.map((review, index) => (
+                                    <StaticReview key={index} {...review} />
+                                ))}
                             </div>
-                        </div>
+                        ))}
                     </div>
                 )}
             </div>
