@@ -4,7 +4,7 @@ import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
 
 // Custom component for each editable field
 const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType }) => (
-    <div className="inputContainer">
+    <div className="inputContainer--account">
         {label && <label>{label}</label>}
         <input
             className="inputBox" id="inputBox--accountSettingsAccount"
