@@ -93,7 +93,7 @@ const MyReviews = () => {
                 </div>
             </div>
 
-            <div className='ml-8 mt-2 mb-6 font-bold w-1/6'>
+            <div className='ml-8 mt-2 mb-6 font-bold md:w-1/6 w-1/2'>
                 <span className="text-md text-black">1 Report Pending:</span>
             </div>
 
@@ -101,7 +101,7 @@ const MyReviews = () => {
                 {activeTab === 'reportedPosts' && (
                     <div className="review-content">
                         <button
-                            className={`new-review-button ${showPopup ? 'disabled' : ''}`}
+                            className={`new-review-button ${showPopup ? 'disabled' : ''} rounded`}
                             onClick={handleNewReviewClick}
                             disabled={showPopup}
                         >
