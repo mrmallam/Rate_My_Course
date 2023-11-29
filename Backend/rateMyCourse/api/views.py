@@ -2,19 +2,19 @@ from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
-from .serializers import PersonsSerializer, UserSerializer, UniversitiesSerializer
+from .serializers import PersonSerializer, UserSerializer, UniversitySerializer
 from rest_framework import viewsets
-from .models import Persons, Universities
+from .models import Person, University
 
-class PersonsViewSet(viewsets.ModelViewSet):
-    queryset = Persons.objects.all()
-    serializer_class = PersonsSerializer
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication, )
 
-class UniversitiesViewSet(viewsets.ModelViewSet):
-    queryset = Universities.objects.all()
-    serializer_class = UniversitiesSerializer
+class UniversityViewSet(viewsets.ModelViewSet):
+    queryset = University.objects.all()
+    serializer_class = UniversitySerializer
     # permission_classes = [IsAuthenticated]
     # authentication_classes = (TokenAuthentication, )
 
