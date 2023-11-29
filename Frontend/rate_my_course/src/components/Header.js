@@ -62,7 +62,8 @@ export default function Header() {
         </button>
           {isMenuOpen && (
             <div className="absolute right-0 m-2 mt-11 md:mt-24 md:border-2 md:mr-16 w-48 py-2 bg-white shadow-lg rounded-lg border border-red-600">
-              <a href="/profile" className="block px-4 py-2 text-sm md:text-lg hover:bg-gray-100 cursor-pointer">Profile</a>
+              <a href="/home" className="block px-4 py-2 text-sm md:text-lg hover:bg-gray-100 cursor-pointer">Profile</a>
+              <a href="/accountSettings" className="block px-4 py-2 text-sm md:text-lg hover:bg-gray-100 cursor-pointer">My Settings</a>
               <a href="/home" onClick={handleLogout} className="block px-4 py-2 text-sm md:text-lg hover:bg-gray-100 cursor-pointer">Logout</a>
             </div>
           )}
