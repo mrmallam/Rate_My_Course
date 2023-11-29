@@ -26,7 +26,34 @@ const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, 
     </div>
 );
 
+
+// ****This is for backend (finish this) ****
+const saveDataToBackend = async (data) => {
+    // Replace this with your actual backend API call or function
+    try {
+        // Assuming there's a function to send data to the backend
+        // For example, using fetch or axios
+        const response = await fetch('your-backend-api-endpoint', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            console.log('Data saved successfully to the backend.');
+        } else {
+            console.error('Failed to save data to the backend.');
+        }
+    } catch (error) {
+        console.error('Error while saving data to the backend:', error);
+    }
+};
+
 const AccountSettingsAccount = () => {
+
+    // Initial user data
     const initialData = {
         firstName: "John",
         lastName: "Doe",
@@ -35,6 +62,7 @@ const AccountSettingsAccount = () => {
         email: "john_doe@ucalgary.ca",
     };
 
+    // For testing purposes
     // const fieldTypes = {
     //     firstName: "text",
     //     lastName: "text",
@@ -46,6 +74,8 @@ const AccountSettingsAccount = () => {
     const [data, setData] = useState(initialData);
     const [tempData, setTempData] = useState({});
     const [isEditPressed, setEditPressed] = useState(false);
+
+    // for when editing fields
     const [editMode, setEditMode] = useState({
         firstName: false,
         lastName: false,
@@ -53,6 +83,7 @@ const AccountSettingsAccount = () => {
         university: false,
         email: false,
     });
+
 
     const handleEditClick = (field) => {
         if (!isEditPressed) {
@@ -76,7 +107,11 @@ const AccountSettingsAccount = () => {
             [field]: false,
         }));
 
+        // user cannot edit other fields once a field is in edit mode
         setEditPressed(false);
+
+        // *********Send changes to the backend ********
+        // await saveDataToBackend(data);
     };
 
     const handleCancelClick = (field) => {
