@@ -1,0 +1,31 @@
+
+.search-container {
+    margin: 5%;
+}
+
+.filter-container {
+    display: flex;
+}
+
+.result-box {
+    display: flex;
+    align-items: center;
+    border: 5px solid #BB1C1C;
+    padding: 16px;
+    margin: 8px 0;
+    margin-top: 40px;
+}
+
+.results-left, .results-right {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5%;
+}
+
+.Logo {
+    width: 140px;
+}
+
+.stars {
+    width: 250px;
+}
