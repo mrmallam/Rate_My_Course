@@ -9,7 +9,8 @@ const AccountSettingsPassword = () => {
 
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setConfirmPassword] = useState("")
-    const [confirmNewPassword, setConfirmNewPassword] = useState("")
+    const [confirmNewPassword, setConfirmNewPassword] = useState("");
+
 
 
     // error messages
@@ -20,8 +21,11 @@ const AccountSettingsPassword = () => {
     const validateChangePassword = () => {
         let isValid = true;
 
-        if (!oldPassword || !newPassword || !confirmNewPassword) isValid = false;
+        if (!oldPassword || !newPassword || !confirmNewPassword) {
+            isValid = false;
+            // setPasswordVisibility("changePasswordButtonInvisible");
 
+        }
         if (!oldPassword) {
             setOldPasswordError("Current password is required");
         } else {
@@ -45,6 +49,15 @@ const AccountSettingsPassword = () => {
     }
 
 
+    const toggleChangePasswordButtonVisibility = () => {
+        let changePasswordVisibility = "changePasswordButtonInvisible";
+
+        if (confirmNewPassword && oldPassword && newPassword){
+            changePasswordVisibility = "changePasswordButton";
+        }
+
+        return changePasswordVisibility;
+    }
   
 
     const changePasswordButton = () => {
@@ -55,6 +68,7 @@ const AccountSettingsPassword = () => {
 
         if (validateChangePassword()) {
             // Replace user's password in backend
+
 
             if (oldPassword === "old11") {
                 setOldPasswordError("");  // clear password error message
@@ -76,7 +90,7 @@ const AccountSettingsPassword = () => {
             else {
                 setOldPasswordError("Incorrect old password");
             }
-        }        
+        }       
     }
 
 
@@ -95,7 +109,7 @@ const AccountSettingsPassword = () => {
                         type="password"
                         value={oldPassword}
                         placeholder="Enter Current Password"
-                        onChange={ev => setOldPassword(ev.target.value)}
+                        onChange={ev => setOldPassword(ev.target.value) && validateChangePassword()}
                         className={"inputBox"}
                         id="currentPassword" />
                     <label className="errorLabel">{oldPasswordError}</label>
@@ -109,7 +123,7 @@ const AccountSettingsPassword = () => {
                         type="password"
                         value={newPassword}
                         placeholder="Enter New Password"
-                        onChange={ev => setConfirmPassword(ev.target.value)}
+                        onChange={ev => setConfirmPassword(ev.target.value) && validateChangePassword()}
                         className={"inputBox"} 
                         id="newPassword"/>
                     <label className="errorLabel">{newPasswordError}</label>
@@ -124,7 +138,7 @@ const AccountSettingsPassword = () => {
                         type="password"
                         value={confirmNewPassword}
                         placeholder="Re-type New Password"
-                        onChange={ev => setConfirmNewPassword(ev.target.value)}
+                        onChange={ev => setConfirmNewPassword(ev.target.value) && validateChangePassword()}
                         className={"inputBox"}
                         id="retypeNewPassword" />
                     <label className="errorLabel">{confirmNewPasswordError}</label>
@@ -133,7 +147,7 @@ const AccountSettingsPassword = () => {
             </div>
             <br></br>
             <div className="changePasswordButtonContainer">
-                <button id="changePasswordButton" onClick={() => changePasswordButton()}>Change Password</button>
+                <button className={toggleChangePasswordButtonVisibility()} onClick={() => changePasswordButton()}>Change Password</button>
             </div>
 
         </div>
