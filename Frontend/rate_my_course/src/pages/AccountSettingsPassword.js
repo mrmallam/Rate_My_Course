@@ -17,35 +17,66 @@ const AccountSettingsPassword = () => {
     const [newPasswordError, setNewPasswordError] = useState("");
     const [confirmNewPasswordError, setConfirmNewPasswordError] = useState("");
 
+    const validateChangePassword = () => {
+        let isValid = true;
+
+        if (!oldPassword || !newPassword || !confirmNewPassword) isValid = false;
+
+        if (!oldPassword) {
+            setOldPasswordError("Current password is required");
+        } else {
+            setOldPasswordError("");
+        }
+
+        if (!newPassword) {
+            setNewPasswordError("New password is required");
+        } else {
+            setNewPasswordError("");
+        }
+
+        if (!confirmNewPassword) {
+            setConfirmNewPasswordError("Confirm password is required");
+        }
+        else {
+            setConfirmNewPasswordError("");
+        }
+
+        return isValid;
+    }
+
 
   
 
-    const handlePasswordChange = (typedOldPassword) => {
+    const changePasswordButton = () => {
+
 
         // use backend to confirm the old password given by user is correct
         // replace "old11" with password from backend
 
-        if (typedOldPassword === "old11") {
+        if (validateChangePassword()) {
+            // Replace user's password in backend
 
-            // if old password and both new passwords match --> success! 
-            if (newPassword === confirmNewPassword) {
-                console.log("passwords match!"); // test 
-                setOldPasswordError(""); // clear password error message
-                setConfirmNewPasswordError("");
+            if (oldPassword === "old11") {
+                setOldPasswordError("");  // clear password error message
+            
+
+                //if old password and both new passwords match --> success!
+                if (newPassword === confirmNewPassword) {
+                    console.log("passwords match!"); // test 
+                    setConfirmNewPasswordError("");
+                }
+    
+                // if old password matches but new passwords don't
+                else {
+                    setConfirmNewPasswordError("New passwords do not match");
+                }
             }
-
-            // if old password matches but new passwords don't
+    
+            // if old password doesn't match
             else {
-                setConfirmNewPasswordError("New passwords do not match");
-                setOldPasswordError("");
+                setOldPasswordError("Incorrect old password");
             }
-        }
-
-        // if old password doesn't match
-        else {
-            setOldPasswordError("Incorrect old password");
-            setConfirmNewPasswordError("");
-        }
+        }        
     }
 
 
@@ -102,7 +133,7 @@ const AccountSettingsPassword = () => {
             </div>
             <br></br>
             <div className="changePasswordButtonContainer">
-                <button id="changePasswordButton" onClick={() => handlePasswordChange(oldPassword)}>Change Password</button>
+                <button id="changePasswordButton" onClick={() => changePasswordButton()}>Change Password</button>
             </div>
 
         </div>
