@@ -75,62 +75,41 @@ function EditableReview() {
     };
 
     return (
-    <div className='flex flex-col md:flex-row w-full '>
-      <div className="review-container border-2 border-red-600 w-full flex flex-col items-center justify-center relative">    
-        <div className='class-header flex items-center'>
-          <img src={UniLogo} alt="University-Logo" className="w-24"/>
-          <h1 className="text-3xl">SENG 513</h1>
-        </div>
-        <div className='form-container'>
+    <div className='flex flex-col md:flex-row w-full'>   
+        <div className='form-container-3'>
           <div className='ml-4'>
-          <div className={`form-input py-2 px-4 border-2 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
-              style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
-            University: {editable ? (
-              <input
-                type="text"
-                value={university}
-                onChange={handleUniversityChange}
+            <input
+                  readOnly={!editable}
+                  type="text"
+                  value={university}
+                  onChange={(e) => setUniversity(e.target.value)}
+                  className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
+                  placeholder="University"
               />
-            ) : (
-              university
-            )}
-          </div>
-          <div className={`form-input py-2 px-4 border-2 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
-          style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
-            Course Name: {editable ? (
               <input
+                readOnly={!editable}
                 type="text"
                 value={courseName}
-                onChange={handleCourseNameChange}
+                onChange={(e) => setCourseName(e.target.value)}
+                className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
+                placeholder="Course Code"
               />
-            ) : (
-              courseName
-            )}
-          </div>
-          <div className={`form-input py-2 px-4 border-2 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
-           style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
-            Course Number: {editable ? (
               <input
+                readOnly={!editable}
                 type="text"
                 value={courseNum}
-                onChange={handleCourseNumChange}
+                onChange={(e) => setCourseNum(e.target.value)}
+                className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
+                placeholder="Course Number"
               />
-            ) : (
-              courseNum
-            )}
-          </div>
-          <div className={`form-input py-2 px-4 border-2 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
-          style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
-            Professor: {editable ? (
               <input
+                readOnly={!editable}
                 type="text"
                 value={professor}
-                onChange={handleProfessorChange}
+                onChange={(e) => setProfessor(e.target.value)}
+                className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
+                placeholder="Professor's Name"
               />
-            ) : (
-              professor
-            )}
-          </div>
           </div>
           <div className='my-4 pl-4'>
             <RatingSet label='Difficulty' rating={difficulty} setRating={setDifficulty} editable={editable}/>
@@ -141,16 +120,15 @@ function EditableReview() {
           <div className='my-4 pl-4'>
             <RatingSet label='Usefulness' rating={usefulness} setRating={setUsefulness} editable={editable}/>
           </div>
-        <textarea 
-            readOnly={!editable}
-            value={comments}
-            onChange={handleCommentsChange}
-            className={`form-input flex-grow py-2 px-4 border-2  my-4 mx-5 ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`} 
-            style={{ backgroundColor: editable ? 'white' : '#EEEDED' } }
-        />
+          <textarea 
+              readOnly={!editable}
+              value={comments}
+              onChange={handleCommentsChange}
+              className={`form-input flex-grow py-2 px-4 border-2  my-4 mx-5 ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`} 
+              style={{ backgroundColor: editable ? 'white' : '#EEEDED' } }
+          />
         </div>
-        </div>
-        <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 ml-2">
+      <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 ml-8">
         {editable ? (
           <>
             <div className="save-button cursor-pointer text-4xl md:text-2xl lg:text-4xl" onClick={handleSaveChanges}>
