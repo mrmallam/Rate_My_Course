@@ -153,8 +153,7 @@ const MyReviews = () => {
                 )}
                 {activeTab === 'watchedCourses' && (
                     <div className="watched-courses">
-                        <div className="header">Your watched course</div>
-                        <div> Search Bar</div>
+                        <div className="header">Your watched courses</div>
                         {coursesData.map((course) => (
                             <div key={course.name} className="course">
                                 <div className="course-information">

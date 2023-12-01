@@ -42,6 +42,9 @@ function EditableReview() {
     const handleEditClick = () => {
         setEditable(!editable);
     };
+    const handleDeleteClick = () => {
+        // implement with backend
+    };
     const handleUniversityChange = (e) => {
         setUniversity(e.target.value);
     };
@@ -72,7 +75,7 @@ function EditableReview() {
     };
 
     return (
-    <div className='flex flex-row w-full'>
+    <div className='flex flex-col md:flex-row w-full '>
       <div className="review-container border-2 border-red-600 w-full flex flex-col items-center justify-center relative">    
         <div className='class-header flex items-center'>
           <img src={UniLogo} alt="University-Logo" className="w-24"/>
@@ -80,7 +83,7 @@ function EditableReview() {
         </div>
         <div className='form-container'>
           <div className='ml-4'>
-          <div className={`form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
+          <div className={`form-input py-2 px-4 border-2 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
               style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
             University: {editable ? (
               <input
@@ -92,7 +95,7 @@ function EditableReview() {
               university
             )}
           </div>
-          <div className={`form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
+          <div className={`form-input py-2 px-4 border-2 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
           style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
             Course Name: {editable ? (
               <input
@@ -104,7 +107,7 @@ function EditableReview() {
               courseName
             )}
           </div>
-          <div className={`form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
+          <div className={`form-input py-2 px-4 border-2 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
            style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
             Course Number: {editable ? (
               <input
@@ -116,7 +119,7 @@ function EditableReview() {
               courseNum
             )}
           </div>
-          <div className={`form-input py-2 px-4 border-2 border-red-600 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
+          <div className={`form-input py-2 px-4 border-2 my-4 mr-5 cursor-default ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}` }
           style={{ backgroundColor: editable ? 'white' : '#EEEDED' }}>
             Professor: {editable ? (
               <input
@@ -147,27 +150,27 @@ function EditableReview() {
         />
         </div>
         </div>
-        <div className="modifications">
+        <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 ml-2">
         {editable ? (
           <>
-            <div className="save-button cursor-pointer md:text-2xl lg:text-4xl" onClick={handleSaveChanges}>
+            <div className="save-button cursor-pointer text-4xl md:text-2xl lg:text-4xl" onClick={handleSaveChanges}>
               ✔
             </div>
-            <div className="discard-button cursor-pointer md:text-2xl lg:text-4xl" onClick={handleDiscardChanges}>
+            <div className="discard-button cursor-pointer text-4xl md:text-2xl lg:text-4xl" onClick={handleDiscardChanges}>
               X
             </div>
           </>
         ) : (
           <>
             <div className="edit-button cursor-pointer" onClick={handleEditClick}>
-              <img src={editImage} className="h-4 w-4 md:w-16 md:h-8" alt="edit-image" />
+              <img src={editImage} className=" h-10 w-10 md:w-12 md:h-12" alt="edit-image" />
             </div>
-            <div className="delete-button">
-                <img src = {deleteImage} className="h-4 w-4 md:w-16 md:h-8" alt="delete-image"/>
+            <div className="delete-button cursor-pointer" onClick={handleDeleteClick}>
+                <img src = {deleteImage} className="h-10 w-10 md:w-12 md:h-12" alt="delete-image"/>
             </div>
           </>
         )}
-        </div>
+      </div>
     </div>
     );
   }

@@ -30,6 +30,10 @@ function StaticReview() {
     const [comments, setComments] = useState('Great course!');
     const [thumbsUpClicked, setThumbsUpClicked] = useState(false);
     const [thumbsDownClicked, setThumbsDownClicked] = useState(false);
+    const [university, setUniversity] = useState('Test Uni');
+    const [courseNum, setCourseNum] = useState('Test CourseNum');
+    const [courseCode, setCourseCode] = useState('Test CourseCode');
+
 
     const handleThumbsUpClick = () => {
         setThumbsUpClicked(!thumbsUpClicked);
@@ -45,30 +49,54 @@ function StaticReview() {
 
 
     return (
-        <div className='flex flex-row w-full py-8'>
-            <div className="container">    
-                <div className='staticReview-container border-2 border-red-600 shadow-lg'>
+        <div className='flex flex-col md:flex-row w-full py-8'>
+            <div className='form-container-3 ml-4'>
                 <div className='ml-4'>
-                    <div className="rounded-full py-2 px-4 border-2 border-red-600 my-4 cursor-default w-1/2">
-                    Professor: {professor}
-                    </div>
+                    <input
+                    readOnly={true}
+                    type="text"
+                    value={university}
+                    className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default" 
+                    placeholder="University"
+                    />
+                    <input
+                        readOnly={true}
+                        type="text"
+                        value={courseCode}
+                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
+                        placeholder="Course Code"
+                    />
+                    <input
+                        readOnly={true}
+                        type="text"
+                        value={courseNum}
+                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
+                        placeholder="Course Number"
+                    />
+                    <input
+                        readOnly={true}
+                        type="text"
+                        value={professor}
+                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 focus:outline-none cursor-default"
+                        placeholder="Professor's Name"
+                    />
                 </div>
                 <div className='my-4 pl-4'>
-                    <RatingSet label='Difficulty' rating={difficulty} setRating={setDifficulty} />
+                    <RatingSet label='Difficulty' rating={difficulty} />
                 </div>
                 <div className='my-4 pl-4'>
-                    <RatingSet label='Workload' rating={workload} setRating={setWorkload} />
+                    <RatingSet label='Workload' rating={workload} />
                 </div>
                 <div className='my-4 pl-4'>
-                    <RatingSet label='Usefulness' rating={usefulness} setRating={setUsefulness} />
+                    <RatingSet label='Usefulness' rating={usefulness} />
                 </div>
                 <div
-                    className='flex-grow py-2 px-4 border-2 border-red-600 shadow-lg my-4 mx-5 cursor-default'
-                > {comments}
+                    className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'
+                >
+                    {comments}
                 </div>
-                </div>
-            </div>
-            <div className="modifications">
+        </div>
+            <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 ml-4">
                 <div onClick={handleThumbsUpClick}>
                     <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-8 w-8 md:w-10 md:h-10 cursor-pointer" alt="thumbs-up"/>
                 </div>
