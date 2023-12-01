@@ -11,7 +11,7 @@ import LoginPage from './pages/LoginPage.js';
 
 import AccountSettingsPassword from './pages/AccountSettingsPassword.js';
 import AccountSettingsMain from './pages/AccountSettingsMain.js';
-import MyReviews from './pages/MyReviews.js';
+import MyProfile from './pages/MyProfle.js';
 
 import AdminPage from './pages/AdminPage.js';
 
@@ -33,7 +33,7 @@ function App() {
           
         <Route exact path = "/AccountSettings/Main" Component={AccountSettingsPassword }/>
         <Route path = "/AccountSettings/Main/Password" Component={AccountSettingsMain}/>
-        <Route exact path = "/MyReviews" Component={MyReviews}/>
+        <Route exact path = "/MyProfile" Component={MyProfile}/>
 
         <Route exact path = "/AdminPage" Component={AdminPage}/>
         

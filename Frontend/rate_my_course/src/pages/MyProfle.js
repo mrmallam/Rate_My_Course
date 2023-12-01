@@ -9,7 +9,7 @@ import EditableReview from "../components/EditableReview";
 import RatedReview from "../components/RatedReview";
 import { Link } from "react-router-dom";
 
-const MyReviews = () => {
+const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);
     const [coursesToRemove, setCoursesToRemove] = useState([]);
@@ -177,4 +177,4 @@ const MyReviews = () => {
         </div>
     )
 }
-export default MyReviews;
+export default MyProfile;
