@@ -35,43 +35,39 @@ function Reviews() {
     };
 
     return (
-      <div className="container">    
-        <div className='form-container border-2 border-red-600 shadow-lg'>
-          <div className='ml-4'>
-            <input
-                type="text"
-                value={professor}
-                onChange={(e) => setProfessor(e.target.value)}
-                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4"
-                placeholder="Professor's Name"
-            />
+      <div className='form-container-2 border-2 border-red-600 shadow-lg'>
+        <div className='ml-4'>
+          <input
+              type="text"
+              value={professor}
+              onChange={(e) => setProfessor(e.target.value)}
+              className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4"
+              placeholder="Professor's Name"
+          />
+        </div>
+        <div className='my-4 pl-4'>
+          <RatingSet label='Difficulty' rating={difficulty} setRating={setDifficulty} />
+        </div>
+        <div className='my-4 pl-4'>
+          <RatingSet label='Workload' rating={workload} setRating={setWorkload} />
+        </div>
+        <div className='my-4 pl-4'>
+          <RatingSet label='Usefulness' rating={usefulness} setRating={setUsefulness} />
+        </div>
+        <textarea
+          value={comments}
+          onChange={(e) => setComments(e.target.value)}
+          className='form-input flex-grow py-2 px-4 border-2 border-red-600 shadow-lg my-4 mx-5'
+          placeholder='What do you want others to know about this class?'
+        ></textarea>
+        <div className='ml-8 mt-2 mb-2 font-bold flex'>
+          <div onClick={handleThumbsUpClick}>
+              <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-up"/>
           </div>
-          <div className='my-4 pl-4'>
-            <RatingSet label='Difficulty' rating={difficulty} setRating={setDifficulty} />
-          </div>
-          <div className='my-4 pl-4'>
-            <RatingSet label='Workload' rating={workload} setRating={setWorkload} />
-          </div>
-          <div className='my-4 pl-4'>
-            <RatingSet label='Usefulness' rating={usefulness} setRating={setUsefulness} />
-          </div>
-          <textarea
-            value={comments}
-            onChange={(e) => setComments(e.target.value)}
-            className='form-input flex-grow py-2 px-4 border-2 border-red-600 shadow-lg my-4 mx-5'
-            placeholder='What do you want others to know about this class?'
-          ></textarea>
-          <div className='ml-8 mt-2 mb-2 font-bold flex'>
-            <div onClick={handleThumbsUpClick}>
-                <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-up"/>
-            </div>
-            <span className="text-md text-black ml-3">Upvote This Post?</span>
-          </div>
-          <div className='ml-8 mt-2 mb-2 font-bold'>
-            <span className="text-md text-gray-400">12 others found this post useful</span>
-          </div>
-
-
+          <span className="text-md text-black ml-3">Upvote This Post?</span>
+        </div>
+        <div className='ml-8 mt-2 mb-2 font-bold'>
+          <span className="text-md text-gray-400">12 others found this post useful</span>
         </div>
       </div>
     );

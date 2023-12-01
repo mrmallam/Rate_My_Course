@@ -26,30 +26,28 @@ function StaticReview() {
     const [comments, setComments] = useState('Great course!');
 
     return (
-        <div className='flex-row w-full py-8'>
-            <div className="container">    
-                <div className='staticReview-container border-2 border-red-600 shadow-lg'>
-                <div className='ml-4'>
-                    <div className="rounded-full py-2 px-4 border-2 border-red-600 my-4 cursor-default w-1/2">
-                    Professor: {professor}
+        <div className ='w-full mr-8'>
+            <div className="form-container-2 w-full">    
+                    <div className='mx-4'>
+                        <div className="rounded-full py-2 px-4 border-2 border-red-600 my-4 cursor-default w-full md:w-1/4">
+                        Professor: {professor}
+                        </div>
                     </div>
-                </div>
-                <div className='my-4 pl-4'>
-                    <RatingSet label='Difficulty' rating={difficulty} setRating={setDifficulty} />
-                </div>
-                <div className='my-4 pl-4'>
-                    <RatingSet label='Workload' rating={workload} setRating={setWorkload} />
-                </div>
-                <div className='my-4 pl-4'>
-                    <RatingSet label='Usefulness' rating={usefulness} setRating={setUsefulness} />
-                </div>
-                <div
-                    className='flex-grow py-2 px-4 border-2 border-red-600 shadow-lg my-4 mx-5 cursor-default'
-                > {comments}
-                </div>
-                </div>
+                    <div className='my-4 pl-4'>
+                        <RatingSet label='Difficulty' rating={difficulty} setRating={setDifficulty} />
+                    </div>
+                    <div className='my-4 pl-4'>
+                        <RatingSet label='Workload' rating={workload} setRating={setWorkload} />
+                    </div>
+                    <div className='my-4 pl-4'>
+                        <RatingSet label='Usefulness' rating={usefulness} setRating={setUsefulness} />
+                    </div>
+                    <div
+                        className='flex-grow py-2 px-4 border-2 border-red-600 shadow-lg my-4 mx-5 cursor-default'
+                        > {comments}
+                    </div>
             </div>
-            <div className="flex">
+            <div className="flex mt-5 mb-10">
                 <div className="approve-button">
                     <button className='rounded h-10 w-1/8 bg-green-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-green-900'>Approve
                     </button>

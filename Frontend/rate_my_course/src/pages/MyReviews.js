@@ -7,6 +7,7 @@ import bookMarkBlank from '../resources/bookmark-blank.svg';
 import StaticReview from "../components/StaticReview";
 import EditableReview from "../components/EditableReview";
 import RatedReview from "../components/RatedReview";
+import { Link } from "react-router-dom";
 
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
@@ -121,13 +122,15 @@ const MyReviews = () => {
             <div className="content">
                 {activeTab === 'myReviews' && (
                     <div className="review-content">
-                        <button
-                            className={`new-review-button ${showPopup ? 'disabled' : ''}`}
-                            onClick={handleNewReviewClick}
-                            disabled={showPopup}
-                        >
-                            New Review
-                        </button>
+                        <Link to="/Review">
+                            <button
+                                className={`new-review-button ${showPopup ? 'disabled' : ''}`}
+                                onClick={handleNewReviewClick}
+                                disabled={showPopup}
+                            >
+                                New Review
+                            </button>
+                        </Link>
                         <div>
                             {reviewData.map((editableReview, index) => (
                                 <div key={index} className="review">

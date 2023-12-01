@@ -100,13 +100,6 @@ const MyReviews = () => {
             <div className="content">
                 {activeTab === 'reportedPosts' && (
                     <div className="review-content">
-                        <button
-                            className={`new-review-button ${showPopup ? 'disabled' : ''} rounded`}
-                            onClick={handleNewReviewClick}
-                            disabled={showPopup}
-                        >
-                            New Review
-                        </button>
                         <div>
                             {reviewData.map((reportedReview, index) => (
                                 <div key={index} className="review">
@@ -117,7 +110,6 @@ const MyReviews = () => {
                     </div>
                 )}
             </div>
-            {showPopup && <PopupContent />}
         </div>
     )
 }
