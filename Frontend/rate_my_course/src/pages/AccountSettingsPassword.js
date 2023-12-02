@@ -147,7 +147,7 @@ const AccountSettingsPassword = () => {
             </div>
             <br></br>
             <div className="changePasswordButtonContainer">
-                <button className={toggleChangePasswordButtonVisibility()} onClick={() => changePasswordButton()}>Change Password</button>
+                <button className="changePasswordButton" onClick={() => changePasswordButton()}>Change Password</button>
             </div>
 
         </div>
