@@ -1,5 +1,6 @@
 import '../styles/Reviews.css';
 import React, { useState } from 'react';
+import Date from './Date';
 
 function RatingSet ({label, rating, setRating}) {
   const levels = [1,2,3,4,5];
@@ -29,8 +30,8 @@ function StaticReview() {
     const [courseCode, setCourseCode] = useState('Test CourseCode');
 
     return (
-      <div className='flex flex-col md:flex-row w-full py-8'>
-      <div className='form-container-3'>
+      <div className='py-8 w-full'>
+        <div className='form-container-3 mr-[3%] md:mr-[6%]'>
           <div className='ml-4'>
               <input
               readOnly={true}
@@ -75,8 +76,9 @@ function StaticReview() {
           >
               {comments}
           </div>
-    </div>
-    </div>
+        </div>
+        <Date></Date>
+      </div>
     );
   }
   
