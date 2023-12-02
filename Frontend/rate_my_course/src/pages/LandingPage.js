@@ -48,7 +48,7 @@ function LandingPage() {
 
       <img src={rateMyCourse_white_logo} className=' max-h-60' alt='logo' />
 
-      <SearchComponent data={universities} onSearchResults={handleSearchResults} />
+      <SearchComponent data={universities} onSearchResults={handleSearchResults} placeholder={"Search University"}/>
 
       <div className='flex justify-between text-sm mt-5 w-3/4 md:w-4/12'>
         {/* number of results */}
