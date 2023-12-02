@@ -1,8 +1,8 @@
 
 import UniLogo from '../resources/logo-ucalgary.jpg';
-import Stars from '../resources/stars.jpg';
 import SearchComponent from '../components/SearchComponent';
 import Header from '../components/Header';
+import CourseDiv from '../components/CourseDiv';
 import '../styles/SearchResults.css';
 import React, { useState, useEffect, useCallback } from 'react';
 
@@ -16,7 +16,6 @@ const courses = [
     { id: 7, name: 'SENG 300', workload: 'High', difficulty: 'Low' , usefulness: 'Low'},
     // this will be connected to  backend where all the search results will be stored
   ];
-
 
 function Reviews() {
     const [courseCode, setCourseCode] = useState('Code');
@@ -37,9 +36,7 @@ function Reviews() {
             } 
         
         }
-
       sortedResults();
-      
     }, [isChecked]);
 
     const handleSearchResults = useCallback((results) => {
@@ -49,15 +46,11 @@ function Reviews() {
         setSearchResults(sortedResults);
     }, [isChecked]);
 
-
-    const courseChoice = (result) => {
-        console.log("Choosing class", result);
-    };
-
     
     return (
         <div>
             <Header />
+
             <div className='search-container'>
             
                 <div className='search-header'>
@@ -65,11 +58,11 @@ function Reviews() {
                     {/* delete flex items-center to put logo back on top */}
                     <div className='flex items-center'>
                         <img src={UniLogo} alt="University-Search-Logo" className='Logo'/>
-                        <h1 className="text-4xl mb-5">SENG 5xx</h1>
+                        <h1 className="text-4xl mb-5">University of Calgary</h1>
                     </div>
                     <div className='filters-container'>
 
-                        <SearchComponent className='mb-4' data={courses} onSearchResults={handleSearchResults} />
+                        <SearchComponent className='mb-4' data={courses} onSearchResults={handleSearchResults} placeholder={"Search Course"}/>
                         
                         <select 
                             value={courseCode} 
@@ -106,21 +99,10 @@ function Reviews() {
                     </div>
 
                 </div>
-                <div className='search-results'>
-                    {searchResults.map((result) => (
-                        <div key={result.id} className='result-box' onClick={() => courseChoice(result)}>
-                            <div className='results-left'>
-                                <h2 className="text-3xl">{result.name}</h2>
-                                <img src={Stars} alt="Starts-4" className='stars' />
-                            </div>
-                            <div className='result-right'>
-                                <div className="text-2xl">Workload: {result.workload}</div>
-                                <div className="text-2xl">Difficulty: {result.difficulty}</div>
-                                <div className="text-2xl">Usefulness: {result.usefulness}</div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+
+                {/* Display search results */}
+                { searchResults.map(result => <CourseDiv data={result} />) }
+
             </div>
         </div>  
     );
