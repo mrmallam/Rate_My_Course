@@ -8,6 +8,7 @@ import StaticReview from "../components/StaticReview";
 import EditableReview from "../components/EditableReview";
 import RatedReview from "../components/RatedReview";
 import { Link } from "react-router-dom";
+import Header from '../components/Header';
 
 const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
@@ -76,6 +77,7 @@ const MyProfile = () => {
     ];
     return (
         <div className="flex flex-col w-full">
+            <Header />
             <div className={`${showPopup ? 'overlay' : ''}`}></div>
             <div className="top-row">
                 <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>

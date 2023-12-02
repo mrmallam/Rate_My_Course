@@ -7,6 +7,7 @@ import bookMark from '../resources/bookmark.svg';
 import bookMarkBlank from '../resources/bookmark-blank.svg';
 import StaticReview from "../components/StaticReview";
 import ReportedReview from "../components/ReportedReview";
+import Header from '../components/Header';
 import RatedReview from "../components/RatedReview";
 
 
@@ -62,6 +63,7 @@ const MyReviews = () => {
     
     return (
         <div className="flex flex-col w-full">
+            <Header />
             <div className={`${showPopup ? 'overlay' : ''}`}></div>
             <div className="top-row">
                 <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
