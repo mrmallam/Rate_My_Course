@@ -67,6 +67,7 @@ const SignupPage = (props) => {
                         className={"inputBox"} />
                     <label className="text-red-600 ml-1">{passwordError}</label>
                 </div>
+
                 <br />
 
                 {/* Confirm Password input */}
@@ -82,6 +83,7 @@ const SignupPage = (props) => {
                         className={"inputBox"} />
                     <label className="text-red-600 ml-1">{passwordError}</label>
                 </div>
+
                 <br />
 
                 {/* Signup button */}

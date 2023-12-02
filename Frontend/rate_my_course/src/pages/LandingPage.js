@@ -6,19 +6,21 @@ import Header from '../components/Header';
 import '../styles/LandingPage.css';
 import { useState } from 'react';
 
-// Dummy data
-const universities = [
-  { id: 1, name: 'University of Example', location: 'Example City', reviewNum: 407 },
-  { id: 2, name: 'Sample State University', location: 'Sampleville', reviewNum: 30 },
-  { id: 3, name: 'Test University', location: 'Test City', reviewNum: 50 },
-  { id: 4, name: 'Another University', location: 'Another City', reviewNum: 100 },
-  { id: 5, name: 'Example University', location: 'Example City', reviewNum: 4 },
-];
-
 function LandingPage() {
   const [isChecked, setIsChecked] = useState(false);
-  // Initialize searchResults with the full list of universities
-  const [searchResults, setSearchResults] = useState(universities);
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/University/', {
+      method: 'GET',
+      headers: {
+        'Content-Type':'application/json',
+      }
+    })
+    .then(resp => resp.json())
+    .then((data) => { setSearchResults(data); })
+    .catch(error => console.log(error))
+  }, [])
 
   useEffect(() => {
     // Sort the results when isChecked changes
@@ -26,7 +28,7 @@ function LandingPage() {
       const sortedResults = [...searchResults].sort((a, b) => a.name.localeCompare(b.name));
       setSearchResults(sortedResults);
     } else {
-      setSearchResults(universities);
+      setSearchResults(searchResults);
     }
   }, [isChecked]);
 
@@ -43,12 +45,16 @@ function LandingPage() {
   }, [isChecked]);
 
   return (
-    <div className='flex flex-col items-center justify-center'>
+    <div className='flex flex-col items-center justify-center mb-5'>
       <Header />
 
       <img src={rateMyCourse_white_logo} className=' max-h-60' alt='logo' />
 
-      <SearchComponent data={universities} onSearchResults={handleSearchResults} />
+      <SearchComponent
+        data={searchResults}
+        onSearchResults={handleSearchResults}
+        placeholder={"Search University"}
+      />
 
       <div className='flex justify-between text-sm mt-5 w-3/4 md:w-4/12'>
         {/* number of results */}
@@ -65,7 +71,9 @@ function LandingPage() {
       </div>
 
       {/* Display search results */}
-      { searchResults.map(result => <UniDiv data={result} />) }
+      {searchResults.map((result) => (
+        <UniDiv data={result} key={result.id} />
+      ))}
     </div>
   );
 }
