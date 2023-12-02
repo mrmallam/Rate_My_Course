@@ -94,7 +94,7 @@ function Reviews() {
                     <select 
                         value={filter} 
                         onChange={e => setFilter(e.target.value)}
-                        className='border-4 border-red-800 rounded-full p-3 lg:ml-5 -ml-15 mt-3'
+                        className='border-4 border-red-800 rounded-full p-3 ml-5 -ml-15 mt-3'
                     >
                         <option value='-----'>-----</option>
                         <option value='Workload - Low to High'>Workload - Low to High</option>
