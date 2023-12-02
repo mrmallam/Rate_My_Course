@@ -22,16 +22,18 @@ function App() {
           <Routes>
 
             <Route exact path = "/" Component={LandingPage}/>
-            <Route exact path = "/home" Component={LandingPage}/>
             <Route exact path = "/signup" Component={SignupPage}/>
             <Route exact path = "/login" Component={LoginPage}/>
             <Route exact path = "/AccountSettings" Component={AccountSettings}/>
             <Route exact path = "/MyProfile" Component={MyProfile}/>
-            <Route exact path = "/AdminPage" Component={AdminPage}/>
-            <Route exact path = "/review" Component={ReviewPage}/>
+
+            <Route exact path = "/home" Component={LandingPage}/>
             <Route exact path = "/UniversityPage" Component={UniversityPage}/>
             <Route exact path = "/overallCourseReview" Component={OverallCourseReviews}/>
-          
+            <Route exact path = "/review" Component={ReviewPage}/>
+            
+            <Route exact path = "/AdminPage" Component={AdminPage}/>
+
           </Routes>
         </BrowserRouter>
       </UserProvider>
