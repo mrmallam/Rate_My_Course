@@ -1,8 +1,10 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {CookiesProvider} from 'react-cookie';
+import { UserProvider } from './UserContext.js';
 
 // Header
-import Header from './components/Header.js';
+// import Header from './components/Header.js';
 
 // Pages
 import LandingPage from './pages/LandingPage.js';
@@ -17,27 +19,34 @@ import ReviewPage from './pages/ReviewPage.js';
 import SearchResultsPage from './pages/SearchResultsPage.js';
 import OverallCourseReviews from './pages/OverallCourseReviews.js';
 
+import AccountSettings from './pages/AccountSettings.js';
+
+
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header/>
-      <Routes>
+    <CookiesProvider>
+      <UserProvider>
+        <BrowserRouter>
 
-        <Route exact path = "/home" Component={LandingPage}/>
-        <Route exact path = "/signup" Component={SignupPage}/>
-        <Route exact path = "/login" Component={LoginPage}/>
-          
-        <Route exact path = "/MyProfile" Component={MyProfile}/>
+          <Routes>
+            <Route exact path = "/" Component={LandingPage}/>
+            <Route exact path = "/home" Component={LandingPage}/>
+            <Route exact path = "/signup" Component={SignupPage}/>
+            <Route exact path = "/login" Component={LoginPage}/>
 
-        <Route exact path = "/AdminPage" Component={AdminPage}/>
-        
-        <Route exact path = "/review" Component={ReviewPage}/>
-        <Route exact path = "/results" Component={SearchResultsPage}/>
-        <Route exact path = "/overallCourseReview" Component={OverallCourseReviews}/>
-      </Routes>
+            <Route exact path = "/MyProfile" Component={MyProfile}/>
 
-    </BrowserRouter>
+            <Route exact path = "/AdminPage" Component={AdminPage}/>
+
+            <Route exact path = "/review" Component={ReviewPage}/>
+            <Route exact path = "/results" Component={SearchResultsPage}/>
+            <Route exact path = "/overallCourseReview" Component={OverallCourseReviews}/>
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
+    </CookiesProvider>
+
   );
 }
 
