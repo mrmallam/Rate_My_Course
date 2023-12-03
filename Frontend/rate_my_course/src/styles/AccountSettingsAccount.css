@@ -20,7 +20,7 @@
 #accountImage {
     width: 200px;
     height: 200px;    
-    border-radius: 100px;
+    border-radius: 10px;
     padding-top: 10px;
     
     border: 1px solid grey;
