@@ -43,7 +43,10 @@ function EditableReview({id, onDelete}) {
         setEditable(!editable);
     };
     const handleDeleteClick = () => {
-        onDelete(id); // This will call the function passed from the parent component
+      const confirmed = window.confirm("Are you sure you want to delete this review?");
+      if (confirmed) {
+        onDelete(id);
+      }
     };
     const handleUniversityChange = (e) => {
         setUniversity(e.target.value);

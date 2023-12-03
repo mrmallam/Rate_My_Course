@@ -8,12 +8,14 @@ import StaticReview from "../components/StaticReview";
 import EditableReview from "../components/EditableReview";
 import RatedReview from "../components/RatedReview";
 import { Link } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import Header from '../components/Header';
 
 const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);
     const [coursesToRemove, setCoursesToRemove] = useState([]);
+    const navigate = useNavigate();
 
     let name = "Jane Doe";
     let yearOfStudy = "3rd Year";
@@ -100,7 +102,10 @@ const MyProfile = () => {
             <div className="flex flex-col w-full">
                 <div className={`${showPopup ? 'overlay' : ''}`}></div>
                 <div className="top-row">
-                    <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
+                    <img src = {arrowLeft} 
+                    className="arrow-left" 
+                    alt="arrow-left"
+                    onClick={() => navigate(-1)}/>
                 </div>
                 <div className="user-info justify-center">
                     <div className="userImage">
