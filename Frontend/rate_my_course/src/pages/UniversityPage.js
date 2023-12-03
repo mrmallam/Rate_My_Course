@@ -5,17 +5,11 @@ import Header from '../components/Header';
 import CourseDiv from '../components/CourseDiv';
 import '../styles/SearchResults.css';
 import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 
-const courses = [
-    { id: 1, name: 'SENG 513', workload: 'High', difficulty: 'Hard' , usefulness: 'Low'},
-    { id: 2, name: 'SENG 511', workload: 'Medium', difficulty: 'Low' , usefulness: 'Low'},
-    { id: 3, name: 'SENG 501', workload: 'Low', difficulty: 'High' , usefulness: 'Low'},
-    { id: 4, name: 'SENG 532', workload: 'High', difficulty: 'Medium' , usefulness: 'Low'},
-    { id: 5, name: 'CPSC 532', workload: 'High', difficulty: 'Medium' , usefulness: 'Low'},
-    { id: 6, name: 'CPSC 441', workload: 'High', difficulty: 'Medium' , usefulness: 'Low'},
-    { id: 7, name: 'SENG 300', workload: 'High', difficulty: 'Low' , usefulness: 'Low'},
-    // this will be connected to  backend where all the search results will be stored
-  ];
+
+//   /api/Course/?university=University%20of%20Calgary
+
 
 function Reviews() {
     const [courseCode, setCourseCode] = useState('Code');
@@ -25,7 +19,27 @@ function Reviews() {
     // search functionality
     const [isChecked, setIsChecked] = useState(false);
     // Initialize searchResults with the full list of universities
-    const [searchResults, setSearchResults] = useState(courses);
+    const [searchResults, setSearchResults] = useState([]);
+
+    const { universityName } = useParams();
+
+    useEffect(() => {
+        
+        if (universityName) {
+            const decodedUniversityName = decodeURIComponent(universityName);
+            const url = `http://localhost:8000/api/Course/?university=${decodedUniversityName}`;
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                'Content-Type':'application/json',
+                }
+            })
+            .then(resp => resp.json())
+            .then((data) => { setSearchResults(data); })
+            .catch(error => console.log(error))
+        }
+    }, [universityName]);
+
 
     useEffect(() => {
         // Sort the results when isChecked changes
@@ -62,7 +76,7 @@ function Reviews() {
                     </div>
                     <div className='filters-container'>
 
-                        <SearchComponent className='mb-4' data={courses} onSearchResults={handleSearchResults} placeholder={"Search Course"}/>
+                        <SearchComponent className='mb-4' data={searchResults} onSearchResults={handleSearchResults} placeholder={"Search Course"}/>
                         
                         <select 
                             value={courseCode} 
@@ -101,7 +115,7 @@ function Reviews() {
                 </div>
 
                 {/* Display search results */}
-                { searchResults.map(result => <CourseDiv data={result} />) }
+                { searchResults.map(result => <CourseDiv data={result} key={result.id} />) }
 
             </div>
         </div>  

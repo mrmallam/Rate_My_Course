@@ -20,20 +20,18 @@ function App() {
       <UserProvider>
         <BrowserRouter>
           <Routes>
+            <Route exact path="/" element={<LandingPage />} />
+            <Route exact path="/signup" element={<SignupPage />} />
+            <Route exact path="/login" element={<LoginPage />} />
+            <Route exact path="/AccountSettings" element={<AccountSettings />} />
+            <Route exact path="/MyProfile" element={<MyProfile />} />
 
-            <Route exact path = "/" Component={LandingPage}/>
-            <Route exact path = "/signup" Component={SignupPage}/>
-            <Route exact path = "/login" Component={LoginPage}/>
-            <Route exact path = "/AccountSettings" Component={AccountSettings}/>
-            <Route exact path = "/MyProfile" Component={MyProfile}/>
-
-            <Route exact path = "/home" Component={LandingPage}/>
-            <Route exact path = "/UniversityPage" Component={UniversityPage}/>
-            <Route exact path = "/overallCourseReview" Component={OverallCourseReviews}/>
-            <Route exact path = "/review" Component={ReviewPage}/>
+            <Route exact path="/home" element={<LandingPage />} />
+            <Route exact path="/UniversityPage/:universityName" element={<UniversityPage />} />
+            <Route exact path="/overallCourseReview" element={<OverallCourseReviews />} />
+            <Route exact path="/review" element={<ReviewPage />} />
             
-            <Route exact path = "/AdminPage" Component={AdminPage}/>
-
+            <Route exact path="/AdminPage" element={<AdminPage />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>
