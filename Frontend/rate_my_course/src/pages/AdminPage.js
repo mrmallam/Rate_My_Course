@@ -17,8 +17,6 @@ const MyReviews = () => {
 
     var name = "John Smith";
     var title = "Rate My Course Admin";
-    var course = "Computer Science"
-    var university = "University of Calgary";
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
@@ -55,10 +53,15 @@ const MyReviews = () => {
             }
     ];
 
-    const reviewData = [
-        <ReportedReview key={1} />,
-        <ReportedReview key={2} />
-    ];
+    const [reviewData, setReviewData] = useState([
+        { id: 1, content: <ReportedReview key={1} /> },
+        { id: 2, content: <ReportedReview key={2} /> }
+        // Assuming you add an 'id' field for identification
+    ]);
+
+    const handleRemoveReview = (id) => {
+        setReviewData(currentReviews => currentReviews.filter(review => review.id !== id));
+    };
 
     const [isChecked, setIsChecked] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
@@ -95,7 +98,7 @@ const MyReviews = () => {
                 </div>
                 <div className='nav-bar text-lg sm:text-base'>
                     <div
-                        className={`nav-bar-item ${activeTab === 'reportedPosts' ? 'active' : ''}`}
+                        className={`nav-bar-item ${activeTab === 'reportedPosts' ? 'active2' : ''}`}
                         onClick={() => handleTabClick('reportedPosts')}>
                         <p>Reported Posts</p>
                     </div>
@@ -107,7 +110,10 @@ const MyReviews = () => {
                             <div>
                                 {reviewData.map((reportedReview, index) => (
                                     <div key={index} className="review">
-                                        {reportedReview}
+                                        <ReportedReview
+                                            id={reportedReview.id}
+                                            onDelete={handleRemoveReview}
+                                        />
                                     </div>
                                 ))}
                             </div>

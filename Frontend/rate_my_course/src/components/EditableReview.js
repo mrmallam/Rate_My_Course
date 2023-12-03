@@ -29,7 +29,7 @@ function RatingSet ({label, rating, setRating, editable}) {
   );
 }
 
-function EditableReview() {
+function EditableReview({id, onDelete}) {
     const [university, setUniversity] = useState('University of Calgary');
     const [courseNum, setCourseNum] = useState('513');
     const [courseName, setCourseName] = useState('SENG');
@@ -43,7 +43,7 @@ function EditableReview() {
         setEditable(!editable);
     };
     const handleDeleteClick = () => {
-        // implement with backend
+        onDelete(id); // This will call the function passed from the parent component
     };
     const handleUniversityChange = (e) => {
         setUniversity(e.target.value);
