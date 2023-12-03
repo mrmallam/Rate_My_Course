@@ -11,7 +11,7 @@ function RatingSet ({label, rating, setRating}) {
         {levels.map((level) => (
           <button
             key={level}
-            className={`h-5 w-5 sm:h-8 sm:w-8 rounded-full ${rating >= level ? 'bg-red-500' : 'bg-red-200'}`}
+            className={`h-8 w-8 rounded-full ${rating >= level ? 'bg-red-500' : 'bg-red-200'}`}
             onClick={() => setRating(level)}
             aria-label={`Set ${label} to ${level}`}
           />
@@ -35,33 +35,33 @@ export default function Review() {
   return (
     <div className="review-container">    
         <div className='form-container'>
-          <div className='ml-4'>
+          <div className='ml-4 mr-4'>
             <input
                 type="text"
                 value={university}
                 onChange={(e) => setUniversity(e.target.value)}
-                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5"
+                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                 placeholder="University"
               />
               <input
                 type="text"
                 value={courseCode}
                 onChange={(e) => setCourseCode(e.target.value)}
-                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5"
+                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                 placeholder="Course Code"
               />
               <input
                 type="text"
                 value={courseNum}
                 onChange={(e) => setCourseNum(e.target.value)}
-                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5"
+                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                 placeholder="Course Number"
               />
               <input
                 type="text"
                 value={professor}
                 onChange={(e) => setProfessor(e.target.value)}
-                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4"
+                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                 placeholder="Professor's Name"
               />
           </div>
