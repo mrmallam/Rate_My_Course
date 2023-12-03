@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRef, useEffect } from 'react';
 
 import '../styles/AccountSettingsAccount.css';
-import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
+import UserAccountSettingsProfilePicture from '../resources/user_profile.svg';
 
 // Custom component for each editable field
 const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType, options}) => {
@@ -100,6 +100,7 @@ const AccountSettingsAccount = () => {
         firstName: "John",
         lastName: "Doe",
         university: "University of Calgary",
+        program: "Bachelor of Science",
         yearOfStudy: 3,
         email: "john_doe@ucalgary.ca",
     };
@@ -108,6 +109,8 @@ const AccountSettingsAccount = () => {
 
     // List of Universities (replace with backend data)
     const universityOptions = [initialData.university, 'University of Alberta', 'University of Toronto', 'University of Waterloo']; 
+
+    const programOptions = ['Bachelor of Science', 'Bachelor of Engineering', 'Bachelor of Arts'];
 
     // For testing purposes
     // const fieldTypes = {
@@ -249,8 +252,22 @@ const AccountSettingsAccount = () => {
                         onCancelClick={() => handleCancelClick("university")}
                         onChange={(value) => handleInputChange("university", value)}
                     />
+
                     <AccountInformation
-                        label="Year of Study"
+                        label="Program"
+                        value={data.program}
+                        fieldType="dropdown"
+                        options={programOptions}
+                        editMode={editMode.program}
+
+                        onEditClick={() => handleEditClick("program")}
+                        onSaveClick={() => handleSaveClick("program")}
+                        onCancelClick={() => handleCancelClick("program")}
+                        onChange={(value) => handleInputChange("program", value)}
+                    />
+
+                    <AccountInformation
+                        label="Year"
                         value={data.yearOfStudy}
                         fieldType="dropdown"
                         options={yearOfStudyOptions}
@@ -261,6 +278,7 @@ const AccountSettingsAccount = () => {
                         onCancelClick={() => handleCancelClick("yearOfStudy")}
                         onChange={(value) => handleInputChange("yearOfStudy", value)}
                     />
+
                     <AccountInformation
                         label="Email"
                         value={data.email}
