@@ -50,7 +50,7 @@ function StaticReview() {
 
     return (
         <div className='flex flex-col md:flex-row w-full py-8'>
-            <div className='form-container-3'>
+            <div className='form-container-3 w-[93%]'>
                 <div className='ml-4'>
                     <input
                     readOnly={true}
@@ -95,8 +95,8 @@ function StaticReview() {
                 >
                     {comments}
                 </div>
-        </div>
-            <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 ml-8">
+            </div>
+            <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 ml-0 md:ml-8 mr-[5%] md:mr-0">
                 <div onClick={handleThumbsUpClick}>
                     <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-8 w-8 md:w-10 md:h-10 cursor-pointer" alt="thumbs-up"/>
                 </div>

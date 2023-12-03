@@ -7,16 +7,16 @@ import bookMark from '../resources/bookmark.svg';
 import bookMarkBlank from '../resources/bookmark-blank.svg';
 import StaticReview from "../components/StaticReview";
 import ReportedReview from "../components/ReportedReview";
-import Header from '../components/Header';
 import RatedReview from "../components/RatedReview";
-
+import Date from "../components/Date";
+import Header from "../components/Header";
 
 const MyReviews = () => {
     const [activeTab, setActiveTab] = useState('reportedPosts');
     const [showPopup, setShowPopup] = useState(false);
 
     var name = "John Smith";
-    var yearOfStudy = "Rate My Course Admin";
+    var title = "Rate My Course Admin";
     var course = "Computer Science"
     var university = "University of Calgary";
 
@@ -60,57 +60,60 @@ const MyReviews = () => {
         <ReportedReview key={2} />
     ];
 
+    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked2, setIsChecked2] = useState(false);
+    const [courseCode, setCourseCode] = useState('Professor');
+  
+  
+    const handleOnChange = () => {
+      setIsChecked(!isChecked);
+    };
+  
+    const handleOnChange2 = () => {
+      setIsChecked2(!isChecked2);
+    };
     
     return (
-        <div className="flex flex-col w-full">
-            <Header />
-            <div className={`${showPopup ? 'overlay' : ''}`}></div>
-            <div className="top-row">
-                <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
-            </div>
-            <div className="user-info">
-                <div className="adminImage">
-                    <img src = {adminImage} className="admin-image w-24 h-24" alt="admin-image"/>
+        <div>
+            <Header/>
+            <div className="flex flex-col w-full">
+                <div className="top-row">
+                    <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
                 </div>
-                <div className="flex flex-col">
-                    <div className="user-name ml-2">
-                        <p>{name}</p>
+                <div className="user-info justify-center">
+                    <div className="adminImage">
+                        <img src = {adminImage} className="admin-image w-24 h-24" alt="admin-image"/>
                     </div>
-                    <div className="user-year ml-2">
-                        <p>{yearOfStudy}</p>
-                    </div>
-                    <div className="user-course ml-2">
-                        <p>{course} Student</p>
-                    </div>
-                    <div className="user-university ml-2">
-                        <p>{university}</p>
-                    </div>
-                </div>
-            </div>
-            <div className='nav-bar text-lg sm:text-base'>
-                <div
-                    className={`nav-bar-item ${activeTab === 'reportedPosts' ? 'active' : ''}`}
-                    onClick={() => handleTabClick('reportedPosts')}>
-                    <p>Reported Posts</p>
-                </div>
-            </div>
-
-            <div className='ml-8 mt-2 mb-6 font-bold md:w-1/6 w-1/2'>
-                <span className="text-md text-black">1 Report Pending:</span>
-            </div>
-
-            <div className="content">
-                {activeTab === 'reportedPosts' && (
-                    <div className="review-content">
-                        <div>
-                            {reviewData.map((reportedReview, index) => (
-                                <div key={index} className="review">
-                                    {reportedReview}
-                                </div>
-                            ))}
+                    <div className="flex flex-col">
+                        <div className="user-name ml-2">
+                            <p>{name}</p>
+                        </div>
+                        <div className="user-year ml-2">
+                            <p>{title}</p>
                         </div>
                     </div>
-                )}
+                </div>
+                <div className='nav-bar text-lg sm:text-base'>
+                    <div
+                        className={`nav-bar-item ${activeTab === 'reportedPosts' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('reportedPosts')}>
+                        <p>Reported Posts</p>
+                    </div>
+                </div>
+
+                <div className="content">
+                    {activeTab === 'reportedPosts' && (
+                        <div className="review-content">
+                            <div>
+                                {reviewData.map((reportedReview, index) => (
+                                    <div key={index} className="review">
+                                        {reportedReview}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )

@@ -19,7 +19,7 @@ function RatingSet ({label, rating, setRating}) {
   );
 }
 
-function ReportedReview() {
+function OverarallReviews() {
     const [professor, setProfessor] = useState('Joseph James');
     const [difficulty, setDifficulty] = useState(5);
     const [workload, setWorkload] = useState(2);
@@ -79,20 +79,8 @@ function ReportedReview() {
             </div>
   
             <Date></Date>
-
-            <div className="flex mt-5 mb-10">
-                <div className="approve-button">
-                    <button className='rounded h-10 w-1/8 bg-green-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-green-900'>Approve
-                    </button>
-                </div>
-                <div className="remove-button ml-6">
-                    <button className='rounded h-10 w-1/8 bg-red-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-red-900'>Remove
-                    </button>                                    
-                </div>
-            </div>
-
         </div>
     );
   }
   
-  export default ReportedReview;
+  export default OverarallReviews;

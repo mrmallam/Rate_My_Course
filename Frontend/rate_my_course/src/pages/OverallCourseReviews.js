@@ -3,6 +3,8 @@ import uni_logo from '../resources/logo-ucalgary.jpg';
 import Reviews from '../components/Reviews';
 import Stars from '../resources/stars.jpg';
 import { Link } from "react-router-dom";
+import ReportedReview from '../components/ReportedReview';
+import OverarallReviews from '../components/OverallReviews';
 import Header from '../components/Header';
 
 
@@ -22,9 +24,8 @@ function OverallCourseReviews() {
 
   return (
     <div>
-        <Header />
-        <div className='flex flex-col items-left justify-center mt-5 mx-5 md:mx-10'>
-            
+        <Header/>
+        <div className='flex flex-col items-left justify-center mt-5 mx-10 md:mx-10'>
             <div className="flex items-center border-2 border-red-500 shadow-lg h-14 w-full md:w-2/4">
                 <input
                 className="flex-1 px-6 h-full rounded-full text-gray-700 leading-tight focus:outline-none"
@@ -94,12 +95,12 @@ function OverallCourseReviews() {
             <div className='mt-6 bg-red-600 border-2 border-red-600 font-bold shadow-lg py-2 px-2 w-1/2 md:w-1/6'>
                 <span className="text-md text-white text-center">Review #1</span>
             </div>
-            <Reviews/>
+            <OverarallReviews/>
 
             <div className='mt-6 bg-red-600 border-2 border-red-600 font-bold shadow-lg py-2 px-2 w-1/2 md:w-1/6'>
                 <span className="text-md text-white text-center">Review #2</span>
             </div>
-            <Reviews/>
+            <OverarallReviews/>
 
         </div>
     </div>
