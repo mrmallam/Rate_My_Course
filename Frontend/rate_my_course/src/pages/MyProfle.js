@@ -68,10 +68,15 @@ const MyProfile = () => {
             }
     ];
 
-    const reviewData = [
-        <EditableReview key={1} />,
-        <EditableReview key={2} />
-    ];
+    const [reviewData, setReviewData] = useState([
+        { id: 1, content: <EditableReview key={1} /> },
+        { id: 2, content: <EditableReview key={2} /> }
+        // Assuming you add an 'id' field for identification
+    ]);
+
+    const handleDeleteReview = (id) => {
+        setReviewData(currentReviews => currentReviews.filter(review => review.id !== id));
+    };
 
     const likedReviews = [
         <RatedReview key={1} />,
@@ -123,19 +128,19 @@ const MyProfile = () => {
                 </div>
                 <div className='nav-bar text-lg sm:text-base'>
                     <div
-                        className={`nav-bar-item ${activeTab === 'myReviews' ? 'active' : ''}`}
+                        className={`nav-bar-item ${activeTab === 'myReviews' ? 'active2' : ''}`}
                         onClick={() => handleTabClick('myReviews')}
                     >
                         <p>My Reviews</p>
                     </div>
                     <div
-                        className={`nav-bar-item ${activeTab === 'ratedReviews' ? 'active' : ''}`}
+                        className={`nav-bar-item ${activeTab === 'ratedReviews' ? 'active2' : ''}`}
                         onClick={() => handleTabClick('ratedReviews')}
                     >
                         <p>Rated Reviews</p>
                     </div>
                     <div 
-                        className={`nav-bar-item ${activeTab === 'watchedCourses' ? 'active' : ''}`}
+                        className={`nav-bar-item ${activeTab === 'watchedCourses' ? 'active2' : ''}`}
                         onClick={() => handleTabClick('watchedCourses')}
                     >
                         <p>Watched Courses</p>
@@ -157,7 +162,10 @@ const MyProfile = () => {
                             <div>
                                 {reviewData.map((editableReview, index) => (
                                     <div key={index} className="review">
-                                        {editableReview}
+                                        <EditableReview
+                                            id={editableReview.id}
+                                            onDelete={handleDeleteReview}
+                                        />
                                     </div>
                                 ))}
                             </div>

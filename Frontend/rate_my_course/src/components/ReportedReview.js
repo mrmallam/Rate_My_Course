@@ -19,7 +19,7 @@ function RatingSet ({label, rating, setRating}) {
   );
 }
 
-function ReportedReview() {
+function ReportedReview({id, onDelete}) {
     const [professor, setProfessor] = useState('Joseph James');
     const [difficulty, setDifficulty] = useState(5);
     const [workload, setWorkload] = useState(2);
@@ -28,6 +28,14 @@ function ReportedReview() {
     const [university, setUniversity] = useState('Test Uni');
     const [courseNum, setCourseNum] = useState('Test CourseNum');
     const [courseCode, setCourseCode] = useState('Test CourseCode');
+
+    const handleRemoveClick = () => {
+        onDelete(id); // This will call the function passed from the parent component
+    };
+
+    const handleApproveClick = () => {
+        onDelete(id); // This will call the function passed from the parent component
+    };
 
     return (
         <div className='md:flex-row w-full'>
@@ -81,11 +89,11 @@ function ReportedReview() {
             <Date></Date>
 
             <div className="flex mt-5 mb-10">
-                <div className="approve-button">
+                <div className="approve-button" onClick={handleApproveClick}>
                     <button className='rounded h-10 w-1/8 bg-green-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-green-900'>Approve
                     </button>
                 </div>
-                <div className="remove-button ml-6">
+                <div className="remove-button ml-6" onClick={handleRemoveClick}>
                     <button className='rounded h-10 w-1/8 bg-red-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-red-900'>Remove
                     </button>                                    
                 </div>
