@@ -1,6 +1,8 @@
 import '../styles/Reviews.css';
 import React, { useState } from 'react';
 import Date from './Date';
+import thumbsUpBlank from '../resources/thumbs-up.svg';
+import thumbsUpGreen from '../resources/thumbs-up-green.svg';
 
 function RatingSet ({label, rating, setRating}) {
   const levels = [1,2,3,4,5];
@@ -28,6 +30,12 @@ function OverarallReviews() {
     const [university, setUniversity] = useState('Test Uni');
     const [courseNum, setCourseNum] = useState('Test CourseNum');
     const [courseCode, setCourseCode] = useState('Test CourseCode');
+    const [thumbsUpClicked, setThumbsUpClicked] = useState(false);
+
+    const handleThumbsUpClick = () => {
+        setThumbsUpClicked(!thumbsUpClicked);
+        //for back end logic
+      };  
 
     return (
         <div className='md:flex-row w-full'>
@@ -76,6 +84,17 @@ function OverarallReviews() {
                 >
                     {comments}
                 </div>
+
+                <div className='ml-8 mt-2 mb-2 font-bold flex'>
+                    <div onClick={handleThumbsUpClick}>
+                        <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-up"/>
+                    </div>
+                    <span className="text-md text-black ml-3">Upvote This Post?</span>
+                </div>
+                <div className='ml-8 mt-2 mb-2 font-bold'>
+                    <span className="text-md text-gray-400">12 others found this post useful</span>
+                </div>
+
             </div>
   
             <Date></Date>
