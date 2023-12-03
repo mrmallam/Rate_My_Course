@@ -1,30 +1,72 @@
 import React, { useState } from "react";
+import { useRef, useEffect } from 'react';
+
 import '../styles/AccountSettingsAccount.css';
 import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
 
 // Custom component for each editable field
-const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType }) => (
-    <div className="inputContainer--account">
-        {label && <label>{label}</label>}
-        <input
-            className="inputBox" id="inputBox--accountSettingsAccount"
-            type={fieldType}
-            value={value}
-            readOnly={!editMode}
-            onChange={(e) => onChange(e.target.value)}
-        />
-        <div className="editButtonsContainer">
-            {editMode ? (
-                <div className="editButtons">
-                    <button id="saveButton" onClick={onSaveClick}>Save</button>
-                    <button id="cancelButton" onClick={onCancelClick}>Cancel</button>
-                </div>
+const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType, options}) => {
+
+    const inputRef = useRef(null);
+
+    // Focus on the input field when entering edit mode
+    // Sets cursor in the input field when "Edit" is clicked
+    useEffect(() => {
+        if (editMode) {
+            inputRef.current.focus();
+        }
+    }, [editMode]);
+
+
+    return (
+        <div className="inputContainer--account">
+            {label && <label>{label}</label>}
+
+            {/* If its an dropdown field */}
+            {fieldType === 'dropdown' && editMode ? (
+
+
+                <select
+                    ref={inputRef}
+                    className={`inputBox--accountSettingsAccount ${editMode ? 'editMode' : ''}`}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                >
+                    {options.map((option) => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                    ))}
+                </select>
+
+
+                
+
             ) : (
-                <button id="editButton" onClick={onEditClick}>Edit</button>
+
+                <input
+                    ref={inputRef}  // focuses cursor to the current input box
+                    className={`inputBox--accountSettingsAccount ${editMode ? 'editMode' : ''}`} // Apply editMode class conditionally
+                    type={fieldType}
+                    value={value}
+                    readOnly={!editMode}
+                    onChange={(e) => onChange(e.target.value)}
+                />
             )}
+            <div className="editButtonsContainer">
+                {editMode ? (
+                    <div className="editButtons">
+                        <button id="saveButton" onClick={onSaveClick}>Save</button>
+                        <button id="cancelButton" onClick={onCancelClick}>Cancel</button>
+                    </div>
+                ) : (
+                    <button id="editButton" onClick={onEditClick}>Edit</button>
+
+                )}
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 
 // ****This is for backend (finish this) ****
@@ -53,7 +95,7 @@ const saveDataToBackend = async (data) => {
 
 const AccountSettingsAccount = () => {
 
-    // Initial user data
+    // Initial user data (replace with user data from backend)
     const initialData = {
         firstName: "John",
         lastName: "Doe",
@@ -61,6 +103,11 @@ const AccountSettingsAccount = () => {
         yearOfStudy: 3,
         email: "john_doe@ucalgary.ca",
     };
+
+    const yearOfStudyOptions = ['1', '2', '3', '4', '5+'];
+
+    // List of Universities (replace with backend data)
+    const universityOptions = [initialData.university, 'University of Alberta', 'University of Toronto', 'University of Waterloo']; 
 
     // For testing purposes
     // const fieldTypes = {
@@ -70,6 +117,14 @@ const AccountSettingsAccount = () => {
     //     university: "text",
     //     email: "email",
     // };
+
+    // const [showOptions, setShowOptions] = useState({
+    //     yearOfStudy: false,
+    //     university: false,
+    // });
+
+
+
 
     const [data, setData] = useState(initialData);
     const [tempData, setTempData] = useState({});
@@ -97,6 +152,13 @@ const AccountSettingsAccount = () => {
                 [field]: true,
             }));
 
+
+            // setShowOptions((prevShowOptions) => ({
+            //     ...prevShowOptions,
+            //     [field]: true, // Show dropdown options when entering edit mode
+            // }));
+
+
             setEditPressed(true);
         }
     };
@@ -106,6 +168,12 @@ const AccountSettingsAccount = () => {
             ...prevEditMode,
             [field]: false,
         }));
+
+        // setShowOptions((prevShowOptions) => ({
+        //     ...prevShowOptions,
+        //     [field]: false, // Hide dropdown options when saving
+        // }));
+
 
         // user cannot edit other fields once a field is in edit mode
         setEditPressed(false);
@@ -120,10 +188,16 @@ const AccountSettingsAccount = () => {
             [field]: false,
         }));
 
+        // setShowOptions((prevShowOptions) => ({
+        //     ...prevShowOptions,
+        //     [field]: false, // Hide dropdown options when canceling
+        // }));
+
         setData((prevData) => ({
             ...prevData,
             [field]: tempData[field],
         }));
+
 
         setEditPressed(false);
     };
@@ -166,8 +240,10 @@ const AccountSettingsAccount = () => {
                     <AccountInformation
                         label="University"
                         value={data.university}
-                        fieldType='text'
+                        fieldType="dropdown"
+                        options={universityOptions}
                         editMode={editMode.university}
+
                         onEditClick={() => handleEditClick("university")}
                         onSaveClick={() => handleSaveClick("university")}
                         onCancelClick={() => handleCancelClick("university")}
@@ -175,9 +251,11 @@ const AccountSettingsAccount = () => {
                     />
                     <AccountInformation
                         label="Year of Study"
-                        value={data.yearOfStudy.toString()}
-                        fieldType="number"
+                        value={data.yearOfStudy}
+                        fieldType="dropdown"
+                        options={yearOfStudyOptions}
                         editMode={editMode.yearOfStudy}
+
                         onEditClick={() => handleEditClick("yearOfStudy")}
                         onSaveClick={() => handleSaveClick("yearOfStudy")}
                         onCancelClick={() => handleCancelClick("yearOfStudy")}
