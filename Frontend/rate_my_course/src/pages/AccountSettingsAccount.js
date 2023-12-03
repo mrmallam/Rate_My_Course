@@ -214,7 +214,7 @@ const AccountSettingsAccount = () => {
 
     return (
         <div className="mainContainer--account">
-            <div className="titleContainer">Account Details</div>
+            <div className="accountSettingsTitle">Account Details</div>
 
             <img id="accountImage" src={UserAccountSettingsProfilePicture} alt="user-profile-logo" />
 

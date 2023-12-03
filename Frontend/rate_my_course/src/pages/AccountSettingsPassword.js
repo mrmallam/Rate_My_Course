@@ -96,7 +96,7 @@
         return (
             <div className="mainContainer--changePassword">
                 <div className="textFieldContainer">     
-                    <div className="titleContainer">Change Password</div>
+                    <div className="accountSettingsTitle">Change Password</div>
 
 
                     <div className="inputContainer--accountSettingsPassword">

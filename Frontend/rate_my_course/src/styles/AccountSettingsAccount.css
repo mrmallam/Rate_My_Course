@@ -11,6 +11,7 @@
 }
 
 
+
 .userProfile--account{
     width: 40px;
     height: auto;
@@ -40,7 +41,7 @@
 
 
 #textFieldContainer--accountSettingsAccount{
-    gap: 30px;
+    gap: 45px;
 }
 
 .inputContainer--account{
@@ -82,6 +83,9 @@
     border: 1px solid grey;
     padding-left: 8px;
     outline-offset: -2px;
+    cursor: not-allowed;
+    background-color: rgb(235, 235, 235);
+    opacity: 0.8;
 }
 
 .inputBox--accountSettingsAccount:focus {
@@ -90,6 +94,8 @@
 
 .inputBox--accountSettingsAccount.editMode {
     outline: 3px solid red;
+    cursor:auto;
+    background-color: white;
    
 }
 
@@ -163,6 +169,7 @@
         margin: 0px;
         padding: 0px;
         margin-top: 5px;
+        width: 85%;
     }
 
     .editButtons {
@@ -188,7 +195,7 @@
     #textFieldContainer--accountSettingsAccount {
         padding: 0px;
         margin: 0px;
-        gap: 25px;
+        gap: 35px;
     }
 
     .inputBox--accountSettingsAccount {
