@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import '../styles/AccountSettingsAccount.css';
 import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
+import { useCookies } from 'react-cookie';
 
 // Custom component for each editable field
 const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType }) => (
@@ -29,6 +30,11 @@ const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, 
 const AccountSettingsAccount = ({ userData, setUserData }) => {
     const [tempData, setTempData] = useState({});
     const [isEditPressed, setEditPressed] = useState(false);
+
+    console.log(userData);
+
+    const [cookies, setCookie] = useCookies(['mytoken']);
+    const myToken = cookies['mytoken'];
 
     // for when editing fields
     const [editMode, setEditMode] = useState({
@@ -64,15 +70,20 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
 
         // Send changes to the backend
         try {
-            const response = await fetch('http://localhost:8000/api/users/update', { // Replace with your actual API endpoint
-                method: 'PUT',
+            const response = await fetch('http://localhost:8000/api/user/update/', { // Replace with your actual API endpoint
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Token ${myToken}`
                 },
-                body: JSON.stringify(userData),
+                body: JSON.stringify({
+                    [field]: userData[field]
+                }),
             });
 
             if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error data:', errorData);
                 throw new Error('Failed to save data to the backend.');
             }
 

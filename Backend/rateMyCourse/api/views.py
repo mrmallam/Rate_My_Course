@@ -38,13 +38,13 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication, )
 
-    def get_queryset(self):
-        # return a list containing only the current user.
-        user = self.request.user
-        if user.is_authenticated:
-            return User.objects.filter(id=user.id)
-        else:
-            raise Http404
+    # def get_queryset(self):
+    #     # return a list containing only the current user.
+    #     user = self.request.user
+    #     if user.is_authenticated:
+    #         return User.objects.filter(id=user.id)
+    #     else:
+    #         raise Http404
 
 # Current User Profile View
 @api_view(['GET'])
@@ -53,3 +53,14 @@ def current_user_profile(request):
     # Retrieve the profile of the currently authenticated user.
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
+
+# Update User Profile View
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_user_profile(request):
+    # Update the profile of the currently authenticated user.
+    serializer = UserSerializer(request.user, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors)
