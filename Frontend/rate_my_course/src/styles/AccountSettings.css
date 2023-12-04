@@ -10,8 +10,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 50px; 
+  padding-bottom: 50px;   
 }
+
+.accountSettingsTitle {
+  font-weight:500;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+
 
 .selectionsContainer {
   display: flex;
@@ -58,6 +66,7 @@
 @media (max-width: 640px) {
   .selectionsContainer {
     justify-content: space-around;
+    gap: 0px;
   }
 }
 
