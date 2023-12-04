@@ -29,7 +29,7 @@ function OverallCourseReviews() {
             .catch(error => console.log(error))
 
 
-            fetch(`http://localhost:8000/api/Review/${decodedCourseName}/`, {
+            fetch(`http://localhost:8000/api/Review/?course=${decodedCourseName}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type':'application/json',
