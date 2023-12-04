@@ -4,19 +4,20 @@
   margin: 0px;
 }
 
-
-
-
 .mainContainer--accountSettings {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 50px; 
-  
+  padding-bottom: 50px;   
 }
 
+.accountSettingsTitle {
+  font-weight:500;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
 
 
 
@@ -33,7 +34,6 @@
   width: 100%;
   margin-bottom: 40px;
 }
-
 
 .selectionsContainer button {
   border-radius: 55px;
@@ -63,10 +63,10 @@
   /* text-decoration: 2px underline red; */
 }
 
-
 @media (max-width: 640px) {
   .selectionsContainer {
     justify-content: space-around;
+    gap: 0px;
   }
 }
 

@@ -51,33 +51,33 @@ function StaticReview() {
     return (
         <div className='flex flex-col md:flex-row w-full py-8'>
             <div className='form-container-3 w-[93%]'>
-                <div className='ml-4'>
+                <div className='ml-4 mr-4'>
                     <input
-                    readOnly={true}
-                    type="text"
-                    value={university}
-                    className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default" 
-                    placeholder="University"
+                        readOnly={true}
+                        type="text"
+                        value={university}
+                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default" 
+                        placeholder="University"
                     />
                     <input
                         readOnly={true}
                         type="text"
                         value={courseCode}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
+                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
                         placeholder="Course Code"
                     />
                     <input
                         readOnly={true}
                         type="text"
                         value={courseNum}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
+                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
                         placeholder="Course Number"
                     />
                     <input
                         readOnly={true}
                         type="text"
                         value={professor}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 focus:outline-none cursor-default"
+                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
                         placeholder="Professor's Name"
                     />
                 </div>

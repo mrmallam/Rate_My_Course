@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import uni_logo from '../resources/logo-ucalgary.jpg';
-import Reviews from '../components/Reviews';
 import Stars from '../resources/stars.jpg';
 import { Link, useParams } from "react-router-dom";
 import ReportedReview from '../components/ReportedReview';
