@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Date from './Date';
 import thumbsUpBlank from '../resources/thumbs-up.svg';
 import thumbsUpGreen from '../resources/thumbs-up-green.svg';
+import thumbsDownBlank from '../resources/thumbs-down.svg';
+import thumbsDownRed from '../resources/thumbs-down-red.svg';
 
 function RatingSet ({label, rating, setRating}) {
   const levels = [1,2,3,4,5];
@@ -23,6 +25,7 @@ function RatingSet ({label, rating, setRating}) {
 
 function OverarallReviews({data, index}) {
     const [thumbsUpClicked, setThumbsUpClicked] = useState(false);
+    const [thumbsDownClicked, setThumbsDownClicked] = useState(false);
     const [professor, setProfessor] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [workload, setWorkload] = useState("");
@@ -30,6 +33,7 @@ function OverarallReviews({data, index}) {
     const [review, setReview] = useState("");
     const [university, setUniversity] = useState("");
     const [course, setCourse] = useState("");
+    const [usefulCount, setUsefulCount] = useState(8);
 
     console.log("HERE: ", data);
 
@@ -47,7 +51,26 @@ function OverarallReviews({data, index}) {
 
     const handleThumbsUpClick = () => {
         setThumbsUpClicked(!thumbsUpClicked);
-        //for back end logic
+        setThumbsDownClicked(false);
+
+        if (!thumbsUpClicked) { // Only increment if it wasn't already clicked
+            setUsefulCount(usefulCount + 1);
+        }
+        else { // Only increment if it wasn't already clicked
+            setUsefulCount(usefulCount - 1);
+        }
+    };
+
+    const handleThumbsDownClick = () => {
+        setThumbsDownClicked(!thumbsDownClicked);
+        setThumbsUpClicked(false);
+
+        if (!thumbsDownClicked) { // Only increment if it wasn't already clicked
+            setUsefulCount(usefulCount - 1);
+        }
+        else { // Only increment if it wasn't already clicked
+            setUsefulCount(usefulCount + 1);
+        }
     };
 
     return (
@@ -96,16 +119,21 @@ function OverarallReviews({data, index}) {
                     {review}
                 </div>
 
-                <div className='ml-8 mt-2 mb-2 font-bold flex'>
-                    <div onClick={handleThumbsUpClick}>
-                        <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-up"/>
+                <div className = 'w-full md:flex md:flex-row flex flex-col mb-2'>
+                    <div className='ml-8 mt-2 mb-2 font-bold flex'>
+                        <div onClick={handleThumbsUpClick}>
+                            <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-up"/>
+                        </div>
+                        <span className="text-md text-black ml-1">Like</span>
+                        <div onClick={handleThumbsDownClick} className='ml-4 mt-1'>
+                            <img src={thumbsDownClicked ? thumbsDownRed : thumbsDownBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-down"/>
+                        </div>
+                        <span className="text-md text-black ml-1">Dislike</span>
                     </div>
-                    <span className="text-md text-black ml-3">Upvote This Post?</span>
+                    <div className='ml-8 mt-2 mb-2 font-bold'>
+                        <span className="text-md text-gray-400">{usefulCount} people found this post useful</span>
+                    </div>
                 </div>
-                <div className='ml-8 mt-2 mb-2 font-bold'>
-                    <span className="text-md text-gray-400">12 others found this post useful</span>
-                </div>
-
             </div>
 
             <Date></Date>
