@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../styles/AccountSettings.css';
 import Header from '../components/Header';
-import CustomButton from '../components/CustomButton';
-
 import AccountSettingsPassword from "./AccountSettingsPassword";
 import AccountSettingsMain from "./AccountSettingsAccount";
 
@@ -10,6 +8,35 @@ import AccountSettingsMain from "./AccountSettingsAccount";
 const AccountSettings = () => {
 
     const [activePage, setActivePage] = useState('account');
+    const [userData, setUserData] = useState(null); // State to store user data
+    const [loading, setLoading] = useState(true);
+
+    // Fetch user data on component mount
+    useEffect(() => {
+        fetch('http://localhost:8000/api/users/3/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched user data:', data);
+            setUserData(data);
+            setLoading(false);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            setLoading(false);
+        });
+    }, []);
+    
+    console.log(userData);
 
 
     const handleButtonClick = (page) => {
@@ -34,7 +61,7 @@ const AccountSettings = () => {
 
                 <div id="componentContainer">
                     {activePage === 'password' && <AccountSettingsPassword/>}
-                    {activePage === 'account' && <AccountSettingsMain/>}
+                    {activePage === 'account' && <AccountSettingsMain userData={userData} setUserData={setUserData} />}
                 </div>
             </div>
         </div>

@@ -28,5 +28,15 @@ class CourseViewSet(viewsets.ModelViewSet):
         return Course.objects.all()
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.all()  # A default queryset, won't be used for data retrieval
     serializer_class = UserSerializer
+
+    # permission_classes = [IsAuthenticated]
+    # authentication_classes = (TokenAuthentication, )
+
+    # serializer_class = UserSerializer
+    # permission_classes = [IsAuthenticated]
+
+    # def get_queryset(self):
+    #     # Return only the current user
+    #     return User.objects.filter(id=self.request.user.id)
