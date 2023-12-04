@@ -22,28 +22,78 @@ const SignupPage = (props) => {
     const [passwordError, setPasswordError] = useState("");
     const [firstNameError, setFirstNameError] = useState("");
     const [lastNameError, setLastNameError] = useState("");
+    const [confirmPasswordError, setConfirmNewPasswordError] = useState("");
 
 
     const { setIsLoggedIn } = useContext(UserContext);
 
     const navigate = useNavigate();
 
-    const RegisterUser = () => {
-        if (password !== confirmPassword) {
-            setPasswordError("Passwords do not match.");
-            return; // Stop the function if passwords do not match
+    const validateSignUp = () => {
+        let isValidSignUp = true;
+
+        if (!firstName || !lastName || !username || !password || !confirmPassword) {
+            isValidSignUp = false;
+            // setPasswordVisibility("changePasswordButtonInvisible");
+
+        }
+        if (!firstName) {
+            setFirstNameError("First name is required");
+        } else {
+            setFirstNameError("");
         }
 
-        // Reset the password error if passwords match
-        setPasswordError("");
+        if (!lastName) {
+            setLastNameError("Last name is required");
+        } else {
+            setLastNameError("");
+        }
 
-        APIService.RegisterUser({username, password})
-            .then(resp => {
-                console.log(resp);
-                navigate('/home');
-                setIsLoggedIn(true); // Update the login state
-            })
-            .catch(error => console.log(error));
+        if (!username) {
+            setEmailError("Email is required");
+        }
+        else {
+            setEmailError("");
+        }
+
+        if (!password) {
+            setPasswordError("Password is required");
+        }
+        else {
+            setPasswordError("");
+        }
+
+        if (!confirmPassword) {
+            setConfirmNewPasswordError("Confirm password is required");
+        }
+        else {
+            setConfirmNewPasswordError("");
+        }
+
+        return isValidSignUp;
+    }
+
+    const RegisterUser = () => {
+
+        if (validateSignUp()) {
+
+
+            if (password !== confirmPassword) {
+                setPasswordError("Passwords do not match.");
+                return; // Stop the function if passwords do not match
+            }
+
+            // Reset the password error if passwords match
+            setPasswordError("");
+
+            APIService.RegisterUser({username, password})
+                .then(resp => {
+                    console.log(resp);
+                    navigate('/home');
+                    setIsLoggedIn(true); // Update the login state
+                })
+                .catch(error => console.log(error));
+        }
     }
 
     return (
@@ -121,7 +171,7 @@ const SignupPage = (props) => {
                         placeholder="Confirm Password"
                         onChange={ev => setConfirmPassword(ev.target.value)}
                         className={"inputBox"} />
-                    <label className="text-red-600 ml-1">{passwordError}</label>
+                    <label className="text-red-600 ml-1">{confirmPasswordError}</label>
                 </div>
 
                 <br />
