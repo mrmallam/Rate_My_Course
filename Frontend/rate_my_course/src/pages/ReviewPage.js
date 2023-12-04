@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/Reviews.css';
 import UniLogo from '../resources/logo-ucalgary.jpg'
 import Header from '../components/Header';
@@ -32,16 +32,6 @@ function Reviews() {
     const [workload, setWorkload] = useState(0);
     const [usefulness, setUsefulness] = useState(0);
     const [comments, setComments] = useState('');
-
-    const initialState = {
-        university: university,
-        courseCode, courseCode,
-        professor: professor,
-        difficulty: difficulty,
-        workload: workload,
-        usefulness: usefulness,
-        comments: comments,
-      };
 
       const [errorMessages, setErrorMessages] = useState({
         university: '',
