@@ -22,26 +22,33 @@ function RatingSet ({label, rating, setRating}) {
 }
 
 function OverarallReviews({data, index}) {
-
+    const [thumbsUpClicked, setThumbsUpClicked] = useState(false);
     const [professor, setProfessor] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [workload, setWorkload] = useState("");
     const [usefulness, setUsefulness] = useState("");
-    const [description, setDescription] = useState("");
+    const [review, setReview] = useState("");
     const [university, setUniversity] = useState("");
     const [course, setCourse] = useState("");
+
+    console.log("HERE: ", data);
 
     useEffect(() => {
         if(data) {
             setUniversity(data.university);
             setCourse(data.course);
-            setDescription(data.description);
+            setReview(data.review);
             setDifficulty(data.difficulty);
             setWorkload(data.workload);
             setUsefulness(data.usefulness);
             setProfessor(data.professor);
         }
     }, [data]);
+
+    const handleThumbsUpClick = () => {
+        setThumbsUpClicked(!thumbsUpClicked);
+        //for back end logic
+    };
 
     return (
         <div>
@@ -62,14 +69,7 @@ function OverarallReviews({data, index}) {
                       <input
                           readOnly={true}
                           type="text"
-                          value={courseCode}
-                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
-                          placeholder="Course Code"
-                      />
-                      <input
-                          readOnly={true}
-                          type="text"
-                          value={courseNum}
+                          value={course}
                           className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
                           placeholder="Course Number"
                       />
@@ -93,7 +93,7 @@ function OverarallReviews({data, index}) {
                 <div
                     className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'
                 >
-                    {description}
+                    {review}
                 </div>
 
                 <div className='ml-8 mt-2 mb-2 font-bold flex'>
