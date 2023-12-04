@@ -7,11 +7,23 @@ import { UserContext } from "../UserContext";
 import '../styles/LoginPage.css';
 
 const SignupPage = (props) => {
+
+    // fields
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [username, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    
+
+
+    // error messages
     const [confirmPassword, setConfirmPassword] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+    const [firstNameError, setFirstNameError] = useState("");
+    const [lastNameError, setLastNameError] = useState("");
+
+
     const { setIsLoggedIn } = useContext(UserContext);
 
     const navigate = useNavigate();
@@ -39,6 +51,34 @@ const SignupPage = (props) => {
             <div className="innerContainer">
                 <img src={rateMyCourse_white_logo} className='max-h-72' alt='logo' />
                 <div className={"titleContainer"}>Signup</div>
+
+                {/* First name input */}
+                <div className={"inputContainer"}>
+                    <div className="inputContainerTitle">
+                        First Name:
+                    </div>
+                    <input
+                        value={firstName}
+                        placeholder="First name"
+                        onChange={ev => setFirstName(ev.target.value)}
+                        className={"inputBox"} />
+                    <label className="text-red-600 ml-1">{firstNameError}</label>
+                </div>
+                <br />
+
+                {/* Last name input */}
+                <div className={"inputContainer"}>
+                    <div className="inputContainerTitle">
+                        Last Name:
+                    </div>
+                    <input
+                        value={lastName}
+                        placeholder="Last name"
+                        onChange={ev => setLastName(ev.target.value)}
+                        className={"inputBox"} />
+                    <label className="text-red-600 ml-1">{lastNameError}</label>
+                </div>
+                <br />
 
                 {/* Email input */}
                 <div className={"inputContainer"}>
