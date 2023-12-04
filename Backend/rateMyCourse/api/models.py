@@ -18,7 +18,7 @@ class Course(models.Model):
 
     
 class Review(models.Model):
-    course = models.OneToOneField(Course, on_delete=models.CASCADE, primary_key=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     university = models.ForeignKey(University, on_delete=models.CASCADE)
     workload = models.IntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(5)])
     difficulty = models.IntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(5)])
