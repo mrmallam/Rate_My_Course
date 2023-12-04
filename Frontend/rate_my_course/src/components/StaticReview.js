@@ -1,5 +1,6 @@
 import '../styles/Reviews.css';
 import React, { useState } from 'react';
+import Date from './Date';
 
 function RatingSet ({label, rating, setRating}) {
   const levels = [1,2,3,4,5];
@@ -29,38 +30,38 @@ function StaticReview() {
     const [courseCode, setCourseCode] = useState('Test CourseCode');
 
     return (
-      <div className='flex flex-col md:flex-row w-full py-8'>
-      <div className='form-container-3'>
-          <div className='ml-4'>
-              <input
-              readOnly={true}
-              type="text"
-              value={university}
-              className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default" 
-              placeholder="University"
-              />
-              <input
-                  readOnly={true}
-                  type="text"
-                  value={courseCode}
-                  className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
-                  placeholder="Course Code"
-              />
-              <input
-                  readOnly={true}
-                  type="text"
-                  value={courseNum}
-                  className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
-                  placeholder="Course Number"
-              />
-              <input
-                  readOnly={true}
-                  type="text"
-                  value={professor}
-                  className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 focus:outline-none cursor-default"
-                  placeholder="Professor's Name"
-              />
-          </div>
+      <div className='py-8 w-full'>
+        <div className='form-container-3 mr-[3%] md:mr-[6%]'>
+            <div className='ml-4 mr-4'>
+                <input
+                    readOnly={true}
+                    type="text"
+                    value={university}
+                    className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default" 
+                    placeholder="University"
+                />
+                <input
+                    readOnly={true}
+                    type="text"
+                    value={courseCode}
+                    className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
+                    placeholder="Course Code"
+                />
+                <input
+                    readOnly={true}
+                    type="text"
+                    value={courseNum}
+                    className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
+                    placeholder="Course Number"
+                />
+                <input
+                    readOnly={true}
+                    type="text"
+                    value={professor}
+                    className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
+                    placeholder="Professor's Name"
+                />
+            </div>
           <div className='my-4 pl-4'>
               <RatingSet label='Difficulty' rating={difficulty} />
           </div>
@@ -75,8 +76,9 @@ function StaticReview() {
           >
               {comments}
           </div>
-    </div>
-    </div>
+        </div>
+        <Date></Date>
+      </div>
     );
   }
   

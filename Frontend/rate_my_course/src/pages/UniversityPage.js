@@ -70,7 +70,7 @@ function Reviews() {
                 <div className='search-header'>
 
                     {/* delete flex items-center to put logo back on top */}
-                    <div className='flex items-center'>
+                    <div className='flex flex-col items-center'>
                         <img src={UniLogo} alt="University-Search-Logo" className='Logo'/>
                         <h1 className="text-4xl mb-5">University of Calgary</h1>
                     </div>

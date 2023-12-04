@@ -8,12 +8,14 @@ import StaticReview from "../components/StaticReview";
 import EditableReview from "../components/EditableReview";
 import RatedReview from "../components/RatedReview";
 import { Link } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import Header from '../components/Header';
 
 const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [showPopup, setShowPopup] = useState(false);
     const [coursesToRemove, setCoursesToRemove] = useState([]);
+    const navigate = useNavigate();
 
     let name = "Jane Doe";
     let yearOfStudy = "3rd Year";
@@ -66,116 +68,144 @@ const MyProfile = () => {
             }
     ];
 
-    const reviewData = [
-        <EditableReview key={1} />,
-        <EditableReview key={2} />
-    ];
+    const [reviewData, setReviewData] = useState([
+        { id: 1, content: <EditableReview key={1} /> },
+        { id: 2, content: <EditableReview key={2} /> }
+        // Assuming you add an 'id' field for identification
+    ]);
+
+    const handleDeleteReview = (id) => {
+        setReviewData(currentReviews => currentReviews.filter(review => review.id !== id));
+    };
 
     const likedReviews = [
         <RatedReview key={1} />,
         <RatedReview key={2} />
     ];
+
+    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked2, setIsChecked2] = useState(false);
+    const [courseCode, setCourseCode] = useState('Professor');
+  
+  
+    const handleOnChange = () => {
+      setIsChecked(!isChecked);
+    };
+  
+    const handleOnChange2 = () => {
+      setIsChecked2(!isChecked2);
+    };
+
     return (
-        <div className="flex flex-col w-full">
-            <Header />
-            <div className={`${showPopup ? 'overlay' : ''}`}></div>
-            <div className="top-row">
-                <img src = {arrowLeft} className="arrow-left" alt="arrow-left"/>
-            </div>
-            <div className="user-info">
-                <div className="userImage">
-                    <img src = {userImage} className="user-image" alt="user-image"/>
+        <div>
+            <Header/>
+            <div className="flex flex-col w-full">
+                <div className={`${showPopup ? 'overlay' : ''}`}></div>
+                <div className="top-row">
+                    <img src = {arrowLeft} 
+                    className="arrow-left" 
+                    alt="arrow-left"
+                    onClick={() => navigate(-1)}/>
                 </div>
-                <div className="flex flex-col">
-                    <div className="user-name">
-                        <p>{name}</p>
+                <div className="user-info justify-center">
+                    <div className="userImage">
+                        <img src = {userImage} className="user-image" alt="user-image"/>
                     </div>
-                    <div className="user-year">
-                        <p>{yearOfStudy}</p>
-                    </div>
-                    <div className="user-course">
-                        <p>{course} Student</p>
-                    </div>
-                    <div className="user-university">
-                        <p>{university}</p>
-                    </div>
-                </div>
-            </div>
-            <div className='nav-bar text-lg sm:text-base'>
-                <div
-                    className={`nav-bar-item ${activeTab === 'myReviews' ? 'active' : ''}`}
-                    onClick={() => handleTabClick('myReviews')}
-                >
-                    <p>My Reviews</p>
-                </div>
-                <div
-                    className={`nav-bar-item ${activeTab === 'ratedReviews' ? 'active' : ''}`}
-                    onClick={() => handleTabClick('ratedReviews')}
-                >
-                    <p>Rated Reviews</p>
-                </div>
-                <div 
-                    className={`nav-bar-item ${activeTab === 'watchedCourses' ? 'active' : ''}`}
-                    onClick={() => handleTabClick('watchedCourses')}
-                >
-                    <p>Watched Courses</p>
-                </div>
-            </div>
-            <div className="content">
-                {activeTab === 'myReviews' && (
-                    <div className="review-content">
-                        <Link to="/Review">
-                            <button
-                                className={`new-review-button ${showPopup ? 'disabled' : ''}`}
-                                onClick={handleNewReviewClick}
-                                disabled={showPopup}
-                            >
-                                New Review
-                            </button>
-                        </Link>
-                        <div>
-                            {reviewData.map((editableReview, index) => (
-                                <div key={index} className="review">
-                                    {editableReview}
-                                </div>
-                            ))}
+                    <div className="flex flex-col ml-2">
+                        <div className="user-name">
+                            <p>{name}</p>
+                        </div>
+                        <div className="user-year">
+                            <p>{yearOfStudy}</p>
+                        </div>
+                        <div className="user-course">
+                            <p>{course} Student</p>
+                        </div>
+                        <div className="user-university">
+                            <p>{university}</p>
                         </div>
                     </div>
-                )}
-                {activeTab === 'ratedReviews' && (
-                    <div className="rated-reviews">
-                        <div>
-                            {likedReviews.map((ratedReview, index) => (
-                                <div key={index} className="review">
-                                    {ratedReview}
-                                </div>
-                            ))}
-                        </div>
+                </div>
+                <div className='nav-bar text-lg sm:text-base'>
+                    <div
+                        className={`nav-bar-item ${activeTab === 'myReviews' ? 'active2' : ''}`}
+                        onClick={() => handleTabClick('myReviews')}
+                    >
+                        <p>My Reviews</p>
                     </div>
-                )}
-                {activeTab === 'watchedCourses' && (
-                    <div className="watched-courses">
-                        <div className="header">Your watched courses</div>
-                        {coursesData.map((course) => (
-                            <div key={course.name} className="course">
-                                <div className="course-information">
-                                    <img
-                                        src={coursesToRemove.includes(course.name) ? bookMarkBlank : bookMark}
-                                        className="bookmark"
-                                        alt="bookmark"
-                                        onClick={() => handleBookmarkClick(course.name)}
-                                    />
-                                    {course.name}
-                                </div>
-                                {course.reviews.map((review, index) => (
-                                    <StaticReview key={index} {...review} />
+                    <div
+                        className={`nav-bar-item ${activeTab === 'ratedReviews' ? 'active2' : ''}`}
+                        onClick={() => handleTabClick('ratedReviews')}
+                    >
+                        <p>Rated Reviews</p>
+                    </div>
+                    <div 
+                        className={`nav-bar-item ${activeTab === 'watchedCourses' ? 'active2' : ''}`}
+                        onClick={() => handleTabClick('watchedCourses')}
+                    >
+                        <p>Watched Courses</p>
+                    </div>
+                </div>
+
+                <div className="content2">
+                    {activeTab === 'myReviews' && (
+                        <div className="review-content">
+                            <Link to="/Review">
+                                <button
+                                    className={`new-review-button ${showPopup ? 'disabled' : ''}`}
+                                    onClick={handleNewReviewClick}
+                                    disabled={showPopup}
+                                >
+                                    New Review
+                                </button>
+                            </Link>
+                            <div>
+                                {reviewData.map((editableReview, index) => (
+                                    <div key={index} className="review">
+                                        <EditableReview
+                                            id={editableReview.id}
+                                            onDelete={handleDeleteReview}
+                                        />
+                                    </div>
                                 ))}
                             </div>
-                        ))}
-                    </div>
-                )}
+                        </div>
+                    )}
+                    {activeTab === 'ratedReviews' && (
+                        <div className="rated-reviews">
+                            <div>
+                                {likedReviews.map((ratedReview, index) => (
+                                    <div key={index} className="review">
+                                        {ratedReview}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    {activeTab === 'watchedCourses' && (
+                        <div className="watched-courses">
+                            <div className="header">Your watched courses</div>
+                            {coursesData.map((course) => (
+                                <div key={course.name} className="course">
+                                    <div className="course-information mt-4">
+                                        <img
+                                            src={coursesToRemove.includes(course.name) ? bookMarkBlank : bookMark}
+                                            className="bookmark"
+                                            alt="bookmark"
+                                            onClick={() => handleBookmarkClick(course.name)}
+                                        />
+                                        {course.name}
+                                    </div>
+                                    {course.reviews.map((review, index) => (
+                                        <StaticReview key={index} {...review} />
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+                {showPopup && <PopupContent />}
             </div>
-            {showPopup && <PopupContent />}
         </div>
     )
 }

@@ -11,7 +11,6 @@
 .user-info{
     display: flex;
     flex-direction: row;
-    padding-left: 30px;
     padding-top: 50px;
 
 }
@@ -23,7 +22,7 @@
 .nav-bar {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding-left: 30px;
     padding-right: 30px;
@@ -33,13 +32,21 @@
     color: black;
     font-weight: bold;
 }
+
 .content {
     padding-left: 30px;
+    padding-right: 30px;
 }
+
+.content2 {
+    padding-left: 30px;
+}
+
 .nav-bar-item {
     cursor: pointer;
 }
-.nav-bar-item.active {
+
+.nav-bar-item.active2 {
     border-bottom: 2px solid #BF3127; 
 }
 
@@ -53,6 +60,7 @@
     font-weight: bold;
     cursor: pointer;
 }
+
 .review {
     display:flex;
     flex-direction: row;
@@ -67,7 +75,6 @@
     border: 2px solid #BF3127;
     width: 100%;
 }
-
 
 .edit-image {
     width: 20px;
@@ -98,10 +105,12 @@
     flex-direction: row;
     margin-top: 20px;
 }
+
 .course {
     width: 100%;
     padding-right: 20px;
 }
+
 .course-information {
     display: flex;
     flex-direction: row;
