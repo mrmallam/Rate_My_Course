@@ -1,10 +1,8 @@
+import React from 'react';
 import '../styles/Reviews.css';
 import Review from '../components/Review';
 import UniLogo from '../resources/logo-ucalgary.jpg'
 import Header from '../components/Header';
-
-import React from 'react';
-
 
 function Reviews() {
     return (

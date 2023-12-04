@@ -24,7 +24,6 @@ function Reviews() {
     const { universityName } = useParams();
 
     useEffect(() => {
-        
         if (universityName) {
             const decodedUniversityName = decodeURIComponent(universityName);
             const url = `http://localhost:8000/api/Course/?university=${decodedUniversityName}`;
@@ -72,7 +71,7 @@ function Reviews() {
                     {/* delete flex items-center to put logo back on top */}
                     <div className='flex flex-col items-center'>
                         <img src={UniLogo} alt="University-Search-Logo" className='Logo'/>
-                        <h1 className="text-4xl mb-5">University of Calgary</h1>
+                        <h1 className="text-4xl mb-5">{universityName}</h1>
                     </div>
                     <div className='filters-container'>
 

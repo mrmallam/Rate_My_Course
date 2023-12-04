@@ -2,15 +2,14 @@ from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
-from .serializers import PersonsSerializer, UserSerializer, UniversitySerializer, CourseSerializer
+from .serializers import UserSerializer, UniversitySerializer, CourseSerializer, ReviewSerializer
 from rest_framework import viewsets
-from .models import Persons, University, Course
+from .models import University, Course, Review
 
-class PersonsViewSet(viewsets.ModelViewSet):
-    queryset = Persons.objects.all()
-    serializer_class = PersonsSerializer
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (TokenAuthentication, )
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class UniversityViewSet(viewsets.ModelViewSet):
     queryset = University.objects.all()
@@ -27,6 +26,12 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Course.objects.filter(university__name=university_name)
         return Course.objects.all()
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    serializer_class = ReviewSerializer
+    
+    def get_queryset(self):
+        course_name = self.request.query_params.get('course', None)
+        if course_name is not None:
+            return Review.objects.filter(course__name=course_name)
+        return Review.objects.all()

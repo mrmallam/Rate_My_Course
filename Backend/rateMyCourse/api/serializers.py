@@ -1,13 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.views import Token
-from .models import Persons, University, Course
+from .models import University, Course, Review
 
-
-class PersonsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Persons
-        fields = ['id', 'first_name', 'last_name']
 
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,7 +12,12 @@ class UniversitySerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'name', 'university', 'workload', 'difficulty', 'usefulness']
+        fields = ['name', 'university', 'workload', 'difficulty', 'usefulness', 'description']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['course', 'university', 'professor', 'workload', 'difficulty', 'usefulness', 'review']
 
 # USER Serializer
 class UserSerializer(serializers.ModelSerializer):

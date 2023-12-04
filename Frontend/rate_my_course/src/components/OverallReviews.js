@@ -1,5 +1,5 @@
 import '../styles/Reviews.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Date from './Date';
 
 function RatingSet ({label, rating, setRating}) {
@@ -19,49 +19,66 @@ function RatingSet ({label, rating, setRating}) {
   );
 }
 
-function OverarallReviews() {
-    const [professor, setProfessor] = useState('Joseph James');
-    const [difficulty, setDifficulty] = useState(5);
-    const [workload, setWorkload] = useState(2);
-    const [usefulness, setUsefulness] = useState(3);
-    const [comments, setComments] = useState('Great course!');
-    const [university, setUniversity] = useState('Test Uni');
-    const [courseNum, setCourseNum] = useState('Test CourseNum');
-    const [courseCode, setCourseCode] = useState('Test CourseCode');
+function OverarallReviews({data, index}) {
+
+    const [professor, setProfessor] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [workload, setWorkload] = useState("");
+    const [usefulness, setUsefulness] = useState("");
+    const [description, setDescription] = useState("");
+    const [university, setUniversity] = useState("");
+    const [course, setCourse] = useState("");
+
+    useEffect(() => {
+        if(data) {
+            setUniversity(data.university);
+            setCourse(data.course);
+            setDescription(data.description);
+            setDifficulty(data.difficulty);
+            setWorkload(data.workload);
+            setUsefulness(data.usefulness);
+            setProfessor(data.professor);
+        }
+    }, [data]);
 
     return (
-        <div className='md:flex-row w-full'>
-            <div className='form-container-3'>
-                <div className='ml-4'>
-                    <input
-                    readOnly={true}
-                    type="text"
-                    value={university}
-                    className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default" 
-                    placeholder="University"
-                    />
-                    <input
+        <div>
+            <div className='mt-6 bg-red-600 border-2 border-red-600 font-bold shadow-lg py-2 px-2 w-1/2 md:w-1/6'>
+                <span className="text-md text-white text-center">Review #{index + 1}</span>
+            </div>
+
+            <div className='md:flex-row w-full'>
+                <div className='form-container-3'>
+                    <div className='ml-4'>
+                        <input
                         readOnly={true}
                         type="text"
-                        value={courseCode}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
-                        placeholder="Course Code"
-                    />
-                    <input
-                        readOnly={true}
-                        type="text"
-                        value={courseNum}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
-                        placeholder="Course Number"
-                    />
-                    <input
-                        readOnly={true}
-                        type="text"
-                        value={professor}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 focus:outline-none cursor-default"
-                        placeholder="Professor's Name"
-                    />
-                </div>
+                        value={university}
+                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default" 
+                        placeholder="University"
+                        />
+                        {/* <input
+                            readOnly={true}
+                            type="text"
+                            value={courseCode}
+                            className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
+                            placeholder="Course Code"
+                        /> */}
+                        <input
+                            readOnly={true}
+                            type="text"
+                            value={course}
+                            className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 focus:outline-none cursor-default"
+                            placeholder="Course Number"
+                        />
+                        <input
+                            readOnly={true}
+                            type="text"
+                            value={professor}
+                            className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 focus:outline-none cursor-default"
+                            placeholder="Professor's Name"
+                        />
+                    </div>
                 <div className='my-4 pl-4'>
                     <RatingSet label='Difficulty' rating={difficulty} />
                 </div>
@@ -74,13 +91,17 @@ function OverarallReviews() {
                 <div
                     className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'
                 >
-                    {comments}
+                    {description}
                 </div>
             </div>
-  
+
             <Date></Date>
+            </div>
+            
         </div>
     );
   }
   
   export default OverarallReviews;
+
+
