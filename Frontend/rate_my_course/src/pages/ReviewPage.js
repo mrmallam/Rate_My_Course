@@ -1,11 +1,9 @@
+import React from 'react';
 import '../styles/Reviews.css';
 import Review from '../components/Review';
 import UniLogo from '../resources/logo-ucalgary.jpg'
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
-
-import React from 'react';
-
 
 function Reviews() {
     const navigate = useNavigate();
