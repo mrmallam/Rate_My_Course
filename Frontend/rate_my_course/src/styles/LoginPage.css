@@ -59,6 +59,17 @@
     height: 50px;
   }
 
+  .loginButton:hover {
+    background-color: #97332c ;
+  }
+
+
+  .loginButton:active {
+    transform: scale(0.9); 
+    cursor: progress;
+    background-color: #97332c;
+  }
+
 .forgotPassword {
     color: #1751A8;
     font-weight: bold;
