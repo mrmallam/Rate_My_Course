@@ -22,7 +22,7 @@ function RatingSet ({label, rating, setRating}) {
 }
 
 function OverarallReviews({data, index}) {
-
+    const [thumbsUpClicked, setThumbsUpClicked] = useState(false);
     const [professor, setProfessor] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [workload, setWorkload] = useState("");
@@ -43,6 +43,11 @@ function OverarallReviews({data, index}) {
         }
     }, [data]);
 
+    const handleThumbsUpClick = () => {
+        setThumbsUpClicked(!thumbsUpClicked);
+        //for back end logic
+    };
+
     return (
         <div>
             <div className='mt-6 bg-red-600 border-2 border-red-600 font-bold shadow-lg py-2 px-2 w-1/2 md:w-1/6'>
@@ -62,14 +67,7 @@ function OverarallReviews({data, index}) {
                       <input
                           readOnly={true}
                           type="text"
-                          value={courseCode}
-                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
-                          placeholder="Course Code"
-                      />
-                      <input
-                          readOnly={true}
-                          type="text"
-                          value={courseNum}
+                          value={course}
                           className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
                           placeholder="Course Number"
                       />
