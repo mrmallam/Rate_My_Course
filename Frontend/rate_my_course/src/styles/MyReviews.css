@@ -21,11 +21,11 @@
 
 .nav-bar {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding-left: 30px;
-    padding-right: 30px;
+    /* flex-direction: row;
+    justify-content: space-around; */
+    /* align-items: center; */
+    /* padding-left: 30px;
+    padding-right: 30px; */
     padding-top: 40px;
     padding-bottom: 20px;
     background-color: white;
