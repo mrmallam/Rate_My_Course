@@ -15,6 +15,7 @@ function Reviews() {
     const [courseCode, setCourseCode] = useState('Code');
     const [courseNumber, setCourseNumber] = useState('xxx');
     const [filter, setFilter] = useState('Filter');
+    const [filteredResults, setFilteredResults] = useState([]);
 
     // search functionality
     const [isChecked, setIsChecked] = useState(false);
@@ -56,10 +57,33 @@ function Reviews() {
         const sortedResults = isChecked
           ? [...results].sort((a, b) => a.name.localeCompare(b.name))
           : results;
-        setSearchResults(sortedResults);
+        setFilteredResults(sortedResults);
     }, [isChecked]);
 
     
+    useEffect(() => {
+        let filtered = searchResults;
+
+        console.log("Code: ", courseCode);
+        console.log("Num: ", courseNumber);
+        if(courseCode !== 'Code' && courseCode !== '----')
+        {
+            filtered = filtered.filter(item => item.name.toLowerCase().includes(courseCode.toLowerCase()));
+        }
+        if(courseNumber !== 'xxx' && courseNumber !== 'All')
+        {
+            filtered = filtered.filter(item =>{
+                const match = item.name.match(/\b\d+/);
+                if (match && match[0]) {
+                    const firstDigit = match[0][0]; 
+                    return firstDigit === courseNumber[0]; 
+                }
+                return false;
+            });
+        }
+        setFilteredResults(filtered);
+    }, [courseCode, courseNumber, searchResults]);
+
     return (
         <div>
             <Header />
@@ -73,14 +97,14 @@ function Reviews() {
                         <img src={UniLogo} alt="University-Search-Logo" className='Logo'/>
                         <h1 className="text-4xl mb-5">{universityName}</h1>
                     </div>
-                    <div className='filters-container'>
+                    <div className=''>
 
                         <SearchComponent className='mb-4' data={searchResults} onSearchResults={handleSearchResults} placeholder={"Search Course"}/>
                         
                         <select 
                             value={courseCode} 
                             onChange={e => setCourseCode(e.target.value)}
-                            className='border-4 border-red-800 rounded-full p-3 mt-10 -ml-115'
+                            className='border-2 border-red-600 rounded-full p-1 lg:p-3 mt-10 lg:text-lg text-sm ml-3'
                         >
                             <option value='----'>----</option>
                             <option value='SENG'>SENG</option>
@@ -90,7 +114,7 @@ function Reviews() {
                         <select 
                             value={courseNumber} 
                             onChange={e => setCourseNumber(e.target.value)}
-                            className='border-4 border-red-800 rounded-full p-3 ml-5'
+                            className='border-2 border-red-600 rounded-full p-1 lg:p-3 ml-2 lg:text-lg text-sm'
                         >
                             <option value='All'>All</option>
                             <option value='5'>5xx</option>
@@ -102,7 +126,7 @@ function Reviews() {
                         <select 
                             value={filter} 
                             onChange={e => setFilter(e.target.value)}
-                            className='border-4 border-red-800 rounded-full p-3 ml-5 -ml-15 mt-3'
+                            className='border-2 border-red-600 rounded-full p-1 lg:p-3 mt-3 ml-2 lg:text-lg text-sm lg:w-7/10 w-1/2'
                         >
                             <option value='-----'>-----</option>
                             <option value='Workload - Low to High'>Workload - Low to High</option>
@@ -114,7 +138,7 @@ function Reviews() {
                 </div>
 
                 {/* Display search results */}
-                { searchResults.map(result => <CourseDiv data={result} key={result.id} />) }
+                { filteredResults.map(result => <CourseDiv data={result} key={result.id} />) }
 
             </div>
         </div>  

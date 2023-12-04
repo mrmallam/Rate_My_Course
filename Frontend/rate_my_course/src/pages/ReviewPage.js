@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Reviews() {
     const navigate = useNavigate();
+
     return (
         <div>
             <Header />
