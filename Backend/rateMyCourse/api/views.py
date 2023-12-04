@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth.models import User
 from .serializers import PersonsSerializer, UserSerializer, UniversitySerializer, CourseSerializer
 from rest_framework import viewsets
 from .models import Persons, University, Course
+from django.http import Http404
+from rest_framework.response import Response
 
 class PersonsViewSet(viewsets.ModelViewSet):
     queryset = Persons.objects.all()
@@ -27,16 +30,26 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Course.objects.filter(university__name=university_name)
         return Course.objects.all()
 
+# Customized to handle user data but restricts access to only the authenticated user's information.
+# It overrides the default queryset with get_queryset method.
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()  # A default queryset, won't be used for data retrieval
+    queryset = User.objects.none()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication, )
 
-    # permission_classes = [IsAuthenticated]
-    # authentication_classes = (TokenAuthentication, )
+    def get_queryset(self):
+        # return a list containing only the current user.
+        user = self.request.user
+        if user.is_authenticated:
+            return User.objects.filter(id=user.id)
+        else:
+            raise Http404
 
-    # serializer_class = UserSerializer
-    # permission_classes = [IsAuthenticated]
-
-    # def get_queryset(self):
-    #     # Return only the current user
-    #     return User.objects.filter(id=self.request.user.id)
+# Current User Profile View
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user_profile(request):
+    # Retrieve the profile of the currently authenticated user.
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)

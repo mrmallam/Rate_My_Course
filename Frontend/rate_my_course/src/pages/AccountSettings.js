@@ -3,20 +3,25 @@ import '../styles/AccountSettings.css';
 import Header from '../components/Header';
 import AccountSettingsPassword from "./AccountSettingsPassword";
 import AccountSettingsMain from "./AccountSettingsAccount";
-
+import { useCookies } from 'react-cookie';
 
 const AccountSettings = () => {
 
     const [activePage, setActivePage] = useState('account');
-    const [userData, setUserData] = useState(null); // State to store user data
+    const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
+    
+    const [cookies, setCookie] = useCookies(['mytoken']);
+    const myToken = cookies['mytoken'];
 
     // Fetch user data on component mount
     useEffect(() => {
-        fetch('http://localhost:8000/api/users/3/', {
+
+        fetch('http://localhost:8000/api/user/profile/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Token ${myToken}`
             }
         })
         .then(response => {
@@ -36,9 +41,6 @@ const AccountSettings = () => {
         });
     }, []);
     
-    console.log(userData);
-
-
     const handleButtonClick = (page) => {
         setActivePage(page === activePage ? page : page);
     };

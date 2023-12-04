@@ -31,8 +31,3 @@ class UserSerializer(serializers.ModelSerializer):
             'required': True,
         }}
         
-    # For hashing passwords for new users
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        Token.objects.create(user=user) # To create tkens for new users
-        return user
