@@ -64,8 +64,6 @@ function Reviews() {
     useEffect(() => {
         let filtered = searchResults;
 
-        console.log("Code: ", courseCode);
-        console.log("Num: ", courseNumber);
         if(courseCode !== 'Code' && courseCode !== '----')
         {
             filtered = filtered.filter(item => item.name.toLowerCase().includes(courseCode.toLowerCase()));
@@ -97,44 +95,52 @@ function Reviews() {
                         <img src={UniLogo} alt="University-Search-Logo" className='Logo'/>
                         <h1 className="text-4xl mb-5">{universityName}</h1>
                     </div>
-                    <div className=''>
-
-                        <SearchComponent className='mb-4' data={searchResults} onSearchResults={handleSearchResults} placeholder={"Search Course"}/>
-                        
-                        <select 
-                            value={courseCode} 
-                            onChange={e => setCourseCode(e.target.value)}
-                            className='border-2 border-red-600 rounded-full p-1 lg:p-3 mt-10 lg:text-lg text-sm ml-3'
-                        >
-                            <option value='----'>----</option>
-                            <option value='SENG'>SENG</option>
-                            <option value='CPSC'>CPSC</option>
-                        </select>
-
-                        <select 
-                            value={courseNumber} 
-                            onChange={e => setCourseNumber(e.target.value)}
-                            className='border-2 border-red-600 rounded-full p-1 lg:p-3 ml-2 lg:text-lg text-sm'
-                        >
-                            <option value='All'>All</option>
-                            <option value='5'>5xx</option>
-                            <option value='4'>4xx</option>
-                            <option value='3'>3xx</option>
-                            <option value='2'>2xx</option>
-                        </select>
-
-                        <select 
-                            value={filter} 
-                            onChange={e => setFilter(e.target.value)}
-                            className='border-2 border-red-600 rounded-full p-1 lg:p-3 mt-3 ml-2 lg:text-lg text-sm lg:w-7/10 w-1/2'
-                        >
-                            <option value='-----'>-----</option>
-                            <option value='Workload - Low to High'>Workload - Low to High</option>
-                            <option value='Difficulty - Low to High'>Difficulty - Low to High</option>
-                            <option value='Usefulness - Low to High'>Usefulness - Low to High</option>
-                        </select>
+                    <div className='search-filters'>
+                        <div className='search-comp'>
+                            <SearchComponent className='' data={searchResults} onSearchResults={handleSearchResults} placeholder={"Search Course"}/>
+                        </div>
+                        <div className='drop-downs'>
+                            <div className='select-wrapper'>
+                                <select 
+                                    value={courseCode} 
+                                    onChange={e => setCourseCode(e.target.value)}
+                                    className='border-2 border-red-600 rounded-full p-1 lg:p-3 lg:text-lg text-sm'
+                                >
+                                    <option value='----'>----</option>
+                                    <option value='SENG'>SENG</option>
+                                    <option value='CPSC'>CPSC</option>
+                                </select>
+                                <label className='ml-2 lg:text-lg text-sm'>Code</label>
+                            </div>
+                            <div className='select-wrapper ml-3'>
+                                <select 
+                                    value={courseNumber} 
+                                    onChange={e => setCourseNumber(e.target.value)}
+                                    className='border-2 border-red-600 rounded-full p-1 lg:p-3 lg:text-lg text-sm'
+                                >
+                                    <option value='All'>All</option>
+                                    <option value='5'>5xx</option>
+                                    <option value='4'>4xx</option>
+                                    <option value='3'>3xx</option>
+                                    <option value='2'>2xx</option>
+                                </select>
+                                <label className='ml-2 lg:text-lg text-sm'>Number</label>
+                            </div>
+                            <div className='select-wrapper ml-3'>
+                                <select 
+                                    value={filter} 
+                                    onChange={e => setFilter(e.target.value)}
+                                    className='border-2 border-red-600 rounded-full p-1 lg:p-3 lg:text-lg text-sm lg:w-7/10 w-1/2'
+                                >
+                                    <option value='-----'>-----</option>
+                                    <option value='Workload - Low to High'>Workload - Low to High</option>
+                                    <option value='Difficulty - Low to High'>Difficulty - Low to High</option>
+                                    <option value='Usefulness - Low to High'>Usefulness - Low to High</option>
+                                </select>
+                                <label className='ml-2 lg:text-lg text-sm'>Filter</label>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
 
                 {/* Display search results */}
