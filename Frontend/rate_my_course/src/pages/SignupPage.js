@@ -11,19 +11,16 @@ const SignupPage = (props) => {
     // fields
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [username, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    
-
 
     // error messages
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [emailError, setEmailError] = useState("");
+    const [usernameError, setUsernameError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [firstNameError, setFirstNameError] = useState("");
     const [lastNameError, setLastNameError] = useState("");
     const [confirmPasswordError, setConfirmNewPasswordError] = useState("");
-
 
     const { setIsLoggedIn } = useContext(UserContext);
 
@@ -50,10 +47,10 @@ const SignupPage = (props) => {
         }
 
         if (!username) {
-            setEmailError("Email is required");
+            setUsernameError("Username is required");
         }
         else {
-            setEmailError("");
+            setUsernameError("");
         }
 
         if (!password) {
@@ -130,17 +127,17 @@ const SignupPage = (props) => {
                 </div>
                 <br />
 
-                {/* Email input */}
+                {/* Username input */}
                 <div className={"inputContainer"}>
                     <div className="inputContainerTitle">
-                        Email:
+                        Username:
                     </div>
                     <input
                         value={username}
-                        placeholder="Email address"
-                        onChange={ev => setEmail(ev.target.value)}
+                        placeholder="Username"
+                        onChange={ev => setUsername(ev.target.value)}
                         className={"inputBox"} />
-                    <label className="text-red-600 ml-1">{emailError}</label>
+                    <label className="text-red-600 ml-1">{usernameError}</label>
                 </div>
                 <br />
 
