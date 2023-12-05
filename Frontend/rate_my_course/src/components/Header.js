@@ -10,6 +10,7 @@ import APIService from "../APIService";
 
 export default function Header() {
   const {isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { username } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userData, setUserData] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(['mytoken']);
@@ -18,14 +19,11 @@ export default function Header() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   const myToken = cookies['mytoken'];
 
   // Fetch user data on component mount
   useEffect(() => {
-
       const handleSuccess = (data) => {
-          // console.log('Fetched user data:', data);
           setUserData(data);
       };
 
@@ -33,7 +31,7 @@ export default function Header() {
           console.error('Error:', error);
       };
 
-      // APIService.GetUserData(myToken, handleSuccess, handleError);
+      APIService.GetUserData(myToken, username, handleSuccess, handleError);
   }, []);
 
 
@@ -41,7 +39,6 @@ export default function Header() {
     // Remove the token cookie
     removeCookie('mytoken', { path: '/' });
 
-    // Redirect to the login page or another appropriate page
     navigate('/home');
 
     setIsLoggedIn(false);
@@ -84,7 +81,7 @@ export default function Header() {
           </h2>
         </button>
           {isMenuOpen && (
-            <div className="absolute right-0 m-2 mt-11 md:mt-24 md:border-2 md:mr-16 w-48 py-2 bg-white shadow-lg rounded-lg border border-red-600">
+            <div className="absolute right-0 m-2 mt-11 md:mt-24 md:border-2 md:mr-16 w-48 py-2 bg-white shadow-lg rounded-lg border border-red-600 z-50">
               <a href="/MyProfile" className="block px-4 py-2 text-sm md:text-lg hover:bg-gray-100 cursor-pointer">Profile</a>
               <a href="/accountSettings" className="block px-4 py-2 text-sm md:text-lg hover:bg-gray-100 cursor-pointer">My Settings</a>
               <a href="/home" onClick={handleLogout} className="block px-4 py-2 text-sm md:text-lg hover:bg-gray-100 cursor-pointer">Logout</a>

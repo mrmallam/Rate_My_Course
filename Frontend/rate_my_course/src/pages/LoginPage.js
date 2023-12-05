@@ -14,7 +14,7 @@ const LoginPage = (props) => {
     const [passwordError, setPasswordError] = useState("")
     const [token, setToken] = useCookies(['mytoken'])
     
-    const { setIsLoggedIn, setUser } = useContext(UserContext);
+    const { setIsLoggedIn, setUsername } = useContext(UserContext);
 
     const navigate = useNavigate();
     
@@ -48,7 +48,8 @@ const LoginPage = (props) => {
                 if (resp.token) {
                     setToken("mytoken", resp.token);
                     setIsLoggedIn(true); // Update the login state
-                    setUser(username);
+                    setUsername(username);
+                    localStorage.setItem('username', username);
                     navigate('/home');
                 } else {
                     setEmailError("Incorrect credentials, please try again");

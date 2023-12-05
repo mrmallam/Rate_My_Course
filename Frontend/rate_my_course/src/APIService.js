@@ -31,8 +31,8 @@ export default class APIService {
         }).then(resp => resp.json())
     }
 
-    static GetUserData(token, onSuccess, onError){
-        return fetch('http://localhost:8000/api/users/', {
+    static GetUserData(token, username, onSuccess, onError){
+        return fetch(`http://localhost:8000/api/users/${username}/`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

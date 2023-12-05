@@ -5,8 +5,13 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null); 
   const [cookies] = useCookies(['mytoken']);
+
+  const [username, setUsername] = useState(() => {
+    // Get username from localStorage if it exists
+    const storedUsername = localStorage.getItem('username');
+    return storedUsername || null;
+  });
 
   useEffect(() => {
     // Check if the 'mytoken' cookie exists
@@ -18,7 +23,7 @@ export const UserProvider = ({ children }) => {
   }, [cookies]);
 
   return (
-    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, username, setUsername }}>
       {children}
     </UserContext.Provider>
   );
