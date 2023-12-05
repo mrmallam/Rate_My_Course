@@ -32,7 +32,7 @@ export default class APIService {
     }
 
     static GetUserData(token, onSuccess, onError){
-        return fetch('http://localhost:8000/api/user/profile/', {
+        return fetch('http://localhost:8000/api/users/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

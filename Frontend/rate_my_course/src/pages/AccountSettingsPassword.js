@@ -49,7 +49,7 @@ const AccountSettingsPassword = () => {
             }
         };
 
-        await APIService.ChangePassword(myToken, oldPassword, newPassword, onSuccess, onError);
+        // await APIService.ChangePassword(myToken, oldPassword, newPassword, onSuccess, onError);
     };
     
 

@@ -19,7 +19,7 @@ const AccountSettings = () => {
     useEffect(() => {
 
         const handleSuccess = (data) => {
-            // console.log('Fetched user data:', data);
+            console.log('Fetched user data:', data);
             setUserData(data);
             setLoading(false);
         };

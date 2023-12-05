@@ -33,7 +33,7 @@ export default function Header() {
           console.error('Error:', error);
       };
 
-      APIService.GetUserData(myToken, handleSuccess, handleError);
+      // APIService.GetUserData(myToken, handleSuccess, handleError);
   }, []);
 
 

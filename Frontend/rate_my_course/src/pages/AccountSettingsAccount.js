@@ -113,7 +113,7 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
             setIsValidName(false);
         };
 
-        await APIService.UpdateUserProfile(myToken, field, userData[field], handleSuccess, handleError);
+        // await APIService.UpdateUserProfile(myToken, field, userData[field], handleSuccess, handleError);
     };
 
     const handleCancelClick = (field) => {

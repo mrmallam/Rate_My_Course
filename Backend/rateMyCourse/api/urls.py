@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, UniversityViewSet, CourseViewSet, ReviewViewSet
+from .views import UserViewSet, UniversityViewSet, CourseViewSet, ReviewViewSet, UserDetailView
 
 
 router = DefaultRouter()
@@ -11,4 +11,6 @@ router.register('Review', ReviewViewSet, basename='Review')
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('api/users/<str:username>/', UserDetailView.as_view(), name='user-detail'), 
+
 ]

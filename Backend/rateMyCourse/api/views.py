@@ -1,17 +1,30 @@
 from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
+from rest_framework.response import Response
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, UniversitySerializer, CourseSerializer, ReviewSerializer
 from rest_framework import viewsets
 from .models import University, Course, Review
-
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication, )
+
+class UserDetailView(APIView):
+
+    def get(self, request, username, format=None):
+        if request.user.username == username:
+            user = get_object_or_404(User, username=username)
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "You do not have permission to view this user's details."}, status=403)
+
 
 class UniversityViewSet(viewsets.ModelViewSet):
     queryset = University.objects.all()
