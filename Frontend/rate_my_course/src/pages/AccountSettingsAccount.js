@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import '../styles/AccountSettingsAccount.css';
 import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
 import { useCookies } from 'react-cookie';
 import APIService from "../APIService";
+import { UserContext } from "../UserContext";
 
 // Custom component for each editable field
 const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType }) => (
@@ -31,6 +32,7 @@ const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, 
 const AccountSettingsAccount = ({ userData, setUserData }) => {
     const [tempData, setTempData] = useState({});
     const [isEditPressed, setEditPressed] = useState(false);
+    const { username } = useContext(UserContext);
 
     // for when editing fields
     const [confirmUsernameChanged, setConfirmUsernameChanged] = useState("");
@@ -113,7 +115,7 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
             setIsValidName(false);
         };
 
-        // await APIService.UpdateUserProfile(myToken, field, userData[field], handleSuccess, handleError);
+        await APIService.UpdateUserProfile(myToken, username, field, userData[field], handleSuccess, handleError);
     };
 
     const handleCancelClick = (field) => {

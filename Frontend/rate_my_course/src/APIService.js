@@ -53,9 +53,9 @@ export default class APIService {
         });
     }
 
-    static async UpdateUserProfile(token, field, value, onSuccess, onError){
+    static async UpdateUserProfile(token, username, field, value, onSuccess, onError){
         try {
-            const response = await fetch('http://localhost:8000/api/user/update/', { 
+            const response = await fetch(`http://localhost:8000/api/users/${username}/`, { 
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

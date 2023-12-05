@@ -37,13 +37,6 @@
 
 }
 
-
-
-
-#textFieldContainer--accountSettingsAccount{
-    gap: 45px;
-}
-
 .inputContainer--account{
     display: flex;
     flex-direction: row;
@@ -195,7 +188,7 @@
     #textFieldContainer--accountSettingsAccount {
         padding: 0px;
         margin: 0px;
-        gap: 35px;
+        gap: 45px;
     }
 
     .inputBox--accountSettingsAccount {
