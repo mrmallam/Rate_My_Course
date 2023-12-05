@@ -30,7 +30,11 @@ function ReportedReview({id, onDelete}) {
     const [courseCode, setCourseCode] = useState('Test CourseCode');
 
     const handleRemoveClick = () => {
-        onDelete(id); // This will call the function passed from the parent component
+        const confirmed = window.confirm("Are you sure you want to remove this review?");
+        
+        if (confirmed) {
+            onDelete(id);
+        }
     };
 
     const handleApproveClick = () => {
@@ -95,7 +99,7 @@ function ReportedReview({id, onDelete}) {
                 </div>
                 <div className="remove-button ml-6" onClick={handleRemoveClick}>
                     <button className='rounded h-10 w-1/8 bg-red-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline hover:bg-red-900'>Remove
-                    </button>                                    
+                    </button>                           
                 </div>
             </div>
 

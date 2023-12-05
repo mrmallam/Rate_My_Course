@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import ReportedReview from '../components/ReportedReview';
 import OverarallReviews from '../components/OverallReviews';
 import Header from '../components/Header';
+import bookMark from '../resources/bookmark.svg';
+import bookMarkBlank from '../resources/bookmark-blank.svg';
 
 
 function OverallCourseReviews() {
@@ -14,6 +16,8 @@ function OverallCourseReviews() {
     const [course, setCourse] = useState('');
     const [reviews, setReviews] = useState([]);
     const { courseName } = useParams();
+    const [bookMarkClicked, setBookMarkClicked] = useState(false);
+
 
     useEffect(() => {
         if(courseName) {
@@ -57,35 +61,52 @@ function OverallCourseReviews() {
         setIsChecked2(!isChecked2);
     };
 
+    const handleBookmarkClick = () => {
+        setBookMarkClicked(!bookMarkClicked);
+        //for back end logic
+    };
+
     return (
         <div>
             <Header/>
             <div className='flex flex-col items-left justify-center mt-5 mx-10 md:mx-10'>
 
                 <div className='flex justify-between text-sm mt-5 w-full md:w-1/2'>
-                    <div className='flex justify-between'>
+                    <div className ='w-1/3 ml-2'>
                         <label className="switch">
                             <input type="checkbox" checked={isChecked} onChange={handleOnChange}/>
                             <span className="slider round"></span>
                         </label>
-                        <p className=' mt-1 ml-2'>Sort Newest-Oldest</p>
+                        <p className='ml-1 mt-1'>Newest-Oldest Posts</p>
                     </div>
 
-                    <div className='flex justify-between'>
+                    <div className ='w-1/3 ml-2'>
                         <label className="switch">
                             <input type="checkbox" checked={isChecked2} onChange={handleOnChange2}/>
                             <span className="slider round"></span>
                         </label>
-                        <p className=' mt-1 ml-2'>Sort Oldest - Newest</p>
+                        <p className='ml-1 mt-1'>Highest-Lowest Rated</p>
                     </div>
 
-                    <select value={courseCode} 
-                        onChange={e => setCourseCode(e.target.value)}
-                        className='border-2 border-red-600 rounded-full p-1'>
-                        <option value='SENG'>Professors</option>
-                        <option value='CPSC'>Professor 1</option>
-                        <option value='CPSC'>Professor 2</option>
-                    </select>
+                    <div className ='w-1/3 ml-2'>
+                        <select value={courseCode} 
+                            onChange={e => setCourseCode(e.target.value)}
+                            className='border-2 border-red-600 rounded-full p-1'>
+                            <option value='CPSC'>-----------</option>
+                            <option value='CPSC'>Professor 1</option>
+                            <option value='CPSC'>Professor 2</option>
+                        </select>
+                        <p className='ml-1 mt-1'>Professors</p>
+                    </div>
+                </div>
+
+                <div className='flex flex-row mt-6'>
+                    <div onClick={handleBookmarkClick} className='mt-1'>
+                        <img src={bookMarkClicked ? bookMark : bookMarkBlank} className="md:h-12 md:w-12 h-8 w-8 cursor-pointer" alt="book-mark"/>
+                    </div>
+                    <div className='ml-4 mt-3 mb-2 font-bold align-middle'>
+                        <span className="md:text-lg text-md text-center">Add to Watched Courses?</span>
+                    </div>
                 </div>
 
                 <div className='h-auto md:h-auto mt-6 border-2 border-red-600 w-full md:w-2/3 shadow-lg py-2 mb-6 px-4 md:px-6'>
