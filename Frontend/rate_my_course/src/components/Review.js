@@ -22,14 +22,14 @@ function RatingSet ({label, rating, setRating}) {
 }
 
 
+
 export default function Review() {
     const [university, setUniversity] = useState('');
-    const [courseNum, setCourseNum] = useState('');
     const [courseCode, setCourseCode] = useState('');
     const [professor, setProfessor] = useState('');
-    const [difficulty, setDifficulty] = useState(5);
-    const [workload, setWorkload] = useState(5);
-    const [usefulness, setUsefulness] = useState(5);
+    const [difficulty, setDifficulty] = useState(0);
+    const [workload, setWorkload] = useState(0);
+    const [usefulness, setUsefulness] = useState(0);
     const [comments, setComments] = useState('');
 
   return (
@@ -49,13 +49,6 @@ export default function Review() {
                 onChange={(e) => setCourseCode(e.target.value)}
                 className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                 placeholder="Course Code"
-              />
-              <input
-                type="text"
-                value={courseNum}
-                onChange={(e) => setCourseNum(e.target.value)}
-                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
-                placeholder="Course Number"
               />
               <input
                 type="text"
