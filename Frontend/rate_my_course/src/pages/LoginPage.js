@@ -7,7 +7,6 @@ import {useCookies} from 'react-cookie';
 
 import '../styles/LoginPage.css';
 
-
 const LoginPage = (props) => {
     const [username, setEmail] = useState("")
     const [password, setPassword] = useState("")

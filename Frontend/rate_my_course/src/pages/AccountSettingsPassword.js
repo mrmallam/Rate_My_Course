@@ -1,55 +1,66 @@
 import React, { useState } from "react";
 import '../styles/AccountSettingsPassword.css';
-
+import { useCookies } from 'react-cookie';
 
 const AccountSettingsPassword = () => {
-
-    // this is the old password
-    const testOldPassword = "old11";
 
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setConfirmPassword] = useState("")
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
 
+    const [cookies, setCookie] = useCookies(['mytoken']);
+    const myToken = cookies['mytoken'];
 
     // error messages
     const [oldPasswordError, setOldPasswordError] = useState("");
     const [newPasswordError, setNewPasswordError] = useState("");
     const [confirmNewPasswordError, setConfirmNewPasswordError] = useState("");
-
-
   
-
-    const handlePasswordChange = (typedOldPassword) => {
-
-        // use backend to confirm the old password given by user is correct
-        // replace "old11" with password from backend
-
-        if (typedOldPassword === "old11") {
-
-            // if old password and both new passwords match --> success! 
-            if (newPassword === confirmNewPassword) {
-                console.log("passwords match!"); // test 
-                setOldPasswordError(""); // clear password error message
-                setConfirmNewPasswordError("");
-            }
-
-            // if old password matches but new passwords don't
-            else {
-                setConfirmNewPasswordError("New passwords do not match");
-                setOldPasswordError("");
-            }
+    // Validate form
+    const handlePasswordChange = async () => {
+        // Reset error messages
+        setOldPasswordError("");
+        setNewPasswordError("");
+        setConfirmNewPasswordError("");
+    
+        // Validate new passwords match
+        if (newPassword !== confirmNewPassword) {
+            setConfirmNewPasswordError("New passwords do not match");
+            return;
         }
-
-        // if old password doesn't match
-        else {
-            setOldPasswordError("Incorrect old password");
-            setConfirmNewPasswordError("");
+    
+        // Validate form
+        try {
+            const response = await fetch('http://localhost:8000/api/change-password/', { // Replace with your actual API endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${myToken}` // Replace with actual token
+                },
+                body: JSON.stringify({
+                    old_password: oldPassword,
+                    new_password: newPassword
+                }),
+            });
+    
+            if (!response.ok) {
+                const data = await response.json();
+                if (data.old_password) {
+                    // Handle old password error
+                    setOldPasswordError("Incorrect old password");
+                } else {
+                    // Handle other errors
+                    throw new Error('Failed to change password');
+                }
+            } else {
+                console.log("Password changed successfully");
+                // Optionally, clear the form or navigate the user away
+            }
+        } catch (error) {
+            console.error('Error while changing password:', error);
         }
-    }
-
-
-
+    };
+    
 
     return (
         <div className="mainContainer--changePassword">

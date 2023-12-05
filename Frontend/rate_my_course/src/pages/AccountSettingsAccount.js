@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import '../styles/AccountSettingsAccount.css';
 import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
 import { useCookies } from 'react-cookie';
+import APIService from "../APIService";
 
 // Custom component for each editable field
 const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType }) => (
@@ -30,8 +31,6 @@ const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, 
 const AccountSettingsAccount = ({ userData, setUserData }) => {
     const [tempData, setTempData] = useState({});
     const [isEditPressed, setEditPressed] = useState(false);
-
-    console.log(userData);
 
     const [cookies, setCookie] = useCookies(['mytoken']);
     const myToken = cookies['mytoken'];
@@ -69,28 +68,39 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
         setEditPressed(false);
 
         // Send changes to the backend
-        try {
-            const response = await fetch('http://localhost:8000/api/user/update/', { // Replace with your actual API endpoint
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${myToken}`
-                },
-                body: JSON.stringify({
-                    [field]: userData[field]
-                }),
-            });
+        // try {
+        //     const response = await fetch('http://localhost:8000/api/user/update/', { 
+        //         method: 'PATCH',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': `Token ${myToken}`
+        //         },
+        //         body: JSON.stringify({
+        //             [field]: userData[field]
+        //         }),
+        //     });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Error data:', errorData);
-                throw new Error('Failed to save data to the backend.');
-            }
+        //     if (!response.ok) {
+        //         const errorData = await response.json();
+        //         console.error('Error data:', errorData);
+        //         throw new Error('Failed to save data to the backend.');
+        //     }
 
+        //     console.log('Data saved successfully to the backend.');
+        // } catch (error) {
+        //     console.error('Error while saving data to the backend:', error);
+        // }
+        const handleSuccess = () => {
             console.log('Data saved successfully to the backend.');
-        } catch (error) {
+            // Handle successful update, e.g., update local state
+        };
+
+        const handleError = (error) => {
             console.error('Error while saving data to the backend:', error);
-        }
+            // Handle error, e.g., show error message to the user
+        };
+
+        await APIService.UpdateUserProfile(myToken, field, userData[field], handleSuccess, handleError);
     };
 
     const handleCancelClick = (field) => {

@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import AccountSettingsPassword from "./AccountSettingsPassword";
 import AccountSettingsMain from "./AccountSettingsAccount";
 import { useCookies } from 'react-cookie';
+import APIService from "../APIService";
 
 const AccountSettings = () => {
 
@@ -17,28 +18,42 @@ const AccountSettings = () => {
     // Fetch user data on component mount
     useEffect(() => {
 
-        fetch('http://localhost:8000/api/user/profile/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${myToken}`
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
+        const handleSuccess = (data) => {
             console.log('Fetched user data:', data);
             setUserData(data);
             setLoading(false);
-        })
-        .catch(error => {
+        };
+
+        const handleError = (error) => {
             console.error('Error:', error);
             setLoading(false);
-        });
+        };
+
+        APIService.GetUserData(myToken, handleSuccess, handleError);
+
+
+        // fetch('http://localhost:8000/api/user/profile/', {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Token ${myToken}`
+        //     }
+        // })
+        // .then(response => {
+        //     if (!response.ok) {
+        //         throw new Error('Network response was not ok');
+        //     }
+        //     return response.json();
+        // })
+        // .then(data => {
+        //     console.log('Fetched user data:', data);
+        //     setUserData(data);
+        //     setLoading(false);
+        // })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        //     setLoading(false);
+        // });
     }, []);
     
     const handleButtonClick = (page) => {
