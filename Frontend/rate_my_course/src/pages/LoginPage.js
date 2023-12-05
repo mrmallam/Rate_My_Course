@@ -7,7 +7,6 @@ import {useCookies} from 'react-cookie';
 
 import '../styles/LoginPage.css';
 
-
 const LoginPage = (props) => {
     const [username, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -71,11 +70,11 @@ const LoginPage = (props) => {
                 <br />
                 <div className={"inputContainer"}>
                     <div className="inputContainerTitle md:text-3xl">
-                        Email: 
+                        Username: 
                     </div>
                     <input
                         value={username}
-                        placeholder="Email address"
+                        placeholder="Username"
                         onChange={ev => setEmail(ev.target.value)}
                         className={"inputBox"} />
                     <label className="text-red-600 ml-1">{emailError}</label>

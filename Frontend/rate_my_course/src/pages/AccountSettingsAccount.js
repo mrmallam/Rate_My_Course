@@ -1,121 +1,45 @@
 import React, { useState } from "react";
-import { useRef, useEffect } from 'react';
-
 import '../styles/AccountSettingsAccount.css';
-import UserAccountSettingsProfilePicture from '../resources/user_profile.svg';
+import UserAccountSettingsProfilePicture from '../resources/user_profile.png';
+import { useCookies } from 'react-cookie';
+import APIService from "../APIService";
 
 // Custom component for each editable field
-const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType, options}) => {
-
-    const inputRef = useRef(null);
-
-    // Focus on the input field when entering edit mode
-    // Sets cursor in the input field when "Edit" is clicked
-    useEffect(() => {
-        if (editMode) {
-            inputRef.current.focus();
-        }
-    }, [editMode]);
-
-
-    return (
-        <div className="inputContainer--account">
-            {label && <label>{label}</label>}
-
-            {/* If its an dropdown field */}
-            {fieldType === 'dropdown' && editMode ? (
-
-
-                <select
-                    ref={inputRef}
-                    className={`inputBox--accountSettingsAccount ${editMode ? 'editMode' : ''}`}
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                >
-                    {options.map((option) => (
-                        <option key={option} value={option}>
-                            {option}
-                        </option>
-                    ))}
-                </select>
-
-
-                
-
+const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType }) => (
+    <div className="inputContainer--account">
+        {label && <label>{label}</label>}
+        <input
+            className="inputBox" id="inputBox--accountSettingsAccount"
+            type={fieldType}
+            value={value}
+            readOnly={!editMode}
+            onChange={(e) => onChange(e.target.value)}
+        />
+        <div className="editButtonsContainer">
+            {editMode ? (
+                <div className="editButtons">
+                    <button id="saveButton" onClick={onSaveClick}>Save</button>
+                    <button id="cancelButton" onClick={onCancelClick}>Cancel</button>
+                </div>
             ) : (
-
-                <input
-                    ref={inputRef}  // focuses cursor to the current input box
-                    className={`inputBox--accountSettingsAccount ${editMode ? 'editMode' : ''}`} // Apply editMode class conditionally
-                    type={fieldType}
-                    value={value}
-                    readOnly={!editMode}
-                    onChange={(e) => onChange(e.target.value)}
-                />
+                <button id="editButton" onClick={onEditClick}>Edit</button>
             )}
-            <div className="editButtonsContainer">
-                {editMode ? (
-                    <div className="editButtons">
-                        <button id="saveButton" onClick={onSaveClick}>Save</button>
-                        <button id="cancelButton" onClick={onCancelClick}>Cancel</button>
-                    </div>
-                ) : (
-                    <button id="editButton" onClick={onEditClick}>Edit</button>
-
-                )}
-            </div>
         </div>
-    );
-};
+    </div>
+);
 
-
-// ****This is for backend (finish this) ****
-const saveDataToBackend = async (data) => {
-    // Replace this with your actual backend API call or function
-    try {
-        // Assuming there's a function to send data to the backend
-        // For example, using fetch or axios
-        const response = await fetch('your-backend-api-endpoint', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        if (response.ok) {
-            console.log('Data saved successfully to the backend.');
-        } else {
-            console.error('Failed to save data to the backend.');
-        }
-    } catch (error) {
-        console.error('Error while saving data to the backend:', error);
-    }
-};
-
-const AccountSettingsAccount = () => {
-
-    // Initial user data (replace with user data from backend)
-    const initialData = {
-        firstName: "John",
-        lastName: "Doe",
-        university: "University of Calgary",
-        program: "Bachelor of Science",
-        yearOfStudy: 3,
-        email: "john_doe@ucalgary.ca",
-    };
-
-    const yearOfStudyOptions = ['1', '2', '3', '4', '5+'];
-
-    // List of Universities (replace with backend data)
-    const universityOptions = [initialData.university, 'University of Alberta', 'University of Toronto', 'University of Waterloo']; 
-
-    const programOptions = ['Bachelor of Science', 'Bachelor of Engineering', 'Bachelor of Arts'];
-
-
-    const [data, setData] = useState(initialData);
+const AccountSettingsAccount = ({ userData, setUserData }) => {
     const [tempData, setTempData] = useState({});
     const [isEditPressed, setEditPressed] = useState(false);
+
+    // for when editing fields
+    const [confirmUsernameChanged, setConfirmUsernameChanged] = useState("");
+    const [confirmFirstNameChanged, setConfirmFirstNameChanged] = useState("");
+    const [confirmLastNameChanged, setConfirmLastNameChanged] = useState("");
+    const [isValidName, setIsValidName] = useState(true);
+
+    const [cookies, setCookie] = useCookies(['mytoken']);
+    const myToken = cookies['mytoken'];
 
     // for when editing fields
     const [editMode, setEditMode] = useState({
@@ -126,12 +50,11 @@ const AccountSettingsAccount = () => {
         email: false,
     });
 
-
     const handleEditClick = (field) => {
         if (!isEditPressed) {
             setTempData((prevTempData) => ({
                 ...prevTempData,
-                [field]: data[field],
+                [field]: userData[field],
             }));
 
             setEditMode((prevEditMode) => ({
@@ -140,130 +63,137 @@ const AccountSettingsAccount = () => {
             }));
 
             setEditPressed(true);
+
+            // Reset the confirmUsernameChanged message
+            setConfirmUsernameChanged("");
+            setConfirmFirstNameChanged("");
+            setConfirmLastNameChanged("");
         }
     };
 
-    const handleSaveClick = (field) => {
+    const handleSaveClick = async (field) => {
         setEditMode((prevEditMode) => ({
             ...prevEditMode,
             [field]: false,
         }));
-
-        // user cannot edit other fields once a field is in edit mode
         setEditPressed(false);
 
-        // *********Send changes to the backend ********
-        // await saveDataToBackend(data);
+        const handleSuccess = () => {
+            switch (field) {
+                case "username":
+                    setConfirmUsernameChanged('Username changed successfully');
+                    break;
+                case "first_name":
+                    setConfirmFirstNameChanged('First name changed successfully');
+                    break;
+                case "last_name":
+                    setConfirmLastNameChanged('Last name changed successfully');
+                    break;
+                default:
+                    break;
+            }
+            console.log('Data saved successfully to the backend.');
+            // Handle successful update, e.g., update local state
+        };
+
+        const handleError = (error) => {
+            console.error('Error while saving data to the backend:', error);
+
+            if (error && error.includes("already exists.")){
+                setConfirmUsernameChanged(error);
+            }
+
+            // make save button visible again
+            setEditMode((prevEditMode) => ({
+                ...prevEditMode,
+                [field]: true,
+            }));
+
+            // record fail change for cancel button
+            setIsValidName(false);
+        };
+
+        await APIService.UpdateUserProfile(myToken, field, userData[field], handleSuccess, handleError);
     };
 
     const handleCancelClick = (field) => {
+
+        // if the user changed the username to an existing username, then we want to revert the username back to the original
+        if (!isValidName) {
+            setUserData((prevData) => ({
+                ...prevData,
+                [field]: tempData[field],
+            }));
+        }
+
         setEditMode((prevEditMode) => ({
             ...prevEditMode,
             [field]: false,
         }));
 
- 
-
-        setData((prevData) => ({
+        setUserData((prevData) => ({
             ...prevData,
             [field]: tempData[field],
         }));
-
 
         setEditPressed(false);
     };
 
     const handleInputChange = (field, value) => {
-        setData((prevData) => ({
+        setUserData((prevData) => ({
             ...prevData,
             [field]: value,
         }));
     };
 
+
+    if (!userData) {
+        // Render loading state ...
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="mainContainer--account">
-            <div className="accountSettingsTitle">Account Details</div>
+            <div className="titleContainer">Account Details</div>
 
             <img id="accountImage" src={UserAccountSettingsProfilePicture} alt="user-profile-logo" />
 
             <div className="entireDiv">
                 <div className="textFieldContainer" id="textFieldContainer--accountSettingsAccount">
                     <AccountInformation
-                        label="First Name"
-                        value={data.firstName}
+                        label="User Name"
+                        value={userData.username || ""}
                         fieldType='text'
-                        editMode={editMode.firstName}
-                        onEditClick={() => handleEditClick("firstName")}
-                        onSaveClick={() => handleSaveClick("firstName")}
-                        onCancelClick={() => handleCancelClick("firstName")}
-                        onChange={(value) => handleInputChange("firstName", value)}
+                        editMode={editMode.username}
+                        onEditClick={() => handleEditClick("username")}
+                        onSaveClick={() => handleSaveClick("username")}
+                        onCancelClick={() => handleCancelClick("username")}
+                        onChange={(value) => handleInputChange("username", value)}
                     />
+                    <label className={`text-red-600 ml-1 ${confirmUsernameChanged ? 'visible' : 'hidden'}`}>{confirmUsernameChanged}</label>
+                    <AccountInformation
+                        label="First Name"
+                        value={userData.first_name || ""}
+                        fieldType='text'
+                        editMode={editMode.first_name}
+                        onEditClick={() => handleEditClick("first_name")}
+                        onSaveClick={() => handleSaveClick("first_name")}
+                        onCancelClick={() => handleCancelClick("first_name")}
+                        onChange={(value) => handleInputChange("first_name", value)}
+                    />
+                    <label className={`text-red-600 ml-1 ${confirmFirstNameChanged ? 'visible' : 'hidden'}`}>{confirmFirstNameChanged}</label>
                     <AccountInformation
                         label="Last Name"
-                        value={data.lastName}
+                        value={userData.last_name || ""}
                         fieldType='text'
-                        editMode={editMode.lastName}
-                        onEditClick={() => handleEditClick("lastName")}
-                        onSaveClick={() => handleSaveClick("lastName")}
-                        onCancelClick={() => handleCancelClick("lastName")}
-                        onChange={(value) => handleInputChange("lastName", value)}
+                        editMode={editMode.last_name}
+                        onEditClick={() => handleEditClick("last_name")}
+                        onSaveClick={() => handleSaveClick("last_name")}
+                        onCancelClick={() => handleCancelClick("last_name")}
+                        onChange={(value) => handleInputChange("last_name", value)}
                     />
+                    <label className={`text-red-600 ml-1 ${confirmLastNameChanged ? 'visible' : 'hidden'}`}>{confirmLastNameChanged}</label>
 
-                    {/* Dont need university anymore */}
-
-                    {/* <AccountInformation
-                        label="University"
-                        value={data.university}
-                        fieldType="dropdown"
-                        options={universityOptions}
-                        editMode={editMode.university}
-
-                        onEditClick={() => handleEditClick("university")}
-                        onSaveClick={() => handleSaveClick("university")}
-                        onCancelClick={() => handleCancelClick("university")}
-                        onChange={(value) => handleInputChange("university", value)}
-                    /> */}
-
-
-                    {/* Dont need program anymore */}
-                    {/* <AccountInformation
-                        label="Program"
-                        value={data.program}
-                        fieldType="dropdown"
-                        options={programOptions}
-                        editMode={editMode.program}
-
-                        onEditClick={() => handleEditClick("program")}
-                        onSaveClick={() => handleSaveClick("program")}
-                        onCancelClick={() => handleCancelClick("program")}
-                        onChange={(value) => handleInputChange("program", value)}
-                    /> */}
-
-
-                    {/* Dont need year anymore */}
-                    {/* <AccountInformation
-                        label="Year"
-                        value={data.yearOfStudy}
-                        fieldType="dropdown"
-                        options={yearOfStudyOptions}
-                        editMode={editMode.yearOfStudy}
-
-                        onEditClick={() => handleEditClick("yearOfStudy")}
-                        onSaveClick={() => handleSaveClick("yearOfStudy")}
-                        onCancelClick={() => handleCancelClick("yearOfStudy")}
-                        onChange={(value) => handleInputChange("yearOfStudy", value)}
-                    /> */}
-
-                    <AccountInformation
-                        label="Email"
-                        value={data.email}
-                        fieldType='email'
-                        editMode={editMode.email}
-                        onEditClick={() => handleEditClick("email")}
-                        onSaveClick={() => handleSaveClick("email")}
-                        onCancelClick={() => handleCancelClick("email")}
-                        onChange={(value) => handleInputChange("email", value)}
-                    />
                 </div>
             </div>
         </div>
@@ -271,3 +201,6 @@ const AccountSettingsAccount = () => {
 };
 
 export default AccountSettingsAccount;
+
+
+
