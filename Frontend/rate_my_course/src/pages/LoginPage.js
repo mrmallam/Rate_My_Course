@@ -14,7 +14,8 @@ const LoginPage = (props) => {
     const [passwordError, setPasswordError] = useState("")
     const [token, setToken] = useCookies(['mytoken'])
     
-    const { setIsLoggedIn } = useContext(UserContext);
+    const { setIsLoggedIn, setUser } = useContext(UserContext);
+
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -47,6 +48,7 @@ const LoginPage = (props) => {
                 if (resp.token) {
                     setToken("mytoken", resp.token);
                     setIsLoggedIn(true); // Update the login state
+                    setUser(username);
                     navigate('/home');
                 } else {
                     setEmailError("Incorrect credentials, please try again");
