@@ -1,17 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../styles/AccountSettings.css';
 import Header from '../components/Header';
-import CustomButton from '../components/CustomButton';
-
 import AccountSettingsPassword from "./AccountSettingsPassword";
 import AccountSettingsMain from "./AccountSettingsAccount";
-
+import { useCookies } from 'react-cookie';
+import APIService from "../APIService";
 
 const AccountSettings = () => {
 
     const [activePage, setActivePage] = useState('account');
+    const [userData, setUserData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    
+    const [cookies, setCookie] = useCookies(['mytoken']);
+    const myToken = cookies['mytoken'];
 
+    // Fetch user data on component mount
+    useEffect(() => {
 
+        const handleSuccess = (data) => {
+            // console.log('Fetched user data:', data);
+            setUserData(data);
+            setLoading(false);
+        };
+
+        const handleError = (error) => {
+            console.error('Error:', error);
+            setLoading(false);
+        };
+
+        APIService.GetUserData(myToken, handleSuccess, handleError);
+    }, []);
+    
     const handleButtonClick = (page) => {
         setActivePage(page === activePage ? page : page);
     };
@@ -34,7 +54,7 @@ const AccountSettings = () => {
 
                 <div id="componentContainer">
                     {activePage === 'password' && <AccountSettingsPassword/>}
-                    {activePage === 'account' && <AccountSettingsMain/>}
+                    {activePage === 'account' && <AccountSettingsMain userData={userData} setUserData={setUserData} />}
                 </div>
             </div>
         </div>
