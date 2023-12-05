@@ -69,13 +69,6 @@ function StaticReview() {
                     <input
                         readOnly={true}
                         type="text"
-                        value={courseNum}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
-                        placeholder="Course Number"
-                    />
-                    <input
-                        readOnly={true}
-                        type="text"
                         value={professor}
                         className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
                         placeholder="Professor's Name"

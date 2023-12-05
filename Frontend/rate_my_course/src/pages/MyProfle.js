@@ -10,10 +10,10 @@ import RatedReview from "../components/RatedReview";
 import { Link } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import Header from '../components/Header';
+import Coursediv from "../components/WatchedCourseDiv";
 
 const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
-    const [showPopup, setShowPopup] = useState(false);
     const [coursesToRemove, setCoursesToRemove] = useState([]);
     const navigate = useNavigate();
 
@@ -24,20 +24,7 @@ const MyProfile = () => {
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
-    const handleNewReviewClick = () => {
-        setShowPopup(true);
-    };
 
-    const handlePopupClose = () => {
-        setShowPopup(false);
-    };
-
-    const PopupContent = () => (
-        <div className="popup">
-            <button onClick={handlePopupClose}>X</button>
-            <StaticReview />
-        </div>
-    );
 
     const handleBookmarkClick = (courseName) => {
         const isSelected = coursesToRemove.includes(courseName);
@@ -51,56 +38,55 @@ const MyProfile = () => {
         }
     };
 
+    // backend to fill up this list accordingly
     const coursesData = [
         {
             name: "SENG 513",
-            reviews: [
-            <StaticReview key={1} />,
-            <StaticReview key={2} />,
-            ],
+            mockData: {
+                id: 1,
+                name: "SENG 550",
+                workload: 3,
+                difficulty: 4,
+                usefulness: 5,
+            }
         },
         {
             name: "SENG 511",
-            reviews: [
-                <StaticReview key={1} />,
-                <StaticReview key={2} />,
-            ],
+            mockData: {
+                id: 2,
+                name: "SENG 511",
+                workload: 3,
+                difficulty: 4,
+                usefulness: 5,
             }
+        }
     ];
 
+
+    
+    
+    // backend to fill up this list accordingly
     const [reviewData, setReviewData] = useState([
         { id: 1, content: <EditableReview key={1} /> },
         { id: 2, content: <EditableReview key={2} /> }
         // Assuming you add an 'id' field for identification
     ]);
 
+    // backend to implement rest of this function
     const handleDeleteReview = (id) => {
         setReviewData(currentReviews => currentReviews.filter(review => review.id !== id));
     };
 
+    // backend to fill up this list accordingly
     const likedReviews = [
         <RatedReview key={1} />,
         <RatedReview key={2} />
     ];
 
-    const [isChecked, setIsChecked] = useState(false);
-    const [isChecked2, setIsChecked2] = useState(false);
-    const [courseCode, setCourseCode] = useState('Professor');
-  
-  
-    const handleOnChange = () => {
-      setIsChecked(!isChecked);
-    };
-  
-    const handleOnChange2 = () => {
-      setIsChecked2(!isChecked2);
-    };
-
     return (
         <div>
             <Header/>
             <div className="flex flex-col w-full">
-                <div className={`${showPopup ? 'overlay' : ''}`}></div>
                 <div className="top-row">
                     <img src = {arrowLeft} 
                     className="arrow-left" 
@@ -111,11 +97,11 @@ const MyProfile = () => {
                     <div className="userImage">
                         <img src = {userImage} className="user-image" alt="user-image"/>
                     </div>
-                    <div className="flex flex-col ml-2">
+                    <div className="flex flex-col ml-2 justify-center font-bold">
                         <div className="user-name">
                             <p>{name}</p>
                         </div>
-                        <div className="user-year">
+                        {/* <div className="user-year">
                             <p>{yearOfStudy}</p>
                         </div>
                         <div className="user-course">
@@ -123,10 +109,10 @@ const MyProfile = () => {
                         </div>
                         <div className="user-university">
                             <p>{university}</p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
-                <div className='nav-bar text-lg sm:text-base'>
+                <div className='nav-bar md:text-lg text-md flex-row justify-around align-middle'>
                     <div
                         className={`nav-bar-item ${activeTab === 'myReviews' ? 'active2' : ''}`}
                         onClick={() => handleTabClick('myReviews')}
@@ -152,9 +138,7 @@ const MyProfile = () => {
                         <div className="review-content">
                             <Link to="/Review">
                                 <button
-                                    className={`new-review-button ${showPopup ? 'disabled' : ''}`}
-                                    onClick={handleNewReviewClick}
-                                    disabled={showPopup}
+                                    className={`new-review-button`}
                                 >
                                     New Review
                                 </button>
@@ -196,15 +180,14 @@ const MyProfile = () => {
                                         />
                                         {course.name}
                                     </div>
-                                    {course.reviews.map((review, index) => (
-                                        <StaticReview key={index} {...review} />
-                                    ))}
+                                    {course.mockData && (
+                                        <Coursediv data={course.mockData} />
+                                    )}
                                 </div>
                             ))}
                         </div>
                     )}
                 </div>
-                {showPopup && <PopupContent />}
             </div>
         </div>
     )
