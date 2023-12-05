@@ -15,6 +15,7 @@
         const [newPasswordError, setNewPasswordError] = useState("");
         const [confirmNewPasswordError, setConfirmNewPasswordError] = useState("");
 
+
         const validateChangePassword = () => {
             let isValid = true;
 
@@ -57,7 +58,9 @@
         }
     
 
+
         const changePasswordButton = () => {
+
 
 
             // use backend to confirm the old password given by user is correct
@@ -75,6 +78,17 @@
                     if (newPassword === confirmNewPassword) {
                         console.log("passwords match!"); // test 
                         setConfirmNewPasswordError("");
+
+                        // Clears passwords once password reset is successful
+                        setOldPassword("");
+                        setConfirmPassword("");
+                        setConfirmNewPassword("");
+
+                        alert("Password was successfully changed!");
+
+
+
+                    
                     }
         
                     // if old password matches but new passwords don't

@@ -112,22 +112,6 @@ const AccountSettingsAccount = () => {
 
     const programOptions = ['Bachelor of Science', 'Bachelor of Engineering', 'Bachelor of Arts'];
 
-    // For testing purposes
-    // const fieldTypes = {
-    //     firstName: "text",
-    //     lastName: "text",
-    //     yearOfStudy: "number",
-    //     university: "text",
-    //     email: "email",
-    // };
-
-    // const [showOptions, setShowOptions] = useState({
-    //     yearOfStudy: false,
-    //     university: false,
-    // });
-
-
-
 
     const [data, setData] = useState(initialData);
     const [tempData, setTempData] = useState({});
@@ -155,13 +139,6 @@ const AccountSettingsAccount = () => {
                 [field]: true,
             }));
 
-
-            // setShowOptions((prevShowOptions) => ({
-            //     ...prevShowOptions,
-            //     [field]: true, // Show dropdown options when entering edit mode
-            // }));
-
-
             setEditPressed(true);
         }
     };
@@ -171,12 +148,6 @@ const AccountSettingsAccount = () => {
             ...prevEditMode,
             [field]: false,
         }));
-
-        // setShowOptions((prevShowOptions) => ({
-        //     ...prevShowOptions,
-        //     [field]: false, // Hide dropdown options when saving
-        // }));
-
 
         // user cannot edit other fields once a field is in edit mode
         setEditPressed(false);
@@ -191,10 +162,7 @@ const AccountSettingsAccount = () => {
             [field]: false,
         }));
 
-        // setShowOptions((prevShowOptions) => ({
-        //     ...prevShowOptions,
-        //     [field]: false, // Hide dropdown options when canceling
-        // }));
+ 
 
         setData((prevData) => ({
             ...prevData,
@@ -240,7 +208,10 @@ const AccountSettingsAccount = () => {
                         onCancelClick={() => handleCancelClick("lastName")}
                         onChange={(value) => handleInputChange("lastName", value)}
                     />
-                    <AccountInformation
+
+                    {/* Dont need university anymore */}
+
+                    {/* <AccountInformation
                         label="University"
                         value={data.university}
                         fieldType="dropdown"
@@ -251,9 +222,11 @@ const AccountSettingsAccount = () => {
                         onSaveClick={() => handleSaveClick("university")}
                         onCancelClick={() => handleCancelClick("university")}
                         onChange={(value) => handleInputChange("university", value)}
-                    />
+                    /> */}
 
-                    <AccountInformation
+
+                    {/* Dont need program anymore */}
+                    {/* <AccountInformation
                         label="Program"
                         value={data.program}
                         fieldType="dropdown"
@@ -264,9 +237,11 @@ const AccountSettingsAccount = () => {
                         onSaveClick={() => handleSaveClick("program")}
                         onCancelClick={() => handleCancelClick("program")}
                         onChange={(value) => handleInputChange("program", value)}
-                    />
+                    /> */}
 
-                    <AccountInformation
+
+                    {/* Dont need year anymore */}
+                    {/* <AccountInformation
                         label="Year"
                         value={data.yearOfStudy}
                         fieldType="dropdown"
@@ -277,7 +252,7 @@ const AccountSettingsAccount = () => {
                         onSaveClick={() => handleSaveClick("yearOfStudy")}
                         onCancelClick={() => handleCancelClick("yearOfStudy")}
                         onChange={(value) => handleInputChange("yearOfStudy", value)}
-                    />
+                    /> */}
 
                     <AccountInformation
                         label="Email"
