@@ -19,7 +19,7 @@ const AccountSettings = () => {
     useEffect(() => {
 
         const handleSuccess = (data) => {
-            console.log('Fetched user data:', data);
+            // console.log('Fetched user data:', data);
             setUserData(data);
             setLoading(false);
         };
@@ -30,30 +30,6 @@ const AccountSettings = () => {
         };
 
         APIService.GetUserData(myToken, handleSuccess, handleError);
-
-
-        // fetch('http://localhost:8000/api/user/profile/', {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Token ${myToken}`
-        //     }
-        // })
-        // .then(response => {
-        //     if (!response.ok) {
-        //         throw new Error('Network response was not ok');
-        //     }
-        //     return response.json();
-        // })
-        // .then(data => {
-        //     console.log('Fetched user data:', data);
-        //     setUserData(data);
-        //     setLoading(false);
-        // })
-        // .catch(error => {
-        //     console.error('Error:', error);
-        //     setLoading(false);
-        // });
     }, []);
     
     const handleButtonClick = (page) => {

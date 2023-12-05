@@ -32,6 +32,12 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
     const [tempData, setTempData] = useState({});
     const [isEditPressed, setEditPressed] = useState(false);
 
+    // for when editing fields
+    const [confirmUsernameChanged, setConfirmUsernameChanged] = useState("");
+    const [confirmFirstNameChanged, setConfirmFirstNameChanged] = useState("");
+    const [confirmLastNameChanged, setConfirmLastNameChanged] = useState("");
+    const [isValidName, setIsValidName] = useState(true);
+
     const [cookies, setCookie] = useCookies(['mytoken']);
     const myToken = cookies['mytoken'];
 
@@ -57,6 +63,11 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
             }));
 
             setEditPressed(true);
+
+            // Reset the confirmUsernameChanged message
+            setConfirmUsernameChanged("");
+            setConfirmFirstNameChanged("");
+            setConfirmLastNameChanged("");
         }
     };
 
@@ -67,43 +78,54 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
         }));
         setEditPressed(false);
 
-        // Send changes to the backend
-        // try {
-        //     const response = await fetch('http://localhost:8000/api/user/update/', { 
-        //         method: 'PATCH',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': `Token ${myToken}`
-        //         },
-        //         body: JSON.stringify({
-        //             [field]: userData[field]
-        //         }),
-        //     });
-
-        //     if (!response.ok) {
-        //         const errorData = await response.json();
-        //         console.error('Error data:', errorData);
-        //         throw new Error('Failed to save data to the backend.');
-        //     }
-
-        //     console.log('Data saved successfully to the backend.');
-        // } catch (error) {
-        //     console.error('Error while saving data to the backend:', error);
-        // }
         const handleSuccess = () => {
+            switch (field) {
+                case "username":
+                    setConfirmUsernameChanged('Username changed successfully');
+                    break;
+                case "first_name":
+                    setConfirmFirstNameChanged('First name changed successfully');
+                    break;
+                case "last_name":
+                    setConfirmLastNameChanged('Last name changed successfully');
+                    break;
+                default:
+                    break;
+            }
             console.log('Data saved successfully to the backend.');
             // Handle successful update, e.g., update local state
         };
 
         const handleError = (error) => {
             console.error('Error while saving data to the backend:', error);
-            // Handle error, e.g., show error message to the user
+
+            if (error && error.includes("already exists.")){
+                setConfirmUsernameChanged(error);
+            }
+
+            // make save button visible again
+            setEditMode((prevEditMode) => ({
+                ...prevEditMode,
+                [field]: true,
+            }));
+
+            // record fail change for cancel button
+            setIsValidName(false);
         };
 
         await APIService.UpdateUserProfile(myToken, field, userData[field], handleSuccess, handleError);
     };
 
     const handleCancelClick = (field) => {
+
+        // if the user changed the username to an existing username, then we want to revert the username back to the original
+        if (!isValidName) {
+            setUserData((prevData) => ({
+                ...prevData,
+                [field]: tempData[field],
+            }));
+        }
+
         setEditMode((prevEditMode) => ({
             ...prevEditMode,
             [field]: false,
@@ -148,16 +170,7 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
                         onCancelClick={() => handleCancelClick("username")}
                         onChange={(value) => handleInputChange("username", value)}
                     />
-                    <AccountInformation
-                        label="Email"
-                        value={userData.email || ""}
-                        fieldType='text'
-                        editMode={editMode.email}
-                        onEditClick={() => handleEditClick("email")}
-                        onSaveClick={() => handleSaveClick("email")}
-                        onCancelClick={() => handleCancelClick("email")}
-                        onChange={(value) => handleInputChange("email", value)}
-                    />
+                    <label className={`text-red-600 ml-1 ${confirmUsernameChanged ? 'visible' : 'hidden'}`}>{confirmUsernameChanged}</label>
                     <AccountInformation
                         label="First Name"
                         value={userData.first_name || ""}
@@ -168,6 +181,7 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
                         onCancelClick={() => handleCancelClick("first_name")}
                         onChange={(value) => handleInputChange("first_name", value)}
                     />
+                    <label className={`text-red-600 ml-1 ${confirmFirstNameChanged ? 'visible' : 'hidden'}`}>{confirmFirstNameChanged}</label>
                     <AccountInformation
                         label="Last Name"
                         value={userData.last_name || ""}
@@ -178,6 +192,8 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
                         onCancelClick={() => handleCancelClick("last_name")}
                         onChange={(value) => handleInputChange("last_name", value)}
                     />
+                    <label className={`text-red-600 ml-1 ${confirmLastNameChanged ? 'visible' : 'hidden'}`}>{confirmLastNameChanged}</label>
+
                 </div>
             </div>
         </div>

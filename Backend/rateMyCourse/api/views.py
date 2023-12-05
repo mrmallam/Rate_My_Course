@@ -2,11 +2,11 @@ from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework import status
 from django.contrib.auth.models import User
 from .serializers import PersonsSerializer, UserSerializer, UniversitySerializer, CourseSerializer
 from rest_framework import viewsets
 from .models import Persons, University, Course
-from django.http import Http404
 from rest_framework.response import Response
 
 class PersonsViewSet(viewsets.ModelViewSet):
@@ -30,21 +30,11 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Course.objects.filter(university__name=university_name)
         return Course.objects.all()
 
-# Customized to handle user data but restricts access to only the authenticated user's information.
-# It overrides the default queryset with get_queryset method.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.none()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication, )
-
-    # def get_queryset(self):
-    #     # return a list containing only the current user.
-    #     user = self.request.user
-    #     if user.is_authenticated:
-    #         return User.objects.filter(id=user.id)
-    #     else:
-    #         raise Http404
 
 # Current User Profile View
 @api_view(['GET'])
@@ -64,3 +54,20 @@ def update_user_profile(request):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors)
+
+# Change Password View
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def change_password(request):
+    user = request.user
+    old_password = request.data.get('old_password')
+    new_password = request.data.get('new_password')
+
+    # Check old password
+    if not user.check_password(old_password):
+        return Response({'old_password': ['Wrong password.']}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Set new password 
+    user.set_password(new_password)
+    user.save()
+    return Response({'status': 'password changed'}, status=status.HTTP_200_OK)

@@ -59,11 +59,43 @@ export default class APIService {
                 console.error('Error data:', errorData);
                 onError(new Error('Failed to save data to the backend.'));
             } else {
-                console.log('Data saved successfully to the backend.');
-                onSuccess();
+                const resp = await response.json();
+
+                // check if username already exists
+                if (resp.username && resp.username[0].includes("already exists.")){
+                    onError(resp.username[0]);
+                } else {
+                    onSuccess("Data saved successfully to the backend.");
+                }
             }
         } catch (error) {
             console.error('Error while saving data to the backend:', error);
+            onError(error);
+        }
+    }
+
+    static async ChangePassword(token, oldPassword, newPassword, onSuccess, onError){
+        try {
+            const response = await fetch('http://localhost:8000/api/user/change-password/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`
+                },
+                body: JSON.stringify({ old_password: oldPassword, new_password: newPassword }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.log('Error data:', errorData);
+                onError(errorData);
+            } else {
+                console.log('Password changed successfully.');
+                onSuccess('Password changed successfully.');
+            }
+            
+        } catch (error) {
+            console.error('Error while changing password:', error);
             onError(error);
         }
     }

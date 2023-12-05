@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {CookiesProvider} from 'react-cookie';
+import { CookiesProvider } from 'react-cookie';
 import { UserProvider } from './UserContext.js';
 
 // Pages
