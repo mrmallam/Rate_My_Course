@@ -21,8 +21,12 @@ function Reviews() {
     const [isChecked, setIsChecked] = useState(false);
     // Initialize searchResults with the full list of universities
     const [searchResults, setSearchResults] = useState([]);
-
     const { universityName } = useParams();
+
+    const courseNames = Array.from(new Set(searchResults.map(course => {
+        const match = course.name.match(/[A-Za-z]+/);
+        return match ? match[0] : '';
+    })));
 
     useEffect(() => {
         if (universityName) {
@@ -107,8 +111,9 @@ function Reviews() {
                                     className='border-2 border-red-600 rounded-full p-1 lg:p-3 lg:text-lg text-sm'
                                 >
                                     <option value='----'>----</option>
-                                    <option value='SENG'>SENG</option>
-                                    <option value='CPSC'>CPSC</option>
+                                    {courseNames.map((name, index) => (
+                                        <option key={index} value={name}>{name}</option>
+                                    ))}
                                 </select>
                                 <label className='ml-2 lg:text-lg text-sm'>Code</label>
                             </div>
@@ -123,6 +128,7 @@ function Reviews() {
                                     <option value='4'>4xx</option>
                                     <option value='3'>3xx</option>
                                     <option value='2'>2xx</option>
+                                    <option value='1'>1xx</option>
                                 </select>
                                 <label className='ml-2 lg:text-lg text-sm'>Number</label>
                             </div>
