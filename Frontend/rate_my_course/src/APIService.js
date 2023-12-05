@@ -19,5 +19,16 @@ export default class APIService {
             body:JSON.stringify(body)
         }).then(resp => resp.json())
     }
+
+    static InsertReview(body, token){
+        return fetch(`http://localhost:8000/api/Review/`, {
+            'method': 'POST',
+            headers: {
+              'Content-Type':'application/json',
+            //   'Authorization':`Token ${token}`
+            },
+            body:JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
 }
 

@@ -34,8 +34,7 @@ function OverarallReviews({data, index}) {
     const [university, setUniversity] = useState("");
     const [course, setCourse] = useState("");
     const [usefulCount, setUsefulCount] = useState(8);
-
-    console.log("HERE: ", data);
+    const [submissionDate, setSubmissionDate] = useState("");
 
     useEffect(() => {
         if(data) {
@@ -46,6 +45,7 @@ function OverarallReviews({data, index}) {
             setWorkload(data.workload);
             setUsefulness(data.usefulness);
             setProfessor(data.professor);
+            setSubmissionDate(data.submission_date);
         }
     }, [data]);
 
@@ -136,7 +136,7 @@ function OverarallReviews({data, index}) {
                 </div>
             </div>
 
-            <Date></Date>
+            <Date date={submissionDate}/>
             </div>
             
         </div>

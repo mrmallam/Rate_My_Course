@@ -3,6 +3,8 @@ import '../styles/Reviews.css';
 import UniLogo from '../resources/logo-ucalgary.jpg'
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
+import APIService from '../APIService';
+import { useLocation } from 'react-router-dom';
 
 function RatingSet ({label, rating, setRating}) {
     const levels = [1,2,3,4,5];
@@ -24,7 +26,7 @@ function RatingSet ({label, rating, setRating}) {
 
 function Reviews() {
     const navigate = useNavigate();
-
+    // const [token] = useCookies(['myToken'])
     const [university, setUniversity] = useState('');
     const [courseCode, setCourseCode] = useState('');
     const [professor, setProfessor] = useState('');
@@ -32,14 +34,18 @@ function Reviews() {
     const [workload, setWorkload] = useState(0);
     const [usefulness, setUsefulness] = useState(0);
     const [comments, setComments] = useState('');
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const courseName = queryParams.get('courseName');
+    const university_name = queryParams.get('universityName');
 
-      const [errorMessages, setErrorMessages] = useState({
-        university: '',
-        courseName: '',
-        courseNum: '',
-        professor: '',
-        comments: ''
-      });
+    const [errorMessages, setErrorMessages] = useState({
+      university: '',
+      courseName: '',
+      courseNum: '',
+      professor: '',
+      comments: ''
+    });
 
     const validateInputs = () => {
         const errors = {};
@@ -59,17 +65,17 @@ function Reviews() {
             errors.usefulness = 'Usefulness Rating is required';
         }
 
-        if (university.trim() === '') {
-          errors.university = 'University is required';
-        }
+        // if (university.trim() === '') {
+        //   errors.university = 'University is required';
+        // }
     
         if (professor.trim() === '') {
           errors.professor = 'Professor\'s Name is required';
         }
 
-        if (courseCode.trim() === '') {
-            errors.professor = 'Course Code is required';
-          }
+        // if (courseCode.trim() === '') {
+        //     errors.professor = 'Course Code is required';
+        //   }
         if (comments.trim() === "") {
             errors.comments = 'Comments are required';
             console.log("Comments are required");
@@ -86,6 +92,18 @@ function Reviews() {
   
         if (isValid) {
           navigate(-1);
+          // APIService.InsertArticle({university, courseCode, professor, difficulty, workload, usefulness, comments}, token['myToken'])
+          const postData ={
+            course: courseName,
+            university: university_name,
+            workload, 
+            difficulty, 
+            usefulness, 
+            review: comments,
+            professor
+          }
+          // console.log('Sending POST data:', postData);
+          APIService.InsertReview(postData);
         }
       };
 
@@ -93,8 +111,8 @@ function Reviews() {
         <div>
             <Header />
             <div className='class-header flex items-center'>
-            <img src={UniLogo} alt="University-Logo" className="w-24"/>
-            <h1 className="text-3xl">SENG 513</h1>
+              <img src={UniLogo} alt="University-Logo" className="w-24"/>
+              <h1 className="text-3xl">{courseName}</h1>
             </div>
             <div className="review-container">    
             <div className='form-container'>
@@ -110,15 +128,15 @@ function Reviews() {
                     </div>
                     <input
                         type="text"
-                        value={university}
-                        onChange={(e) => setUniversity(e.target.value)}
+                        value={university_name}
+                        // onChange={(e) => setUniversity(e.target.value)}
                         className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                         placeholder="University"
                     />
                     <input
                         type="text"
-                        value={courseCode}
-                        onChange={(e) => setCourseCode(e.target.value)}
+                        value={courseName}
+                        // onChange={(e) => setCourseCode(e.target.value)}
                         className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                         placeholder="Course Code"
                     />

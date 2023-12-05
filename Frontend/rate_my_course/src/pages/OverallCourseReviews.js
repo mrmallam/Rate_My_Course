@@ -12,12 +12,13 @@ import bookMarkBlank from '../resources/bookmark-blank.svg';
 function OverallCourseReviews() {
     const [isChecked, setIsChecked] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
-    const [courseCode, setCourseCode] = useState('Professor');
+    const [professor, setProfessor] = useState('Professor');
     const [course, setCourse] = useState('');
     const [reviews, setReviews] = useState([]);
-    const { courseName } = useParams();
     const [bookMarkClicked, setBookMarkClicked] = useState(false);
+    const [reviewResponseCount, setReviewResponseCount] = useState(0);
 
+    const { courseName } = useParams();
 
     useEffect(() => {
         if(courseName) {
@@ -43,6 +44,7 @@ function OverallCourseReviews() {
             .then((data) => {
                 if (Array.isArray(data)) {
                     setReviews(data);
+                    setReviewResponseCount(data.length);
                 } else {
                     setReviews([data]); // Convert to array if it's a single object
                 }
@@ -89,8 +91,8 @@ function OverallCourseReviews() {
                     </div>
 
                     <div className ='w-1/3 ml-2'>
-                        <select value={courseCode} 
-                            onChange={e => setCourseCode(e.target.value)}
+                        <select value={professor} 
+                            onChange={e => setProfessor(e.target.value)}
                             className='border-2 border-red-600 rounded-full p-1'>
                             <option value='CPSC'>-----------</option>
                             <option value='CPSC'>Professor 1</option>
@@ -130,12 +132,12 @@ function OverallCourseReviews() {
                     </div>
                 </div>
 
-                <Link to="/Review">
+                <Link to={`/Review?courseName=${course.name}&universityName=${course.university}`}>
                     <button className='h-16 w-1/2 md:w-1/6 bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900'>Leave a New Review
                     </button>
                 </Link>
 
-                <span className="text-md mt-6 text-black">Showing 2 Reviews: </span>
+                <span className="text-md mt-6 text-black">Showing {reviewResponseCount} Reviews: </span>
                 
                 {reviews.map((result, index) => (
                     <OverarallReviews data={result} index={index} key={result.id} />

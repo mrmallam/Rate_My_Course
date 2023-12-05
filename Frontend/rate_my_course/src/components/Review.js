@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import UniLogo from '../resources/logo-ucalgary.jpg'
 import '../styles/Reviews.css';
-
+import APIService from '../APIService';
 
 function RatingSet ({label, rating, setRating}) {
     const levels = [1,2,3,4,5];
@@ -20,8 +20,6 @@ function RatingSet ({label, rating, setRating}) {
       </div>
     );
 }
-
-
 
 export default function Review() {
     const [university, setUniversity] = useState('');
