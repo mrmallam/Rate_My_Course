@@ -10,7 +10,7 @@ import RatedReview from "../components/RatedReview";
 import { Link } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import Header from '../components/Header';
-import Coursediv from "../components/CourseDiv";
+import Coursediv from "../components/WatchedCourseDiv";
 
 const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
@@ -171,7 +171,7 @@ const MyProfile = () => {
                             <div className="header">Your watched courses</div>
                             {coursesData.map((course) => (
                                 <div key={course.name} className="course">
-                                    <div className="course-information mt-4 ">
+                                    <div className="course-information mt-4">
                                         <img
                                             src={coursesToRemove.includes(course.name) ? bookMarkBlank : bookMark}
                                             className="bookmark"

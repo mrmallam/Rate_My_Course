@@ -207,6 +207,7 @@ function EditableReview({id, onDelete}) {
             {saveAttempted && errorMessages.courseName && <div className="text-red-500">{errorMessages.courseName}</div>}
             {saveAttempted && errorMessages.courseNum && <div className="text-red-500">{errorMessages.courseNum}</div>}
             {saveAttempted && errorMessages.professor && <div className="text-red-500">{errorMessages.professor}</div>}
+            {saveAttempted && errorMessages.comments && <div className="text-red-500">{errorMessages.comments}</div>}
             </div>
             <input
               readOnly={!editable}
@@ -227,14 +228,6 @@ function EditableReview({id, onDelete}) {
             <input
               readOnly={!editable}
               type="text"
-              value={courseNum}
-              onChange={handleCourseNumChange}
-              className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 w-full md:w-min ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
-              placeholder="Course Number"
-            />
-            <input
-              readOnly={!editable}
-              type="text"
               value={professor}
               onChange={handleProfessorChange}
               className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 w-full md:w-min ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
@@ -250,7 +243,6 @@ function EditableReview({id, onDelete}) {
             <div className='my-4 pl-4'>
               <RatingSet label='Usefulness' rating={usefulness} setRating={handleUsefulnessChange} editable={editable}/>
             </div>
-          {saveAttempted && errorMessages.comments && <div className="text-red-500 pl-2 mx-5">{errorMessages.comments}</div>}
           <textarea 
               readOnly={!editable}
               value={comments}
