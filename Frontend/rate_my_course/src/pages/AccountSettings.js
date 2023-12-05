@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import '../styles/AccountSettings.css';
 import Header from '../components/Header';
+import { UserContext } from "../UserContext";
 import AccountSettingsPassword from "./AccountSettingsPassword";
 import AccountSettingsMain from "./AccountSettingsAccount";
 import { useCookies } from 'react-cookie';
@@ -11,6 +12,7 @@ const AccountSettings = () => {
     const [activePage, setActivePage] = useState('account');
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { username } = useContext(UserContext);
     
     const [cookies, setCookie] = useCookies(['mytoken']);
     const myToken = cookies['mytoken'];
@@ -28,7 +30,7 @@ const AccountSettings = () => {
             setLoading(false);
         };
 
-        APIService.GetUserData(myToken, handleSuccess, handleError);
+        APIService.GetUserData(myToken, username, handleSuccess, handleError);
     }, []);
     
     const handleButtonClick = (page) => {
