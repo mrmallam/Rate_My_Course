@@ -8,7 +8,6 @@ import Header from '../components/Header';
 import bookMark from '../resources/bookmark.svg';
 import bookMarkBlank from '../resources/bookmark-blank.svg';
 
-
 function OverallCourseReviews() {
     const [isChecked, setIsChecked] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
@@ -18,7 +17,10 @@ function OverallCourseReviews() {
     const [bookMarkClicked, setBookMarkClicked] = useState(false);
     const [reviewResponseCount, setReviewResponseCount] = useState(0);
 
-    const { courseName } = useParams();
+    const { courseName, imgUrl } = useParams();
+
+    console.log("test11:",courseName);
+    console.log("test22:",imgUrl);
 
     useEffect(() => {
         if(courseName) {
@@ -113,7 +115,7 @@ function OverallCourseReviews() {
 
                 <div className='h-auto md:h-auto mt-6 border-2 border-red-600 w-full md:w-2/3 shadow-lg py-2 mb-6 px-4 md:px-6'>
                     <div className='flex items-center'>
-                        <img src={uni_logo} className="h-16 md:h-20 object-contain" alt='logo' />
+                        <img src={imgUrl} className="h-16 md:h-20 object-contain" alt='logo' />
                         <span className="block text-2xl font-normal text-left">{course.name}</span>
                     </div>
                     <div className='flex flex-col md:flex-row mt-4 ml-4'>
