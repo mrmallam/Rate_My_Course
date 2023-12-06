@@ -7,7 +7,7 @@ from .models import University, Course, Review
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
-        fields = ['name', 'reviews']
+        fields = ['name', 'reviews', 'image']
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:

@@ -6,7 +6,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class University(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
     reviews = models.IntegerField(null=True, blank=True)
-    # logo = models
+    image = models.ImageField(upload_to='images/', default='')
+
 
 class Course(models.Model):
     name = models.CharField(max_length=50, primary_key=True)

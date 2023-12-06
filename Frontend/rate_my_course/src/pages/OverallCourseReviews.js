@@ -7,7 +7,7 @@ import OverarallReviews from '../components/OverallReviews';
 import Header from '../components/Header';
 import bookMark from '../resources/bookmark.svg';
 import bookMarkBlank from '../resources/bookmark-blank.svg';
-
+import APIService from '../APIService';
 
 function OverallCourseReviews() {
     const [isChecked, setIsChecked] = useState(false);
@@ -17,9 +17,11 @@ function OverallCourseReviews() {
     const [reviews, setReviews] = useState([]);
     const [bookMarkClicked, setBookMarkClicked] = useState(false);
     const [reviewResponseCount, setReviewResponseCount] = useState(0);
+    const [uniLogo, setUniLogo] = useState('');
 
     const { courseName } = useParams();
 
+    // Fetch the list of reviews from the backend
     useEffect(() => {
         if(courseName) {
             const decodedCourseName = decodeURIComponent(courseName);
@@ -55,6 +57,25 @@ function OverallCourseReviews() {
         
     }, []);
 
+    // Fetch the university data based on universityName
+    useEffect(() => {
+
+        if (course.university) {
+            const decodedUniversityName = decodeURIComponent(course.university);
+
+            const onSuccess = (data) => {
+                console.log('Fetched university data:', data.image);
+                setUniLogo(data.image);
+                console.log(':', data.image);
+            };
+            const onError = (error) => {
+                console.error('Error:', error);
+            };
+
+            APIService.GetUniversityData(decodedUniversityName, onSuccess, onError);
+        }
+    }, [course]);
+
     const handleOnChange = () => {
         setIsChecked(!isChecked);
     };
@@ -67,6 +88,9 @@ function OverallCourseReviews() {
         setBookMarkClicked(!bookMarkClicked);
         //for back end logic
     };
+
+
+    console.log("course: ", course.university);
 
     return (
         <div>
@@ -102,6 +126,7 @@ function OverallCourseReviews() {
                     </div>
                 </div>
 
+                {/* bookmark */}
                 <div className='flex flex-row mt-6'>
                     <div onClick={handleBookmarkClick} className='mt-1'>
                         <img src={bookMarkClicked ? bookMark : bookMarkBlank} className="md:h-12 md:w-12 h-8 w-8 cursor-pointer" alt="book-mark"/>
@@ -111,9 +136,13 @@ function OverallCourseReviews() {
                     </div>
                 </div>
 
+                {/* course info */}
                 <div className='h-auto md:h-auto mt-6 border-2 border-red-600 w-full md:w-2/3 shadow-lg py-2 mb-6 px-4 md:px-6'>
                     <div className='flex items-center'>
-                        <img src={uni_logo} className="h-16 md:h-20 object-contain" alt='logo' />
+                        {/* wait until uniLogo is loaded */}
+                        <div className="w-1/2 md:w-1/3 max-w-xs relative m-6">
+                            { uniLogo && <img src={uniLogo} className="h-16 md:h-20 object-contain" alt='logo' /> }
+                        </div>
                         <span className="block text-2xl font-normal text-left">{course.name}</span>
                     </div>
                     <div className='flex flex-col md:flex-row mt-4 ml-4'>
