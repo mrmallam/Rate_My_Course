@@ -135,32 +135,6 @@ export default class APIService {
         }
     }
 
-    // get a uni by course name
-    static async GetUniversityDataByCourseName(courseNumber, onSuccess, onError){
-        try {
-            const response = await fetch(`http://localhost:8000/api/Course/${courseNumber}/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.log('Error data:', errorData);
-                onError(errorData);
-            } else {
-                const resp = await response.json();
-                onSuccess(resp);
-            }
-
-        } catch (error) {
-            console.error('Error while getting university data:', error);
-            onError(error);
-        }
-    }
-
-
     static async GetCourseData(decodedUniversityName, onSuccess, onError){
         try {
             const response = await fetch(`http://localhost:8000/api/Course/?university=${decodedUniversityName}`, {
