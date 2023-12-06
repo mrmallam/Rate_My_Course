@@ -31,6 +31,17 @@ export default class APIService {
         }).then(resp => resp.json())
     }
 
+    static UpdateReview(body, id){
+        return fetch(`http://localhost:8000/api/Review/${id}/`, {
+            'method': 'PUT',
+            headers: {
+              'Content-Type':'application/json',
+            //   'Authorization':`Token ${token}`
+            },
+            body:JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
+
     static GetUserData(token, username, onSuccess, onError){
         return fetch(`http://localhost:8000/api/users/${username}/`, {
             method: 'GET',

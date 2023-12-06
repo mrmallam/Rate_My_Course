@@ -2,9 +2,9 @@ import UniLogo from '../resources/logo-ucalgary.jpg'
 import '../styles/Reviews.css';
 import editImage from '../resources/edit.svg';
 import deleteImage from '../resources/delete.svg';
-
-import React, { useState } from 'react';
-
+import React, { useState, useContext } from 'react';
+import { UserContext } from "../UserContext";
+import APIService from '../APIService';
 
 function RatingSet ({label, rating, setRating, editable}) {
   const levels = [1,2,3,4,5];
@@ -37,12 +37,12 @@ function EditableReview({data, id, onDelete}) {
   const [workload, setWorkload] = useState(data.workload || 0);
   const [usefulness, setUsefulness] = useState(data.usefulness || 0);    
   const [comments, setComments] = useState(data.review || 'No review available.');
+  const { username } = useContext(UserContext);
 
   const [editable, setEditable] = useState(false);
 
   const initialState = {
     university: university,
-    course: course,
     course: course,
     professor: professor,
     difficulty: difficulty,
@@ -52,6 +52,30 @@ function EditableReview({data, id, onDelete}) {
   };
   const [originalState, setOriginalState] = useState(initialState);
   const [currentState, setCurrentState] = useState({ ...initialState });
+
+
+  const handleSaveChanges = () => {
+    setSaveAttempted(true);
+    const isValid = validateInputs();
+
+    if (isValid) {
+      setEditable(false);
+      setOriginalState({ ...currentState });
+
+      const postData ={
+        course: course,
+        university,
+        professor,
+        workload, 
+        difficulty, 
+        usefulness, 
+        review: comments,
+        user: username
+      }
+      APIService.UpdateReview(postData, data.id);
+    }
+  };
+
 
   const [errorMessages, setErrorMessages] = useState({
     university: '',
@@ -150,18 +174,7 @@ function EditableReview({data, id, onDelete}) {
     return Object.keys(errors).length === 0; // Return true if there are no errors
   };
 
-  // implement with backend
-  const handleSaveChanges = () => {
-    setSaveAttempted(true);
-
-    const isValid = validateInputs();
-
-    if (isValid) {
-      // Save changes
-      setEditable(false);
-      setOriginalState({ ...currentState });
-    }
-  };
+  
   
   // implement with backend
   const handleDiscardChanges = () => {

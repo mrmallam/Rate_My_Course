@@ -107,7 +107,6 @@ function Reviews() {
             review: comments,
             user: username
           }
-          // console.log('Sending POST data:', postData);
           APIService.InsertReview(postData);
         }
       };
