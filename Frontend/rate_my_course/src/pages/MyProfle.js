@@ -17,39 +17,24 @@ import { UserContext } from "../UserContext";
 const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [coursesToRemove, setCoursesToRemove] = useState([]);
+    const [myReviews, setmyReviews] = useState([]);
     const navigate = useNavigate();
     const { username } = useContext(UserContext);
     
 
     useEffect(() => {
-
-        const decodedUsername = decodeURIComponent(username);
-
-        // fetch(`http://localhost:8000/api/Review/${decodedUsername}/`, {
-        fetch(`http://localhost:8000/api/Review/1/`, {
+        fetch(`http://localhost:8000/api/Review/?user=${username}`, {
             method: 'GET',
             headers: {
-                'Content-Type':'application/json',
+                'Content-Type': 'application/json',
             }
         })
         .then(resp => resp.json())
-        .then((data) => {
-            if (Array.isArray(data)) {
-                console.log("Here: " + data);
-            } else {
-                // setReviews([data]); // Convert to array if it's a single object
-                console.log("Here: " + data);
-            }
+        .then(data => {
+            setmyReviews(Array.isArray(data) ? data : [data]);
         })
-        .catch(error => console.log(error))
-
-
-        
-    }, []);
-
-
-
-
+        .catch(error => console.log(error));
+    }, [username]); // Add username to dependency array if it's dynamic
 
 
     let name = "Jane Doe";
@@ -175,10 +160,11 @@ const MyProfile = () => {
                                 </button>
                             </Link>
                             <div>
-                                {reviewData.map((editableReview, index) => (
+                                {myReviews.map((review, index) => (
                                     <div key={index} className="review">
                                         <EditableReview
-                                            id={editableReview.id}
+                                            data={review}
+                                            id={review.id}
                                             onDelete={handleDeleteReview}
                                         />
                                     </div>

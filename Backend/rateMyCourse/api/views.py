@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -12,8 +13,8 @@ from rest_framework.response import Response
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (TokenAuthentication, )
+    # permission_classes = [IsAuthenticated]
+    # authentication_classes = (TokenAuthentication, )
 
     lookup_field = 'username'
 
@@ -22,14 +23,7 @@ class UserViewSet(viewsets.ModelViewSet):
         instance = get_object_or_404(self.get_queryset(), username=kwargs.get('username'))
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
-    
-    # def get_queryset(self):
-    #     # Fetch the 'person' parameter from the request's query parameters
-    #     person_username = self.request.query_params.get('person', None)
-    #     if person_username is not None:
-    #         # Filter reviews based on the person's username
-    #         return Review.objects.filter(person__username=person_username)
-    #     return Review.objects.all()
+
         
 
 class UniversityViewSet(viewsets.ModelViewSet):
@@ -52,7 +46,23 @@ class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
     
     def get_queryset(self):
+        queryset = Review.objects.all()
         course_name = self.request.query_params.get('course', None)
+        usernameGet = self.request.query_params.get('user', None)
+
+        print("Username from GET:", usernameGet)  # Debug
+
         if course_name is not None:
-            return Review.objects.filter(course__name=course_name)
-        return Review.objects.all()
+            queryset = queryset.filter(course__name=course_name)
+
+        if usernameGet is not None:
+            try:
+                user = User.objects.get(username=usernameGet)
+                print("User found:", user)  # Debug: Print the user object if found
+            except User.DoesNotExist:
+                print("User not found!")  # Debug: Print message if user not found
+                raise Http404("User not found")  # Raise Http404 to send a 404 response
+            
+            queryset = queryset.filter(user=user)
+
+        return queryset

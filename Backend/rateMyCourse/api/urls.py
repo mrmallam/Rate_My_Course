@@ -13,7 +13,7 @@ router.register('Review', ReviewViewSet, basename='Review')
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    re_path(r'^api/reviews/(?P<person>[^/.]+)/$', ReviewViewSet.as_view({'get': 'list'}), name='review-list-by-person'),
+    # re_path(r'^api/reviews/(?P<person>[^/.]+)/$', ReviewViewSet.as_view({'get': 'list'}), name='review-list-by-person'),
 
 ]
 
