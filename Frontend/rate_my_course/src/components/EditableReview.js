@@ -263,10 +263,10 @@ function EditableReview({id, onDelete}) {
             </>
           ) : (
             <>
-              <div className="edit-button cursor-pointer" onClick={handleEditClick}>
+              <div className="edit-button cursor-pointer md:hover:scale-125 transition ease-in-out delay-0" onClick={handleEditClick}>
                 <img src={editImage} className=" h-10 w-10 md:w-12 md:h-12" alt="edit-image" />
               </div>
-              <div className="delete-button cursor-pointer" onClick={handleDeleteClick}>
+              <div className="delete-button cursor-pointer md:hover:scale-125 transition ease-in-out delay-0" onClick={handleDeleteClick}>
                   <img src = {deleteImage} className="h-10 w-10 md:w-12 md:h-12" alt="delete-image"/>
               </div>
             </>
