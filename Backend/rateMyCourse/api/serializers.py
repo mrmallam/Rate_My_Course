@@ -10,10 +10,23 @@ class UniversitySerializer(serializers.ModelSerializer):
         fields = ['name', 'reviews', 'image']
 
 class CourseSerializer(serializers.ModelSerializer):
+    average_workload = serializers.SerializerMethodField()
+    average_difficulty = serializers.SerializerMethodField()
+    average_usefulness = serializers.SerializerMethodField()
+
     class Meta:
         model = Course
-        fields = ['name', 'university', 'workload', 'difficulty', 'usefulness', 'description']
+        fields = ['name', 'university', 'description', 'average_workload', 'average_difficulty', 'average_usefulness']
 
+    def get_average_workload(self, obj):
+        return obj.average_workload()
+
+    def get_average_difficulty(self, obj):
+        return obj.average_difficulty()
+
+    def get_average_usefulness(self, obj):
+        return obj.average_usefulness()
+    
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review

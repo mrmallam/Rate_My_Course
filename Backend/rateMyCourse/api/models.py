@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Avg
 
 # Create your models here.
 
@@ -13,9 +14,15 @@ class Course(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
     university = models.ForeignKey(University, on_delete=models.CASCADE)
     description = models.CharField(max_length=500, default="No description available")
-    workload = models.CharField(max_length=25, default="Medium")
-    difficulty = models.CharField(max_length=25, default="Medium")
-    usefulness = models.CharField(max_length=25, default="Medium")
+
+    def average_workload(self):
+        return self.review_set.aggregate(Avg('workload'))['workload__avg'] or 0
+
+    def average_difficulty(self):
+        return self.review_set.aggregate(Avg('difficulty'))['difficulty__avg'] or 0
+
+    def average_usefulness(self):
+        return self.review_set.aggregate(Avg('usefulness'))['usefulness__avg'] or 0
 
     
 class Review(models.Model):
