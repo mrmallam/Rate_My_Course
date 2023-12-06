@@ -73,14 +73,20 @@
 }
 
 .new-review-button {
-    border: 2px solid #BF3127;
-    background-color: white;
-    color: #BF3127;
+    /* border: 2px solid #BF3127; */
+    /* background-color: white; */
+    background-color: #BF3127;
+    color: white;
+    /* color: #BF3127; */
     width: 150px;
     height: 50px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
+}
+
+.new-review-button:hover {
+    background-color: #742a2a;
 }
 
 .review {
