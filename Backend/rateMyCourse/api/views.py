@@ -23,13 +23,13 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
     
-    def get_queryset(self):
-        # Fetch the 'person' parameter from the request's query parameters
-        person_username = self.request.query_params.get('person', None)
-        if person_username is not None:
-            # Filter reviews based on the person's username
-            return Review.objects.filter(person__username=person_username)
-        return Review.objects.all()
+    # def get_queryset(self):
+    #     # Fetch the 'person' parameter from the request's query parameters
+    #     person_username = self.request.query_params.get('person', None)
+    #     if person_username is not None:
+    #         # Filter reviews based on the person's username
+    #         return Review.objects.filter(person__username=person_username)
+    #     return Review.objects.all()
         
 
 class UniversityViewSet(viewsets.ModelViewSet):
