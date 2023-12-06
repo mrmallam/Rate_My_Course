@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../styles/Reviews.css';
 import UniLogo from '../resources/logo-ucalgary.jpg'
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import APIService from '../APIService';
 import { useLocation } from 'react-router-dom';
+import { UserContext } from "../UserContext";
 
 function RatingSet ({label, rating, setRating}) {
     const levels = [1,2,3,4,5];
@@ -38,6 +39,9 @@ function Reviews() {
     const queryParams = new URLSearchParams(location.search);
     const courseName = queryParams.get('courseName');
     const university_name = queryParams.get('universityName');
+    const { username } = useContext(UserContext);
+
+    console.log("username: ", username );
 
     const [errorMessages, setErrorMessages] = useState({
       university: '',
@@ -100,7 +104,8 @@ function Reviews() {
             difficulty, 
             usefulness, 
             review: comments,
-            professor
+            professor,
+            person: username
           }
           // console.log('Sending POST data:', postData);
           APIService.InsertReview(postData);

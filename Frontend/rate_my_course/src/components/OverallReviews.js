@@ -88,62 +88,67 @@ function OverarallReviews({data, index}) {
 
             <div className='md:flex-row w-full'>
                 <div className='form-container-3'>
-                    <div className='ml-4 mr-4'>
-                      <input
-                          readOnly={true}
-                          type="text"
-                          value={university}
-                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default" 
-                          placeholder="University"
-                      />
-                      <input
-                          readOnly={true}
-                          type="text"
-                          value={course}
-                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
-                          placeholder="Course Number"
-                      />
-                      <input
-                          readOnly={true}
-                          type="text"
-                          value={professor}
-                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
-                          placeholder="Professor's Name"
-                      />
-                  </div>
-                <div className='my-4 pl-4'>
-                    <RatingSet label='Difficulty' rating={difficulty} />
-                </div>
-                <div className='my-4 pl-4'>
-                    <RatingSet label='Workload' rating={workload} />
-                </div>
-                <div className='my-4 pl-4'>
-                    <RatingSet label='Usefulness' rating={usefulness} />
-                </div>
-                <div
-                    className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'
-                >
-                    {review}
-                </div>
 
-                <div className = 'w-full md:flex md:flex-row flex flex-col mb-2'>
-                    <div className='ml-8 mt-2 mb-2 font-bold flex'>
-                        <div onClick={handleThumbsUpClick}>
-                            <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-up"/>
+                    <div className='flex justify-between'>
+                        <div className='ml-4 mr-4'>
+                            <input
+                                readOnly={true}
+                                type="text"
+                                value={university}
+                                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default" 
+                                placeholder="University"
+                            />
+                            <input
+                                readOnly={true}
+                                type="text"
+                                value={course}
+                                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
+                                placeholder="Course Number"
+                            />
+                            <input
+                                readOnly={true}
+                                type="text"
+                                value={professor}
+                                className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min focus:outline-none cursor-default"
+                                placeholder="Professor's Name"
+                            />
                         </div>
-                        <span className="text-md text-black ml-1">Like</span>
-                        <div onClick={handleThumbsDownClick} className='ml-4 mt-1'>
-                            <img src={thumbsDownClicked ? thumbsDownRed : thumbsDownBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-down"/>
+                        <div className=' mr-2 mt-4 md:mr-7'>
+                            <span className=' text-sm md:text-black md:font-bold md:text-2xl'>{data.person}</span>
                         </div>
-                        <span className="text-md text-black ml-1">Dislike</span>
                     </div>
-                    <div className='ml-8 mt-2 mb-2 font-bold'>
-                        <span className="text-md text-gray-400">{likedCount} people upvoted this post</span>
+
+                    <div className='my-4 pl-4'>
+                        <RatingSet label='Difficulty' rating={difficulty} />
+                    </div>
+                    <div className='my-4 pl-4'>
+                        <RatingSet label='Workload' rating={workload} />
+                    </div>
+                    <div className='my-4 pl-4'>
+                        <RatingSet label='Usefulness' rating={usefulness} />
+                    </div>
+
+                    <div className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'>
+                        {review}
+                    </div>
+
+                    <div className = 'w-full md:flex md:flex-row flex flex-col mb-2'>
+                        <div className='ml-8 mt-2 mb-2 font-bold flex'>
+                            <div onClick={handleThumbsUpClick}>
+                                <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-up"/>
+                            </div>
+                            <span className="text-md text-black ml-1">Like</span>
+                            <div onClick={handleThumbsDownClick} className='ml-4 mt-1'>
+                                <img src={thumbsDownClicked ? thumbsDownRed : thumbsDownBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-down"/>
+                            </div>
+                            <span className="text-md text-black ml-1">Dislike</span>
+                        </div>
+                        <div className='ml-8 mt-2 mb-2 font-bold'>
+                            <span className="text-md text-gray-400">{likedCount} people upvoted this post</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <Date date={submissionDate}/>
+                <Date date={submissionDate}/>
             </div>
             
         </div>
