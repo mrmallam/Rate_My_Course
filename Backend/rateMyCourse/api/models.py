@@ -38,7 +38,7 @@ class Review(models.Model):
     review = models.CharField(max_length=500, default="No review available")
     professor = models.CharField(max_length=50, default="No professor available")
     submission_date = models.DateField(auto_now_add=True)
-    person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews', default="test", to_field='username')
+    person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews', null=True, blank=True)
 
     # upvotes = models.IntegerField()
     # downvotes = models.IntegerField()
