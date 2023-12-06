@@ -188,11 +188,12 @@ function EditableReview({data, id, onDelete}) {
       <div className='form-container-3 w-[93%]'>
         <div className='ml-4 mr-4'>
           <div className='flex flex-col items-center md:items-start py-2'>
-          {saveAttempted && errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
-          {saveAttempted && errorMessages.course && <div className="text-red-500">{errorMessages.course}</div>}
-          {saveAttempted && errorMessages.professor && <div className="text-red-500">{errorMessages.professor}</div>}
-          {saveAttempted && errorMessages.comments && <div className="text-red-500">{errorMessages.comments}</div>}
+            {saveAttempted && errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
+            {saveAttempted && errorMessages.course && <div className="text-red-500">{errorMessages.course}</div>}
+            {saveAttempted && errorMessages.professor && <div className="text-red-500">{errorMessages.professor}</div>}
+            {saveAttempted && errorMessages.comments && <div className="text-red-500">{errorMessages.comments}</div>}
           </div>
+
           <input
             readOnly={!editable}
             type="text"
@@ -235,6 +236,7 @@ function EditableReview({data, id, onDelete}) {
             style={{ backgroundColor: editable ? 'white' : '#EEEDED' } }
         />
       </div>
+      
       <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 md:ml-8 mr-[5%] md:mr-0">
         {editable ? (
           <>

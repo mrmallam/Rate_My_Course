@@ -13,8 +13,8 @@ from rest_framework.response import Response
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = [IsAuthenticated]
-    # authentication_classes = (TokenAuthentication, )
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication, )
 
     lookup_field = 'username'
 

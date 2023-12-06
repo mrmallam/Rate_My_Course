@@ -153,9 +153,7 @@ const MyProfile = () => {
                     {activeTab === 'myReviews' && (
                         <div className="review-content">
                             <Link to="/Review">
-                                <button
-                                    className={`new-review-button`}
-                                >
+                                <button className={`new-review-button`}>
                                     New Review
                                 </button>
                             </Link>

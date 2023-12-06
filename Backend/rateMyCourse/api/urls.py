@@ -13,10 +13,8 @@ router.register('Review', ReviewViewSet, basename='Review')
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    # re_path(r'^api/reviews/(?P<person>[^/.]+)/$', ReviewViewSet.as_view({'get': 'list'}), name='review-list-by-person'),
-
 ]
 
-# To display images in the browser during development
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# # To display images in the browser during development
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
