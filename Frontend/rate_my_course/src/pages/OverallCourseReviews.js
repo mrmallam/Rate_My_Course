@@ -150,12 +150,15 @@ function OverallCourseReviews() {
                             <span className="block text-gray-400 text-md ftext-left">Course Description:</span>
                             <span className="block text-gray-400 mt-6 text-md ftext-left">{course.description}</span>
                         </div>
+                        {/* ratings */}
                         <div className='md:ml-8 w-full md:w-auto md:mt-0 mt-6'>
-                            <p className="block text-gray-400 text-md ftext-left">Average Difficulty:</p>
+                            <p className="block text-gray-400 text-md ftext-left">Average Difficulty: {course.average_difficulty}</p>
                             <img src={Stars} className="h-16 md:h-18 object-contain md:mx-0" alt='stars' />
-                            <p className="block text-gray-400 text-md ftext-left">Average Quality:</p>
+                            <p className="block text-gray-400 text-md ftext-left">Average Quality: </p>
                             <img src={Stars} className="h-16 md:h-18 object-contain md:mx-0" alt='stars' />
-                            <p className="block text-gray-400 text-md ftext-left">Average Usefulness:</p>
+                            <p className="block text-gray-400 text-md ftext-left">Average Wordload: {course.average_workload}</p>
+                            <img src={Stars} className="h-16 md:h-18 object-contain md:mx-0" alt='stars' />
+                            <p className="block text-gray-400 text-md ftext-left">Average Usefulness: {course.average_usefulness}</p>
                             <img src={Stars} className="h-16 md:h-18 object-contain md:mx-0" alt='stars' />
                         </div>
                     </div>

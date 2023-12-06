@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import uni_logo from '../resources/logo-ucalgary.jpg';
+import uni_logo from '../resources/logo-ucalgary.jpg'; // Assuming you use this somewhere
 import Stars from '../resources/stars.jpg';
-
 
 export default function Course_div({ data }) {
 
@@ -21,12 +20,12 @@ export default function Course_div({ data }) {
                         <div className='results-left'>
                             <h2 className="text-2xl lg:text-3xl">{data.name}</h2>
                             <h2 className="text-1xl lg:text-xl"> Computer Science class </h2>
-                            <img src={Stars} alt="Starts-4"className='stars w-3/4' />
+                            <img src={Stars} alt="Stars-4" className='stars w-3/4' />
                         </div>
                         <div className='results-left'>
-                            <div className="text-1xl lg:text-2xl whitespace-nowrap"><strong>Workload: </strong>2.4</div>
-                            <div className="text-1xl lg:text-2xl whitespace-nowrap"><strong>Difficulty: </strong>3.4</div>
-                            <div className="text-1xl lg:text-2xl whitespace-nowrap"><strong>Usefulness: </strong>4.8</div>
+                            <div className="text-1xl lg:text-2xl whitespace-nowrap"><strong>Difficulty: </strong>{data.average_difficulty}</div>
+                            <div className="text-1xl lg:text-2xl whitespace-nowrap"><strong>Workload: </strong>{data.average_workload}</div>
+                            <div className="text-1xl lg:text-2xl whitespace-nowrap"><strong>Usefulness: </strong>{data.average_usefulness}</div>
                         </div>
                     </div>
                 </div>
