@@ -98,7 +98,7 @@ const MyReviews = () => {
                 </div>
                 <div className='nav-bar text-lg sm:text-base'>
                     <div
-                        className={`nav-bar-item ${activeTab === 'reportedPosts' ? 'active2' : ''}`}
+                        className={`nav-bar-item ml-8 ${activeTab === 'reportedPosts' ? 'active2' : ''}`}
                         onClick={() => handleTabClick('reportedPosts')}>
                         <p>Reported Posts</p>
                     </div>
