@@ -67,7 +67,7 @@ export default class APIService {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Error data:', errorData);
-                onError(new Error('Failed to save data to the backend.'));
+                onError(errorData);
             } else {
                 const resp = await response.json();
 
