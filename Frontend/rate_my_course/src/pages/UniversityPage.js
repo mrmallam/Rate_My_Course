@@ -117,8 +117,23 @@ function UniversityPage() {
                 return false;
             });
         }
+
+        if(filter === 'Workload')
+        {
+            
+            filtered = [...filtered].sort((a, b) => a.average_workload - b.average_workload);
+        }
+        else if (filter === 'Difficulty')
+        {
+            filtered = [...filtered].sort((a, b) => a.average_difficulty - b.average_difficulty);
+        }
+        else if (filter === 'Usefulness')
+        {
+            filtered = [...filtered].sort((a, b) => a.average_usefulness - b.average_usefulness);
+        }
+        
         setFilteredResults(filtered);
-    }, [courseCode, courseNumber, searchResults]);
+    }, [courseCode, courseNumber, filter, searchResults]);
 
     return (
         <div>
@@ -175,9 +190,9 @@ function UniversityPage() {
                                     className='border-2 border-red-600 rounded-full p-1 lg:p-3 lg:text-lg text-sm lg:w-7/10 w-1/2'
                                 >
                                     <option value='-----'>-----</option>
-                                    <option value='Workload - Low to High'>Workload - Low to High</option>
-                                    <option value='Difficulty - Low to High'>Difficulty - Low to High</option>
-                                    <option value='Usefulness - Low to High'>Usefulness - Low to High</option>
+                                    <option value='Workload'>Workload - Low to High</option>
+                                    <option value='Difficulty'>Difficulty - Low to High</option>
+                                    <option value='Usefulness'>Usefulness - Low to High</option>
                                 </select>
                                 <label className='ml-2 lg:text-lg text-sm'>Filter</label>
                             </div>
