@@ -33,7 +33,8 @@ function OverarallReviews({data, index}) {
     const [review, setReview] = useState("");
     const [university, setUniversity] = useState("");
     const [course, setCourse] = useState("");
-    const [usefulCount, setUsefulCount] = useState(8);
+    const [likedCount, setLikedCount] = useState(8);
+    const [dislikedCount, setDislikedCount] = useState(3);
     const [submissionDate, setSubmissionDate] = useState("");
 
     useEffect(() => {
@@ -51,26 +52,32 @@ function OverarallReviews({data, index}) {
 
     const handleThumbsUpClick = () => {
         setThumbsUpClicked(!thumbsUpClicked);
+    
+        if (!thumbsUpClicked) {
+            setLikedCount(likedCount + 1);
+            if (thumbsDownClicked) {
+                setDislikedCount(dislikedCount - 1);
+            }
+        } else {
+            setLikedCount(likedCount - 1);
+        }
+    
         setThumbsDownClicked(false);
-
-        if (!thumbsUpClicked) { // Only increment if it wasn't already clicked
-            setUsefulCount(usefulCount + 1);
-        }
-        else { // Only increment if it wasn't already clicked
-            setUsefulCount(usefulCount - 1);
-        }
     };
-
+    
     const handleThumbsDownClick = () => {
         setThumbsDownClicked(!thumbsDownClicked);
+    
+        if (!thumbsDownClicked) {
+            setDislikedCount(dislikedCount + 1);
+            if (thumbsUpClicked) {
+                setLikedCount(likedCount - 1);
+            }
+        } else {
+            setDislikedCount(dislikedCount - 1);
+        }
+    
         setThumbsUpClicked(false);
-
-        if (!thumbsDownClicked) { // Only increment if it wasn't already clicked
-            setUsefulCount(usefulCount - 1);
-        }
-        else { // Only increment if it wasn't already clicked
-            setUsefulCount(usefulCount + 1);
-        }
     };
 
     return (
@@ -131,7 +138,7 @@ function OverarallReviews({data, index}) {
                         <span className="text-md text-black ml-1">Dislike</span>
                     </div>
                     <div className='ml-8 mt-2 mb-2 font-bold'>
-                        <span className="text-md text-gray-400">{usefulCount} people found this post useful</span>
+                        <span className="text-md text-gray-400">{likedCount} people upvoted this post</span>
                     </div>
                 </div>
             </div>
