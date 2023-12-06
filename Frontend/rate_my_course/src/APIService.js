@@ -84,15 +84,15 @@ export default class APIService {
         }
     }
 
-    static async ChangePassword(token, oldPassword, newPassword, onSuccess, onError){
+    static async ChangePassword(token, username, oldPassword, onSuccess, onError){
         try {
-            const response = await fetch('http://localhost:8000/api/user/change-password/', {
-                method: 'POST',
+            const response = await fetch(`http://localhost:8000/api/users/${username}/`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${token}`
                 },
-                body: JSON.stringify({ old_password: oldPassword, new_password: newPassword }),
+                body: JSON.stringify({ password: oldPassword, username: username }),
             });
 
             if (!response.ok) {

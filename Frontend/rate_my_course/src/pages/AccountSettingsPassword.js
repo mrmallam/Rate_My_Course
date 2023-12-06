@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import '../styles/AccountSettingsPassword.css';
 import { useCookies } from 'react-cookie';
 import APIService from "../APIService";
+import { UserContext } from "../UserContext";
+
 
 const AccountSettingsPassword = () => {
-
-    // form fields
+    // form fields 
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setConfirmPassword] = useState("")
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
@@ -21,6 +22,8 @@ const AccountSettingsPassword = () => {
   
     // Success or error message
     const [message, setMessage] = useState("");
+
+    const { username } = useContext(UserContext);
 
     // Validate form
     const handlePasswordChange = async () => {
@@ -49,7 +52,7 @@ const AccountSettingsPassword = () => {
             }
         };
 
-        // await APIService.ChangePassword(myToken, oldPassword, newPassword, onSuccess, onError);
+        await APIService.ChangePassword(myToken, username, oldPassword, onSuccess, onError);
     };
     
 
