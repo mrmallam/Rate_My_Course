@@ -147,5 +147,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/images/'  # URL prefix for serving media files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')  # Absolute filesystem path to the directory that will hold the media files
+# MEDIA_URL = '/images/'  # URL prefix for serving media files
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')  # Absolute filesystem path to the directory that will hold the media files

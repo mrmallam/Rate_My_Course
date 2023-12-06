@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -23,6 +24,8 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
+        
+
 class UniversityViewSet(viewsets.ModelViewSet):
     queryset = University.objects.all()
     serializer_class = UniversitySerializer
@@ -43,7 +46,23 @@ class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
     
     def get_queryset(self):
+        queryset = Review.objects.all()
         course_name = self.request.query_params.get('course', None)
+        usernameGet = self.request.query_params.get('user', None)
+
+        print("Username from GET:", usernameGet)  # Debug
+
         if course_name is not None:
-            return Review.objects.filter(course__name=course_name)
-        return Review.objects.all()
+            queryset = queryset.filter(course__name=course_name)
+
+        if usernameGet is not None:
+            try:
+                user = User.objects.get(username=usernameGet)
+                print("User found:", user)  # Debug: Print the user object if found
+            except User.DoesNotExist:
+                print("User not found!")  # Debug: Print message if user not found
+                raise Http404("User not found")  # Raise Http404 to send a 404 response
+            
+            queryset = queryset.filter(user=user)
+
+        return queryset

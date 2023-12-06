@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import arrowLeft from '../resources/arrow-left.svg';
 import '../styles/MyReviews.css';
 import userImage from '../resources/user-image.svg';
@@ -11,11 +11,31 @@ import { Link } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import Header from '../components/Header';
 import Coursediv from "../components/WatchedCourseDiv";
+import { UserContext } from "../UserContext";
+
 
 const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [coursesToRemove, setCoursesToRemove] = useState([]);
+    const [myReviews, setmyReviews] = useState([]);
     const navigate = useNavigate();
+    const { username } = useContext(UserContext);
+    
+
+    useEffect(() => {
+        fetch(`http://localhost:8000/api/Review/?user=${username}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            setmyReviews(Array.isArray(data) ? data : [data]);
+        })
+        .catch(error => console.log(error));
+    }, [username]); // Add username to dependency array if it's dynamic
+
 
     let name = "Jane Doe";
     let yearOfStudy = "3rd Year";
@@ -24,7 +44,6 @@ const MyProfile = () => {
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
-
 
     const handleBookmarkClick = (courseName) => {
         const isSelected = coursesToRemove.includes(courseName);
@@ -61,9 +80,6 @@ const MyProfile = () => {
             }
         }
     ];
-
-
-    
     
     // backend to fill up this list accordingly
     const [reviewData, setReviewData] = useState([
@@ -137,17 +153,16 @@ const MyProfile = () => {
                     {activeTab === 'myReviews' && (
                         <div className="review-content">
                             <Link to="/Review">
-                                <button
-                                    className={`new-review-button`}
-                                >
+                                <button className={`new-review-button`}>
                                     New Review
                                 </button>
                             </Link>
                             <div>
-                                {reviewData.map((editableReview, index) => (
+                                {myReviews.map((review, index) => (
                                     <div key={index} className="review">
                                         <EditableReview
-                                            id={editableReview.id}
+                                            data={review}
+                                            id={review.id}
                                             onDelete={handleDeleteReview}
                                         />
                                     </div>
