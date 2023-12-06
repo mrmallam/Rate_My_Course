@@ -101,7 +101,8 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
         const handleError = (error) => {
             console.error('Error while saving data to the backend:', error);
 
-            if (error && error.includes("already exists.")){
+            const errorMessage = error.message || "An unknown error occurred";
+            if (errorMessage.includes("already exists.")) {
                 setConfirmUsernameChanged(error);
             }
 
