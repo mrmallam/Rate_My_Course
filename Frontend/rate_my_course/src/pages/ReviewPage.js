@@ -116,8 +116,8 @@ function Reviews() {
             </div>
             <div className="review-container">    
             <div className='form-container'>
-                <div className='ml-4 mr-4'>
-                    <div className='flex flex-col items-center md:items-start py-2'>
+                <div className='flex flex-row ml-4 mr-4'>
+                    {/* <div className='flex flex-col items-center md:items-start py-2'>
                         {errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
                         {errorMessages.courseCode && <div className="text-red-500">{errorMessages.courseCode}</div>}
                         {errorMessages.comments && <div className="text-red-500">{errorMessages.comments}</div>}
@@ -125,44 +125,70 @@ function Reviews() {
                         {errorMessages.difficulty && <div className="text-red-500">{errorMessages.difficulty}</div>}
                         {errorMessages.workload && <div className="text-red-500">{errorMessages.workload}</div>}
                         {errorMessages.usefulness && <div className="text-red-500">{errorMessages.usefulness}</div>}
+                    </div> */}
+
+                    <div className='flex flex-col'>
+                      <input
+                          type="text"
+                          value={university_name}
+                          // onChange={(e) => setUniversity(e.target.value)}
+                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
+                          placeholder="University"
+                      />
+                      <label className="text-red-500 flex justify-center">{errorMessages.university}</label>
+
                     </div>
-                    <input
-                        type="text"
-                        value={university_name}
-                        // onChange={(e) => setUniversity(e.target.value)}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
-                        placeholder="University"
-                    />
-                    <input
-                        type="text"
-                        value={courseName}
-                        // onChange={(e) => setCourseCode(e.target.value)}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
-                        placeholder="Course Code"
-                    />
-                    <input
-                        type="text"
-                        value={professor}
-                        onChange={(e) => setProfessor(e.target.value)}
-                        className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
-                        placeholder="Professor's Name"
-                    />
+
+                    <div className='flex flex-col'>
+                      <input
+                          type="text"
+                          value={courseName}
+                          // onChange={(e) => setCourseCode(e.target.value)}
+                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
+                          placeholder="Course Code"
+                      />
+                      <label className="text-red-500 flex justify-center">{errorMessages.courseCode}</label>
+                    </div>
+
+                    <div className='flex flex-col'>
+                      <input
+                          type="text"
+                          value={professor}
+                          onChange={(e) => setProfessor(e.target.value)}
+                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
+                          placeholder="Professor's Name"
+                      />
+                       <label className="text-red-500 flex justify-center">{errorMessages.professor}</label>
+
+                    </div>
+
                 </div>
                 <div className='my-4 pl-4'>
                     <RatingSet label='Difficulty' rating={difficulty} setRating={setDifficulty} />
+                    <label className="text-red-500">{errorMessages.difficulty}</label>
                 </div>
                 <div className='my-4 pl-4'>
                     <RatingSet label='Workload' rating={workload} setRating={setWorkload} />
+                    <label className="text-red-500">{errorMessages.workload}</label>
+
                 </div>
                 <div className='my-4 pl-4'>
                     <RatingSet label='Usefulness' rating={usefulness} setRating={setUsefulness} />
+                    <label className="text-red-500">{errorMessages.usefulness}</label>
+
                 </div>
-                <textarea
-                        value={comments}
-                        onChange={(e) => setComments(e.target.value)}
-                        className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'
-                        placeholder='What do you want others to know about this class?'
-                ></textarea>
+
+                <div className='flex flex-col'>
+                  {errorMessages.comments && <label className="text-red-500 w-full flex justify-center">{errorMessages.comments}</label>}
+                  <textarea
+                          value={comments}
+                          onChange={(e) => setComments(e.target.value)}
+                          className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'
+                          placeholder='What do you want others to know about this class?'
+                  ></textarea>
+                </div>
+
+
                 </div>
             </div>
             <div className='buttons-container'>
