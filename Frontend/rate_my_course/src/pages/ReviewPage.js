@@ -42,8 +42,6 @@ function Reviews() {
     const uniLogo = queryParams.get('uniLogo');
     const { username } = useContext(UserContext);
 
-    console.log("username: ", username );
-
     const [errorMessages, setErrorMessages] = useState({
       university: '',
       courseName: '',

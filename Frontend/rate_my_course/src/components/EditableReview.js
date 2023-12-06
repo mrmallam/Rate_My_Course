@@ -53,7 +53,7 @@ function EditableReview({data, id, onDelete}) {
   const [originalState, setOriginalState] = useState(initialState);
   const [currentState, setCurrentState] = useState({ ...initialState });
 
-
+  // Handels Edit
   const handleSaveChanges = () => {
     setSaveAttempted(true);
     const isValid = validateInputs();
@@ -76,6 +76,14 @@ function EditableReview({data, id, onDelete}) {
     }
   };
 
+  // Handles Delete Review
+  const handleDeleteClick = () => {
+    const confirmed = window.confirm("Are you sure you want to delete this review?");
+    if (confirmed) {
+      onDelete(id);
+      APIService.DeleteReview(data.id);
+    }
+  };
 
   const [errorMessages, setErrorMessages] = useState({
     university: '',
@@ -89,12 +97,7 @@ function EditableReview({data, id, onDelete}) {
   const handleEditClick = () => {
       setEditable(!editable);
   };
-  const handleDeleteClick = () => {
-    const confirmed = window.confirm("Are you sure you want to delete this review?");
-    if (confirmed) {
-      onDelete(id);
-    }
-  };
+  
   const handleUniversityChange = (e) => {
       setUniversity(e.target.value);
       setCurrentState((prevState) => ({

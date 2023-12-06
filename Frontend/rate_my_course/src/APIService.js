@@ -42,6 +42,16 @@ export default class APIService {
         }).then(resp => resp.json())
     }
 
+    static DeleteReview(id){
+        return fetch(`http://localhost:8000/api/Review/${id}/`, {
+            'method': 'DELETE',
+            headers: {
+              'Content-Type':'application/json',
+            //   'Authorization':`Token ${token}`
+            },
+        })
+    }
+    
     static GetUserData(token, username, onSuccess, onError){
         return fetch(`http://localhost:8000/api/users/${username}/`, {
             method: 'GET',
