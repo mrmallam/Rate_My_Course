@@ -131,7 +131,7 @@ function OverallCourseReviews() {
                     <div onClick={handleBookmarkClick} className='mt-1'>
                         <img src={bookMarkClicked ? bookMark : bookMarkBlank} className="md:h-12 md:w-12 h-8 w-8 cursor-pointer" alt="book-mark"/>
                     </div>
-                    <div className='ml-4 mt-3 mb-2 align-middle'>
+                    <div className='ml-4 mt-3 mb-2 font-bold align-middle'>
                         <span className="md:text-lg text-md text-center">Add to Watched Courses?</span>
                     </div>
                 </div>
@@ -140,10 +140,10 @@ function OverallCourseReviews() {
                 <div className='h-auto md:h-auto mt-6 border-2 border-red-600 w-full md:w-2/3 shadow-lg py-2 mb-6 px-4 md:px-6'>
                     <div className='flex items-center'>
                         {/* wait until uniLogo is loaded */}
-                        <div className="w-12 md:w-12 relative m-6">
+                        <div className="w-1/2 md:w-1/3 max-w-xs relative m-6">
                             { uniLogo && <img src={uniLogo} className="h-16 md:h-20 object-contain" alt='logo' /> }
                         </div>
-                        <span className="block text-2xl font-bold text-left">{course.name}</span>
+                        <span className="block text-2xl font-normal text-left">{course.name}</span>
                     </div>
                     <div className='flex flex-col md:flex-row mt-4 ml-4'>
                         <div className='w-full'>
