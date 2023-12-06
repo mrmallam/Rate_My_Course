@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import arrowLeft from '../resources/arrow-left.svg';
 import '../styles/MyReviews.css';
 import userImage from '../resources/user-image.svg';
@@ -11,11 +11,46 @@ import { Link } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import Header from '../components/Header';
 import Coursediv from "../components/WatchedCourseDiv";
+import { UserContext } from "../UserContext";
+
 
 const MyProfile = () => {
     const [activeTab, setActiveTab] = useState('myReviews');
     const [coursesToRemove, setCoursesToRemove] = useState([]);
     const navigate = useNavigate();
+    const { username } = useContext(UserContext);
+    
+
+    useEffect(() => {
+
+        const decodedUsername = decodeURIComponent(username);
+
+        // fetch(`http://localhost:8000/api/Review/${decodedUsername}/`, {
+        fetch(`http://localhost:8000/api/Review/1/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type':'application/json',
+            }
+        })
+        .then(resp => resp.json())
+        .then((data) => {
+            if (Array.isArray(data)) {
+                console.log("Here: " + data);
+            } else {
+                // setReviews([data]); // Convert to array if it's a single object
+                console.log("Here: " + data);
+            }
+        })
+        .catch(error => console.log(error))
+
+
+        
+    }, []);
+
+
+
+
+
 
     let name = "Jane Doe";
     let yearOfStudy = "3rd Year";
@@ -24,7 +59,6 @@ const MyProfile = () => {
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
-
 
     const handleBookmarkClick = (courseName) => {
         const isSelected = coursesToRemove.includes(courseName);
@@ -61,9 +95,6 @@ const MyProfile = () => {
             }
         }
     ];
-
-
-    
     
     // backend to fill up this list accordingly
     const [reviewData, setReviewData] = useState([
