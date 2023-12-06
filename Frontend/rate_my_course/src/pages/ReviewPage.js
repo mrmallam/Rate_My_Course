@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../styles/Reviews.css';
 import UniLogo from '../resources/logo-ucalgary.jpg'
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import APIService from '../APIService';
 import { useLocation } from 'react-router-dom';
+import { UserContext } from "../UserContext";
 
 function RatingSet ({label, rating, setRating}) {
     const levels = [1,2,3,4,5];
@@ -37,7 +38,11 @@ function Reviews() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const courseName = queryParams.get('courseName');
-    const university_name = queryParams.get('universityName');
+    const university_name = queryParams.get('uni');
+    const uniLogo = queryParams.get('uniLogo');
+    const { username } = useContext(UserContext);
+
+    console.log("username: ", username );
 
     const [errorMessages, setErrorMessages] = useState({
       university: '',
@@ -100,7 +105,8 @@ function Reviews() {
             difficulty, 
             usefulness, 
             review: comments,
-            professor
+            professor,
+            person: username
           }
           // console.log('Sending POST data:', postData);
           APIService.InsertReview(postData);
@@ -110,8 +116,8 @@ function Reviews() {
     return (
         <div>
             <Header />
-            <div className='class-header flex items-center'>
-              <img src={UniLogo} alt="University-Logo" className="w-24"/>
+            <div className='class-header flex items-center mt-2 mb-2'>
+              <img src={uniLogo} alt="University-Logo" className="w-12 mr-4 md:w-20"/>
               <h1 className="text-3xl">{courseName}</h1>
             </div>
             <div className="review-container">    

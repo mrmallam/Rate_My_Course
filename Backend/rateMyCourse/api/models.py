@@ -1,8 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
 from django.db.models import Avg
-
-# Create your models here.
 
 class University(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
@@ -34,11 +33,8 @@ class Review(models.Model):
     review = models.CharField(max_length=500, default="No review available")
     professor = models.CharField(max_length=50, default="No professor available")
     submission_date = models.DateField(auto_now_add=True)
-    # person = models.ForeignKey(Persons, on_delete=models.CASCADE)
-    # upvotes = models.IntegerField()
-    # downvotes = models.IntegerField()
-    # person = models.ForeignKey(Persons, on_delete=models.CASCADE)
-    # date = models.DateField()
+    person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews', default="test", to_field='username')
+
     # upvotes = models.IntegerField()
     # downvotes = models.IntegerField()
     

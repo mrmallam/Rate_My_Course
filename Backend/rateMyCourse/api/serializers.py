@@ -30,7 +30,7 @@ class CourseSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['course', 'university', 'professor', 'workload', 'difficulty', 'usefulness', 'review', 'submission_date']
+        fields = ['course', 'university', 'professor', 'workload', 'difficulty', 'usefulness', 'review', 'submission_date', 'person']
 
 # USER Serializer
 class UserSerializer(serializers.ModelSerializer):
