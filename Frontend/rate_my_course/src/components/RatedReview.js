@@ -91,10 +91,10 @@ function StaticReview() {
             </div>
             <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 ml-0 md:ml-8 mr-[5%] md:mr-0">
                 <div onClick={handleThumbsUpClick}>
-                    <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-8 w-8 md:w-10 md:h-10 cursor-pointer" alt="thumbs-up"/>
+                    <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-8 w-8 md:w-10 md:h-10 cursor-pointer md:hover:scale-125 transition ease-in-out delay-0" alt="thumbs-up"/>
                 </div>
                 <div onClick={handleThumbsDownClick}>
-                    <img src={thumbsDownClicked ? thumbsDownRed : thumbsDownBlank} className="h-8 w-8 md:w-10 md:h-10 cursor-pointer" alt="thumbs-down"/>
+                    <img src={thumbsDownClicked ? thumbsDownRed : thumbsDownBlank} className="h-8 w-8 md:w-10 md:h-10 cursor-pointer md:hover:scale-125 transition ease-in-out delay-0" alt="thumbs-down"/>
                 </div>
             </div>
         </div>
