@@ -116,7 +116,7 @@ function Reviews() {
             </div>
             <div className="review-container">    
             <div className='form-container'>
-                <div className='flex flex-row ml-4 mr-4'>
+                <div className='flex flex-row ml-4 mr-4 justify-around'>
                     {/* <div className='flex flex-col items-center md:items-start py-2'>
                         {errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
                         {errorMessages.courseCode && <div className="text-red-500">{errorMessages.courseCode}</div>}
@@ -155,7 +155,7 @@ function Reviews() {
                           type="text"
                           value={professor}
                           onChange={(e) => setProfessor(e.target.value)}
-                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
+                          className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 w-full md:w-min"
                           placeholder="Professor's Name"
                       />
                        <label className="text-red-500 flex justify-center">{errorMessages.professor}</label>
