@@ -97,16 +97,15 @@ function Reviews() {
   
         if (isValid) {
           navigate(-1);
-          // APIService.InsertArticle({university, courseCode, professor, difficulty, workload, usefulness, comments}, token['myToken'])
           const postData ={
             course: courseName,
             university: university_name,
+            professor,
             workload, 
             difficulty, 
             usefulness, 
             review: comments,
-            professor,
-            person: username
+            user: username
           }
           // console.log('Sending POST data:', postData);
           APIService.InsertReview(postData);

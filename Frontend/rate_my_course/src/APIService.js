@@ -25,7 +25,7 @@ export default class APIService {
             'method': 'POST',
             headers: {
               'Content-Type':'application/json',
-            //   'Authorization':`Token ${token}`
+              'Authorization':`Token ${token}`
             },
             body:JSON.stringify(body)
         }).then(resp => resp.json())
