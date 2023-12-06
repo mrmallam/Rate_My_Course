@@ -44,6 +44,9 @@ useEffect(() => {
   }
 }, [isChecked, searchResults]); // Note: We use searchResults here, not displayResults
 
+
+  console.log(searchResults);
+
   return (
     <div className='flex flex-col items-center justify-center mb-5'>
       <Header />
