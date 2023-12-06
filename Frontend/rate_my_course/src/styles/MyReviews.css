@@ -51,12 +51,16 @@
     justify-content: center;
     align-items: center;
     border: 1px solid black;
+    letter-spacing: 1px;
 }
 
 @media (max-width: 640px) {
     .nav-bar-item {
-      zoom: 0.76;
-      width: 150px;
+      width: 110px;
+      height: 40px;
+      font-size: 0.75rem;
+      letter-spacing: 0px;
+      margin-bottom: 30px;
     }
 }
 
