@@ -5,9 +5,16 @@ import CourseDiv from '../components/CourseDiv';
 import '../styles/SearchResults.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import APIService from '../APIService';
 
 function UniversityPage() {
-    const { universityName, imageUrl } = useParams();
+    const { universityName } = useParams();
+
+    const [universityData, setUniversityData] = useState({
+        name: '',
+        reviews: null,
+        image: '',
+    });
 
     // search functionality
     const [courseCode, setCourseCode] = useState('Code');
@@ -22,23 +29,53 @@ function UniversityPage() {
         return match ? match[0] : '';
     })));
 
-
-    // Fetch the list of universities from the backend
+    // Fetch the university data based on universityName
     useEffect(() => {
         if (universityName) {
             const decodedUniversityName = decodeURIComponent(universityName);
-            const url = `http://localhost:8000/api/Course/?university=${decodedUniversityName}`;
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                'Content-Type':'application/json',
-                }
-            })
-            .then(resp => resp.json())
-            .then((data) => { setSearchResults(data); })
-            .catch(error => console.log(error))
+
+            const onSuccess = (data) => {
+                // console.log('Fetched university data:', data);
+                setUniversityData(data);
+            };
+            const onError = (error) => {
+                console.error('Error:', error);
+            };
+
+            APIService.GetUniversityData(decodedUniversityName, onSuccess, onError);
         }
     }, [universityName]);
+
+    // Fetch the list of universities from the backend
+    useEffect(() => {
+        const decodedUniversityName = decodeURIComponent(universityName);
+
+        const onSuccess = (data) => {
+            // console.log('Fetched university data:', data);
+            setSearchResults(data);
+        };
+        const onError = (error) => {
+            console.error('Error:', error);
+        };
+
+        APIService.GetCourseData(decodedUniversityName, onSuccess, onError);
+    }, []);
+
+    // useEffect(() => {
+    //     if (universityName) {
+    //         const decodedUniversityName = decodeURIComponent(universityName);
+    //         const url = `http://localhost:8000/api/Course/?university=${decodedUniversityName}`;
+    //         fetch(url, {
+    //             method: 'GET',
+    //             headers: {
+    //             'Content-Type':'application/json',
+    //             }
+    //         })
+    //         .then(resp => resp.json())
+    //         .then((data) => { setSearchResults(data); })
+    //         .catch(error => console.log(error))
+    //     }
+    // }, [universityName]);
 
     // Sort the results when isChecked changes
     useEffect(() => {
@@ -94,7 +131,7 @@ function UniversityPage() {
                     {/* delete flex items-center to put logo back on top */}
                     <div className='flex flex-col items-center'>
                         <div className="w-1/2 md:w-1/3 max-w-xs relative m-6">
-                            <img src={imageUrl} alt="University-Search-Logo" />
+                            <img src={universityData.image} alt="University-Search-Logo" />
                         </div>
                         <h1 className="text-4xl mb-5">{universityName}</h1>
                     </div>
@@ -149,7 +186,7 @@ function UniversityPage() {
                 </div>
 
                 {/* Display search results */}
-                { filteredResults.map(result => <CourseDiv data={result} key={result.id} imageUrl={imageUrl}/>) }
+                { filteredResults.map(result => <CourseDiv data={result} key={result.id}/>) }
 
             </div>
         </div>  

@@ -4,7 +4,7 @@ import uni_logo from '../resources/logo-ucalgary.jpg';
 import Stars from '../resources/stars.jpg';
 
 
-export default function Course_div({ data, imageUrl }) {
+export default function Course_div({ data }) {
 
     const courseChoice = (result) => {
         console.log("Choosing class", result);
@@ -13,7 +13,7 @@ export default function Course_div({ data, imageUrl }) {
     if (data) {
         return (
             <Link 
-                to={`/overallCourseReview/${encodeURIComponent(data.name)}/${encodeURIComponent(imageUrl)}`} 
+                to={`/overallCourseReview/${encodeURIComponent(data.name)}`} 
                 className="w-3/4 md:w-4/12 h-24 mt-6"
             >
                 <div className='search-results'>

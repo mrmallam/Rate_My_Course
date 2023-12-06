@@ -5,8 +5,7 @@ export default function Uni_div({ data }) {
   if (data) {
     return (
       <Link
-        // to={`/UniversityPage/${encodeURIComponent(data.name)}`}
-        to={`/UniversityPage/${encodeURIComponent(data.name)}/${encodeURIComponent(data.image)}`}
+        to={`/UniversityPage/${encodeURIComponent(data.name)}`}
         className="w-3/4 md:w-4/12 mt-6"
       >
         <div className='border-2 border-red-600 container shadow-lg p-2 md:p-4 flex items-center justify-between'>
