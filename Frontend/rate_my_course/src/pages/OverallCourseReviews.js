@@ -161,7 +161,7 @@ function OverallCourseReviews() {
                     </div>
                 </div>
 
-                <Link to={`/Review?courseName=${course.name}&universityName=${course.university}`}>
+                <Link to={`/Review?courseName=${course.name}&uni=${course.university}&uniLogo=${uniLogo}`}>
                     <button className='h-16 w-1/2 md:w-1/6 bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-red-900'>Leave a New Review</button>
                 </Link>
 
