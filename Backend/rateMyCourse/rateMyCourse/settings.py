@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-b&u-2lage1hr(#ld(9cft0n4)-yckmj1=jw$#_(fcgm!hhn6r%
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "rateMyCourse.mallam.ca",
+
 ]
 
 
