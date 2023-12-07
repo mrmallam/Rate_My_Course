@@ -163,7 +163,7 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
             <div className="entireDiv">
                 <div className="textFieldContainer" id="textFieldContainer--accountSettingsAccount">
                     <AccountInformation
-                        label="User Name"
+                        label="Username"
                         value={userData.username || ""}
                         fieldType='text'
                         editMode={editMode.username}
