@@ -20,7 +20,6 @@ export default function Course_div({ data }) {
                         <div className='results-left'>
                             <h2 className="text-2xl lg:text-3xl">{data.name}</h2>
                             <h2 className="text-1xl lg:text-xl"> Computer Science class </h2>
-                            <img src={Stars} alt="Stars-4" className='stars w-3/4' />
                         </div>
                         <div className='results-left'>
                             <div className="text-1xl lg:text-2xl whitespace-nowrap"><strong>Difficulty: </strong>{data.average_difficulty}</div>
