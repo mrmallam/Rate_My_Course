@@ -64,9 +64,7 @@ function OverallCourseReviews() {
             const decodedUniversityName = decodeURIComponent(course.university);
 
             const onSuccess = (data) => {
-                console.log('Fetched university data:', data.image);
                 setUniLogo(data.image);
-                console.log(':', data.image);
             };
             const onError = (error) => {
                 console.error('Error:', error);

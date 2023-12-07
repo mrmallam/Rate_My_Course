@@ -28,8 +28,6 @@ function RatingSet ({label, rating, setRating}) {
 function Reviews() {
     const navigate = useNavigate();
     // const [token] = useCookies(['myToken'])
-    const [university, setUniversity] = useState('');
-    const [courseCode, setCourseCode] = useState('');
     const [professor, setProfessor] = useState('');
     const [difficulty, setDifficulty] = useState(0);
     const [workload, setWorkload] = useState(0);
@@ -131,14 +129,12 @@ function Reviews() {
                     <input
                         type="text"
                         value={university_name}
-                        // onChange={(e) => setUniversity(e.target.value)}
                         className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                         placeholder="University"
                     />
                     <input
                         type="text"
                         value={courseName}
-                        // onChange={(e) => setCourseCode(e.target.value)}
                         className="form-input rounded-full py-2 px-4 border-2 border-red-600 my-4 mr-5 w-full md:w-min"
                         placeholder="Course Code"
                     />
