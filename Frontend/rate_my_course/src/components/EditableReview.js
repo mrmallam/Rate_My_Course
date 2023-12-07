@@ -176,8 +176,6 @@ function EditableReview({data, id, onDelete}) {
 
     return Object.keys(errors).length === 0; // Return true if there are no errors
   };
-
-  
   
   // implement with backend
   const handleDiscardChanges = () => {

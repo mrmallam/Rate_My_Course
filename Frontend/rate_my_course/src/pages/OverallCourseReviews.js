@@ -88,10 +88,7 @@ function OverallCourseReviews() {
         setBookMarkClicked(!bookMarkClicked);
         //for back end logic
     };
-
-
-    console.log("course: ", course.university);
-
+    
     return (
         <div>
             <Header/>

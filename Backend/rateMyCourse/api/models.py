@@ -37,4 +37,6 @@ class Review(models.Model):
     professor = models.CharField(max_length=50, default="No professor available")
     submission_date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, to_field='username', default="No user available")
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
 

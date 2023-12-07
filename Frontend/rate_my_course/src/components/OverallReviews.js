@@ -1,10 +1,13 @@
 import '../styles/Reviews.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Date from './Date';
 import thumbsUpBlank from '../resources/thumbs-up.svg';
 import thumbsUpGreen from '../resources/thumbs-up-green.svg';
 import thumbsDownBlank from '../resources/thumbs-down.svg';
 import thumbsDownRed from '../resources/thumbs-down-red.svg';
+import APIService from '../APIService';
+import { UserContext } from "../UserContext";
+
 
 function RatingSet ({label, rating, setRating}) {
   const levels = [1,2,3,4,5];
@@ -36,6 +39,8 @@ function OverarallReviews({data, index}) {
     const [likedCount, setLikedCount] = useState(8);
     const [dislikedCount, setDislikedCount] = useState(3);
     const [submissionDate, setSubmissionDate] = useState("");
+    const { username } = useContext(UserContext);
+
 
     useEffect(() => {
         if(data) {
@@ -47,6 +52,8 @@ function OverarallReviews({data, index}) {
             setUsefulness(data.usefulness);
             setProfessor(data.professor);
             setSubmissionDate(data.submission_date);
+            setLikedCount(data.likes);
+            setDislikedCount(data.dislikes);
         }
     }, [data]);
 
@@ -63,6 +70,20 @@ function OverarallReviews({data, index}) {
         }
     
         setThumbsDownClicked(false);
+
+        const postData ={
+            course,
+            university,
+            professor,
+            workload, 
+            difficulty, 
+            usefulness, 
+            review,
+            user: username,
+            likes: likedCount,
+            dislikes: dislikedCount
+        }
+        APIService.UpdateReview(postData, data.id);
     };
     
     const handleThumbsDownClick = () => {
@@ -78,6 +99,20 @@ function OverarallReviews({data, index}) {
         }
     
         setThumbsUpClicked(false);
+
+        const postData ={
+            course,
+            university,
+            professor,
+            workload, 
+            difficulty, 
+            usefulness, 
+            review,
+            user: username,
+            likes: likedCount,
+            dislikes: dislikedCount
+        }
+        APIService.UpdateReview(postData, data.id);
     };
 
     return (
@@ -137,15 +172,15 @@ function OverarallReviews({data, index}) {
                             <div onClick={handleThumbsUpClick}>
                                 <img src={thumbsUpClicked ? thumbsUpGreen : thumbsUpBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-up"/>
                             </div>
-                            <span className="text-md text-black ml-1">Like</span>
+                            <span className="text-md text-black ml-1">{likedCount}</span>
                             <div onClick={handleThumbsDownClick} className='ml-4 mt-1'>
                                 <img src={thumbsDownClicked ? thumbsDownRed : thumbsDownBlank} className="h-6 w-6 cursor-pointer" alt="thumbs-down"/>
                             </div>
-                            <span className="text-md text-black ml-1">Dislike</span>
+                            <span className="text-md text-black ml-1">{dislikedCount}</span>
                         </div>
-                        <div className='ml-8 mt-2 mb-2 font-bold'>
+                        {/* <div className='ml-8 mt-2 mb-2 font-bold'>
                             <span className="text-md text-gray-400">{likedCount} people upvoted this post</span>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <Date date={submissionDate}/>
