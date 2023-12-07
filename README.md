@@ -1,35 +1,24 @@
 # Rate_My_Course
 
-How to run your python enviornment
+## How to Run with Docker
+Navigate to the root folder where the `docker-compose.yml` file is located.
 
-To Run:
-	source python_env/bin/activate
+Run the following commands: 
+- `docker-compose build`
+- `docker-compose up`
 
-To quit:
-	diactivate
+Access the application at `localhost`.
 
--- 
+To run the application without Docker:
+1. Open two terminals.
+2. In the first terminal, navigate to `/Backend` and run: `python3 manage.py runserver`.
+3. In the other terminal, navigate to `/Frontend/rate_my_course/` run: `npm start`.
 
-How to run Django V1.0
-	- Go to: /rateMyCourse
-	- Then Run: python3 manage.py runserver
-	- Go to: http://127.0.0.1:8000
+### Admin Page
+For the admin page, visit `localhost:8000`.
 
+**Credentials:**
+- Username: `admin`
+- Password: `admin`
 
-
-Run Docker-compose: // this is backend version ONLY
-	- docker-compose -build
-	- navigate to http://127.0.0.1:8000
-
-
-Postgres: https://www.sqlshack.com/setting-up-a-postgresql-database-on-mac/
-	- START: 
-		brew services start postgresql
-	- STOP: 
-		brew services stop postgresql
-	- Start program:
-		psql postgres
-	- Quit/Exit seassion:
-		\q
-	- Login with a user 'X':
-		psql postgres -U 'X';
+**Note:** From the admin page, you can manage users, reviews, add universities, add courses, and everything else.
