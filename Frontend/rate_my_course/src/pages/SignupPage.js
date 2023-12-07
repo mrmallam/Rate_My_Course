@@ -88,15 +88,14 @@ const SignupPage = (props) => {
             // Reset the password error if passwords match
             setPasswordError("");
 
-            // APIService.RegisterUser({username, password})
-            //     .then(resp => {
-            //         console.log(resp);
-            //         navigate('/home');
-            //         setIsLoggedIn(true); // Update the login state
-            //     })
-            //     .catch(error => console.log(error));
+            const data = {
+                username: username,
+                password: password,
+                first_name: firstName,
+                last_name: lastName,
+            };
 
-            APIService.RegisterUser({username, password})
+            APIService.RegisterUser(data)
             .then(resp => {
                 console.log(resp);
 
