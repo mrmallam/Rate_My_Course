@@ -6,7 +6,7 @@ import APIService from "../APIService";
 import { UserContext } from "../UserContext";
 
 // Custom component for each editable field
-const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType }) => (
+const AccountInformation = ({ editable, label, value, editMode, onEditClick, onSaveClick, onCancelClick, onChange, fieldType }) => (
     <div className="inputContainer--account">
         {label && <label>{label}</label>}
         <input
@@ -16,6 +16,8 @@ const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, 
             readOnly={!editMode}
             onChange={(e) => onChange(e.target.value)}
         />
+        {/* only show when it's editable */}
+        {editable && (
         <div className="editButtonsContainer">
             {editMode ? (
                 <div className="editButtons">
@@ -26,6 +28,7 @@ const AccountInformation = ({ label, value, editMode, onEditClick, onSaveClick, 
                 <button id="editButton" onClick={onEditClick}>Edit</button>
             )}
         </div>
+        )}
     </div>
 );
 
@@ -164,6 +167,7 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
             <div className="entireDiv">
                 <div className="textFieldContainer" id="textFieldContainer--accountSettingsAccount">
                     <AccountInformation
+                        editable={false}
                         label="Username"
                         value={userData.username || ""}
                         fieldType='text'
@@ -175,6 +179,7 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
                     />
                     <label className={`text-red-600 ml-1 ${confirmUsernameChanged ? 'visible' : 'hidden'}`}>{confirmUsernameChanged}</label>
                     <AccountInformation
+                        editable={true}
                         label="First Name"
                         value={userData.first_name || ""}
                         fieldType='text'
@@ -186,6 +191,7 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
                     />
                     <label className={`text-red-600 ml-1 ${confirmFirstNameChanged ? 'visible' : 'hidden'}`}>{confirmFirstNameChanged}</label>
                     <AccountInformation
+                        editable={true}
                         label="Last Name"
                         value={userData.last_name || ""}
                         fieldType='text'
