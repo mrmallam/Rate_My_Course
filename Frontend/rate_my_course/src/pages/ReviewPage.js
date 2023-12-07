@@ -116,7 +116,7 @@ function Reviews() {
             </div>
             <div className="review-container">    
             <div className='form-container'>
-                <div className='flex flex-row ml-4 mr-4 justify-around'>
+                <div className='flex flex-col md:flex-row ml-4 mr-4 justify-around'>
                     {/* <div className='flex flex-col items-center md:items-start py-2'>
                         {errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
                         {errorMessages.courseCode && <div className="text-red-500">{errorMessages.courseCode}</div>}
@@ -178,14 +178,15 @@ function Reviews() {
 
                 </div>
 
-                <div className='flex flex-col'>
-                  {errorMessages.comments && <label className="text-red-500 w-full flex justify-center">{errorMessages.comments}</label>}
+                <div className='flex flex-col my-4'>
                   <textarea
                           value={comments}
                           onChange={(e) => setComments(e.target.value)}
-                          className='form-input flex-grow py-2 px-4 border-2 border-red-600 my-4 mx-5 sm:min-h-[200px]'
+                          className='form-input flex-grow py-2 px-4 border-2 border-red-600  mx-5 sm:min-h-[200px]'
                           placeholder='What do you want others to know about this class?'
                   ></textarea>
+                  {errorMessages.comments && <label className="text-red-500 w-full flex justify-center">{errorMessages.comments}</label>}
+
                 </div>
 
 

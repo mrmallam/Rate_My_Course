@@ -199,16 +199,16 @@ function EditableReview({id, onDelete}) {
     };
 
     return (
-      <div className='flex flex-col md:flex-row w-full'>   
-        <div className='form-container-3 w-[93%]'>
+      <div className='flex flex-col md:flex-row md:mb-0 w-full mb-10'>   
+        <div className='form-container-3 w-[93%] gap-2 md:gap-0'>
           <div className='ml-4 mr-4 flex flex-col md:flex-row justify-around'>
-            <div className='flex flex-row items-center md:items-start py-2'>
-            {/* {saveAttempted && errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
+            {/* <div className='flex flex-row items-center md:items-start py-2'>
+            {saveAttempted && errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
             {saveAttempted && errorMessages.courseName && <div className="text-red-500">{errorMessages.courseName}</div>}
             {saveAttempted && errorMessages.courseNum && <div className="text-red-500">{errorMessages.courseNum}</div>}
             {saveAttempted && errorMessages.professor && <div className="text-red-500">{errorMessages.professor}</div>}
-            {saveAttempted && errorMessages.comments && <div className="text-red-500">{errorMessages.comments}</div>} */}
-            </div>
+            {saveAttempted && errorMessages.comments && <div className="text-red-500">{errorMessages.comments}</div>}
+            </div> */}
 
             <div className='flex flex-col'>
               <input
@@ -255,13 +255,18 @@ function EditableReview({id, onDelete}) {
             <div className='my-4 pl-4'>
               <RatingSet label='Usefulness' rating={usefulness} setRating={handleUsefulnessChange} editable={editable}/>
             </div>
-          <textarea 
-              readOnly={!editable}
-              value={comments}
-              onChange={handleCommentsChange}
-              className={`form-input flex-grow py-2 px-4 border-2  my-4 mx-5 ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`} 
-              style={{ backgroundColor: editable ? 'white' : '#EEEDED' } }
-          />
+
+          <div className='flex flex-col h-full my-4'>
+            <textarea 
+                readOnly={!editable}
+                value={comments}
+                onChange={handleCommentsChange}
+                className={`form-input flex-grow py-2 px-4 border-2 mx-5  ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`} 
+                style={{ backgroundColor: editable ? 'white' : '#EEEDED' } }
+            />
+            {saveAttempted && errorMessages.comments && <div className="text-red-500 flex justify-center h-min">{errorMessages.comments}</div>}
+          </div>
+
         </div>
         <div className="flex flex-row md:flex-col justify-evenly mt-4 md:mt-0 md:ml-8 mr-[5%] md:mr-0">
           {editable ? (
