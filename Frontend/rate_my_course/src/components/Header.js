@@ -77,7 +77,7 @@ export default function Header() {
           } text-white font-bold py-2 px-4 rounded-full shadow-lg w-38 md:w-60 md:h-20 cursor-pointer`}
         >
           <h2 className=" md:text-xl">
-            {userData ? userData.username : ''}
+            {username ? username : ''}
           </h2>
         </button>
           {isMenuOpen && (

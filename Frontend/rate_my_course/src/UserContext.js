@@ -17,6 +17,8 @@ export const UserProvider = ({ children }) => {
     // Check if the 'mytoken' cookie exists
     if (cookies.mytoken) {
       setIsLoggedIn(true);
+      const storedUsername = localStorage.getItem('username');
+      setUsername(storedUsername);
     } else {
       setIsLoggedIn(false);
     }
