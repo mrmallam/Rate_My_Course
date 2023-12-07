@@ -15,10 +15,10 @@ services:
     restart: always
     container_name: frontend
     build:
-      context: ./frontend/rate_my_course
+      context: ./Frontend/rate_my_course
       dockerfile: Dockerfile
     stdin_open: true
     ports:
-      - "3000:3000"
+      - "80:3000"
     depends_on:
       - backend
