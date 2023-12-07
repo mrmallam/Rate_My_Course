@@ -18,8 +18,25 @@ function OverallCourseReviews() {
     const [bookMarkClicked, setBookMarkClicked] = useState(false);
     const [reviewResponseCount, setReviewResponseCount] = useState(0);
     const [uniLogo, setUniLogo] = useState('');
+    const [sortedByLikes, setSortedByLikes] = useState(false);
+    const [sortedByDate, setSortedByDate] = useState(false); // New state to manage date sorting
+    const [selectedProfessor, setSelectedProfessor] = useState('All Professors'); // New state to track selected professor
+    const [professorsList, setProfessorsList] = useState([]); // State to hold the list of professors
+    const [allReviews, setAllReviews] = useState([]); // Holds all reviews
+    const [filteredReviews, setFilteredReviews] = useState([]); // Holds filtered reviews for display
+
 
     const { courseName } = useParams();
+
+    // Function to sort reviews by likes
+    const sortByLikes = (reviewsData) => {
+        return reviewsData.sort((a, b) => b.likes - a.likes);
+    };
+
+    // Function to sort reviews by date
+    const sortByDate = (reviewsData) => {
+        return reviewsData.sort((a, b) => new Date(b.submission_date) - new Date(a.submission_date));
+    };
 
     // Fetch the list of reviews from the backend
     useEffect(() => {
@@ -36,6 +53,7 @@ function OverallCourseReviews() {
             .catch(error => console.log(error))
 
 
+            // Fetching reviews
             fetch(`http://localhost:8000/api/Review/?course=${decodedCourseName}`, {
                 method: 'GET',
                 headers: {
@@ -44,18 +62,35 @@ function OverallCourseReviews() {
             })
             .then(resp => resp.json())
             .then((data) => {
-                if (Array.isArray(data)) {
-                    setReviews(data);
-                    setReviewResponseCount(data.length);
-                } else {
-                    setReviews([data]); // Convert to array if it's a single object
+                let reviewsData = Array.isArray(data) ? data : [data]; // Ensure data is an array
+
+                if (sortedByLikes) {
+                    reviewsData = sortByLikes(reviewsData);
+                } else if (sortedByDate) {
+                    reviewsData = sortByDate(reviewsData);
                 }
+                
+                setReviewResponseCount(reviewsData.length);
+                setAllReviews(reviewsData);
+                setFilteredReviews(reviewsData); // Initially display all reviews
+
+                // Extract a list of unique professors from the reviews
+                const uniqueProfessors = Array.from(new Set(reviewsData.map(review => review.professor)));
+                setProfessorsList(['All Professors', ...uniqueProfessors]);
             })
             .catch(error => console.log(error))
         }
+    }, [courseName, sortedByLikes, sortedByDate, selectedProfessor]); // Add sortedByDate as a dependency
 
+    // Effect to filter reviews when a professor is selected
+    useEffect(() => {
+        const filtered = selectedProfessor === 'All Professors'
+            ? allReviews
+            : allReviews.filter(review => review.professor === selectedProfessor);
         
-    }, []);
+        setFilteredReviews(filtered);
+    }, [selectedProfessor, allReviews]);
+
 
     // Fetch the university data based on universityName
     useEffect(() => {
@@ -87,6 +122,24 @@ function OverallCourseReviews() {
         //for back end logic
     };
     
+    // Toggle handlers
+    const handleLikesSortingToggle = () => {
+        setSortedByLikes(!sortedByLikes);
+        // Turn off date sorting when likes sorting is turned on
+        if (!sortedByLikes) setSortedByDate(false);
+    };
+
+    const handleDateSortingToggle = () => {
+        setSortedByDate(!sortedByDate);
+        // Turn off likes sorting when date sorting is turned on
+        if (!sortedByDate) setSortedByLikes(false);
+    };
+
+    // Function to handle selection of professor from dropdown
+    const handleProfessorChange = (e) => {
+        setSelectedProfessor(e.target.value);
+    };
+
     return (
         <div>
             <Header/>
@@ -95,27 +148,27 @@ function OverallCourseReviews() {
                 <div className='flex justify-between text-sm mt-5 w-full md:w-1/2'>
                     <div className ='w-1/3 ml-2'>
                         <label className="switch">
-                            <input type="checkbox" checked={isChecked} onChange={handleOnChange}/>
+                            <input type="checkbox" checked={sortedByDate} onChange={handleDateSortingToggle}/>
                             <span className="slider round"></span>
                         </label>
-                        <p className='ml-1 mt-1'>Newest-Oldest Posts</p>
+                        <p className='ml-1 mt-1'>Newest Posts</p>
                     </div>
 
                     <div className ='w-1/3 ml-2'>
                         <label className="switch">
-                            <input type="checkbox" checked={isChecked2} onChange={handleOnChange2}/>
+                            <input type="checkbox" checked={sortedByLikes} onChange={handleLikesSortingToggle}/>
                             <span className="slider round"></span>
                         </label>
-                        <p className='ml-1 mt-1'>Highest-Lowest Rated</p>
+                        <p className='ml-1 mt-1'>Top Rated</p>
                     </div>
 
-                    <div className ='w-1/3 ml-2'>
-                        <select value={professor} 
-                            onChange={e => setProfessor(e.target.value)}
+                    <div className='w-1/3 ml-2'>
+                        <select value={selectedProfessor} 
+                            onChange={(e) => setSelectedProfessor(e.target.value)}
                             className='border-2 border-red-600 rounded-full p-1'>
-                            <option value='CPSC'>-----------</option>
-                            <option value='CPSC'>Professor 1</option>
-                            <option value='CPSC'>Professor 2</option>
+                            {professorsList.map((professor) => (
+                                <option key={professor} value={professor}>{professor}</option>
+                            ))}
                         </select>
                         <p className='ml-1 mt-1'>Professors</p>
                     </div>
@@ -160,8 +213,8 @@ function OverallCourseReviews() {
 
                 <span className="text-md mt-6 text-black">Showing {reviewResponseCount} Reviews: </span>
                 
-                {reviews.map((result, index) => (
-                    <OverarallReviews data={result} index={index} key={result.id} />
+                {filteredReviews.map((review, index) => (
+                    <OverarallReviews data={review} index={index} key={review.id} />
                 ))}
 
             </div>
