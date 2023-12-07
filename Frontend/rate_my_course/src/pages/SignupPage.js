@@ -21,6 +21,7 @@ const SignupPage = (props) => {
     const [firstNameError, setFirstNameError] = useState("");
     const [lastNameError, setLastNameError] = useState("");
     const [confirmPasswordError, setConfirmNewPasswordError] = useState("");
+    const [confirmRegisterError, setConfirmRegisterError] = useState("");
 
     const { setIsLoggedIn } = useContext(UserContext);
 
@@ -74,6 +75,10 @@ const SignupPage = (props) => {
 
         if (validateSignUp()) {
 
+            if (password.length < 8) {
+                setPasswordError("Password must be at least 8 characters long.");
+                return; // Stop the function if password is too short
+            }
 
             if (password !== confirmPassword) {
                 setPasswordError("Passwords do not match.");
@@ -83,13 +88,34 @@ const SignupPage = (props) => {
             // Reset the password error if passwords match
             setPasswordError("");
 
+            // APIService.RegisterUser({username, password})
+            //     .then(resp => {
+            //         console.log(resp);
+            //         navigate('/home');
+            //         setIsLoggedIn(true); // Update the login state
+            //     })
+            //     .catch(error => console.log(error));
+
             APIService.RegisterUser({username, password})
-                .then(resp => {
-                    console.log(resp);
-                    navigate('/home');
-                    setIsLoggedIn(true); // Update the login state
-                })
-                .catch(error => console.log(error));
+            .then(resp => {
+                console.log(resp);
+
+                if (resp.success) {
+                    console.log("Registration successful", resp.data);
+                    navigate('/home'); // Redirect to home page on successful registration
+                    setIsLoggedIn(true); // Update the login state to reflect that the user is logged in
+                } else {
+                    console.log("Registration failed", resp.error);
+                    // Handle errors
+                    setConfirmRegisterError("Registration failed. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.log("Network or server error", error);
+                // Handle network or unexpected errors
+                // Display a generic error message to the user
+                // For example: setError("Unable to register. Please try again later.");
+            });
         }
     }
 
@@ -175,6 +201,8 @@ const SignupPage = (props) => {
 
                 {/* Signup button */}
                 <button className="loginButton" onClick={RegisterUser}>Signup</button>
+
+                <label className="text-red-600 ml-1">{confirmRegisterError}</label>
             </div>
         </div>
     );

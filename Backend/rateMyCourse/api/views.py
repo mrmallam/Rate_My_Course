@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, UniversitySerializer, CourseSerializer, ReviewSerializer
 from rest_framework import viewsets
@@ -23,6 +23,13 @@ class UserViewSet(viewsets.ModelViewSet):
         instance = get_object_or_404(self.get_queryset(), username=kwargs.get('username'))
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+    
+    def get_permissions(self):
+        if self.action == 'create':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
         
 

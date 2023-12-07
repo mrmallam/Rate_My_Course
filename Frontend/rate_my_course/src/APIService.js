@@ -1,6 +1,9 @@
 
 export default class APIService {
+
     static LoginUser(body){
+
+        console.log(body);
         return fetch(`http://127.0.0.1:8000/auth/`, {
             'method': 'POST',
             headers: {
@@ -9,17 +12,48 @@ export default class APIService {
             body:JSON.stringify(body)
         }).then(resp => resp.json())
     }
-
-    static RegisterUser(body){
+    static RegisterUser(body) {
+        console.log(body);
+    
         return fetch(`http://127.0.0.1:8000/api/users/`, {
-            'method': 'POST',
+            method: 'POST',
             headers: {
-              'Content-Type':'application/json',
+                'Content-Type':'application/json',
             },
-            body:JSON.stringify(body)
-        }).then(resp => resp.json())
+            body: JSON.stringify(body)
+        })
+        .then(resp => {
+            if (resp.ok) {
+                console.log(resp);
+                // If the response is successful, parse and return the JSON data
+                return resp.json().then(data => {
+                    return {
+                        success: true,
+                        data: data
+                    };
+                });
+            } else {
+                console.log(resp);
+                // If the response is an error (e.g., 400 Bad Request), parse and return the error message
+                return resp.json().then(errorData => {
+                    console.log(errorData);
+                    return {
+                        success: false,
+                        error: errorData
+                    };
+                });
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            // Handle network errors or other unforeseen errors
+            return {
+                success: false,
+                error: "Network error or something went wrong"
+            };
+        });
     }
-
+    
     static InsertReview(body, token){
         return fetch(`http://localhost:8000/api/Review/`, {
             'method': 'POST',
@@ -53,6 +87,9 @@ export default class APIService {
     }
     
     static GetUserData(token, username, onSuccess, onError){
+
+        console.log(username);
+
         return fetch(`http://localhost:8000/api/users/${username}/`, {
             method: 'GET',
             headers: {
