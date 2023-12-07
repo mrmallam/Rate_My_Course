@@ -201,38 +201,50 @@ function EditableReview({id, onDelete}) {
     return (
       <div className='flex flex-col md:flex-row w-full'>   
         <div className='form-container-3 w-[93%]'>
-          <div className='ml-4 mr-4'>
-            <div className='flex flex-col items-center md:items-start py-2'>
-            {saveAttempted && errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
+          <div className='ml-4 mr-4 flex flex-col md:flex-row justify-around'>
+            <div className='flex flex-row items-center md:items-start py-2'>
+            {/* {saveAttempted && errorMessages.university && <div className="text-red-500">{errorMessages.university}</div>}
             {saveAttempted && errorMessages.courseName && <div className="text-red-500">{errorMessages.courseName}</div>}
             {saveAttempted && errorMessages.courseNum && <div className="text-red-500">{errorMessages.courseNum}</div>}
             {saveAttempted && errorMessages.professor && <div className="text-red-500">{errorMessages.professor}</div>}
-            {saveAttempted && errorMessages.comments && <div className="text-red-500">{errorMessages.comments}</div>}
+            {saveAttempted && errorMessages.comments && <div className="text-red-500">{errorMessages.comments}</div>} */}
             </div>
-            <input
-              readOnly={!editable}
-              type="text"
-              value={university}
-              onChange={handleUniversityChange}
-              className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 w-full md:w-min ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
-              placeholder="University"
-            />
-            <input
-              readOnly={!editable}
-              type="text"
-              value={courseName}
-              onChange={handleCourseNameChange}
-              className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 w-full md:w-min ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
-              placeholder="Course Code"
-            />
-            <input
-              readOnly={!editable}
-              type="text"
-              value={professor}
-              onChange={handleProfessorChange}
-              className={`form-input rounded-full py-2 px-4 border-2 my-4 mr-5 w-full md:w-min ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
-              placeholder="Professor's Name"
-            />
+
+            <div className='flex flex-col'>
+              <input
+                readOnly={!editable}
+                type="text"
+                value={university}
+                onChange={handleUniversityChange}
+                className={`form-input rounded-full py-2 px-4 border-2 my-4  w-full md:w-min ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
+                placeholder="University"
+              />
+              {saveAttempted && errorMessages.university && <label className="text-red-500 flex justify-center">{errorMessages.university}</label>}
+            </div>
+
+            <div className='flex flex-col'>
+              <input
+                readOnly={!editable}
+                type="text"
+                value={courseName}
+                onChange={handleCourseNameChange}
+                className={`form-input rounded-full py-2 px-4 border-2 my-4 w-full md:w-min ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
+                placeholder="Course Code"
+              />
+              {saveAttempted && errorMessages.courseName && <div className="text-red-500 flex justify-center">{errorMessages.courseName}</div>}
+            </div>
+
+            <div className='flex flex-col'>
+              <input
+                readOnly={!editable}
+                type="text"
+                value={professor}
+                onChange={handleProfessorChange}
+                className={`form-input rounded-full py-2 px-4 border-2 my-4 w-full md:w-min ${editable ? 'border-red-600 cursor-text' : 'border-black cursor-default'}`}
+                placeholder="Professor's Name"
+              />
+              {saveAttempted && errorMessages.professor && <div className="text-red-500 flex justify-center">{errorMessages.professor}</div>}
+            </div>
             </div>
             <div className='my-4 pl-4'>
               <RatingSet label='Difficulty' rating={difficulty} setRating={handleDifficultyChange} editable={editable}/>
