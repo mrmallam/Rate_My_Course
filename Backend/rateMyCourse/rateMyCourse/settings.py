@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-b&u-2lage1hr(#ld(9cft0n4)-yckmj1=jw$#_(fcgm!hhn6r%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "rateMyCourse.mallam.ca",
+]
 
 
 # Application definition
