@@ -95,8 +95,6 @@ const LoginPage = (props) => {
                         onChange={ev => setPassword(ev.target.value)}
                         className={"inputBox"} />
                     <label className=" text-red-600 ml-1">{passwordError}</label>
-                    <button className="forgotPassword md:text-xl">Forgot Password?</button>
-
                 </div>
                 <br />
                 <button onClick = {loginBtn} className="loginButton">Login</button>
