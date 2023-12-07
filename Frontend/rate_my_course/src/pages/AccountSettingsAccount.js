@@ -99,11 +99,15 @@ const AccountSettingsAccount = ({ userData, setUserData }) => {
         };
 
         const handleError = (error) => {
-            console.error('Error while saving data to the backend:', error);
+            console.log(error.username[0]);
 
-            const errorMessage = error.message || "An unknown error occurred";
+            const errorMessage = error.username[0] || "An unknown error occurred";
             if (errorMessage.includes("already exists.")) {
-                setConfirmUsernameChanged(error);
+                console.log("Username already exists. Please choose another one.");
+                setConfirmUsernameChanged("Username already exists. Please choose another one.");
+            } else {
+                console.log("An unknown error occurred. Please try again.");
+                setConfirmUsernameChanged("An unknown error occurred. Please try again.");
             }
 
             // make save button visible again
