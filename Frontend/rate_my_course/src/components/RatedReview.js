@@ -28,7 +28,7 @@ function StaticReview() {
     const [workload, setWorkload] = useState(2);
     const [usefulness, setUsefulness] = useState(3);
     const [comments, setComments] = useState('Great course!');
-    const [thumbsUpClicked, setThumbsUpClicked] = useState(false);
+    const [thumbsUpClicked, setThumbsUpClicked] = useState(true);
     const [thumbsDownClicked, setThumbsDownClicked] = useState(false);
     const [university, setUniversity] = useState('Test Uni');
     const [courseNum, setCourseNum] = useState('Test CourseNum');

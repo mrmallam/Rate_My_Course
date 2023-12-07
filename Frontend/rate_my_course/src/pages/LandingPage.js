@@ -22,6 +22,7 @@ function LandingPage() {
     .then(resp => resp.json())
     .then((data) => { setSearchResults(data); })
     .catch(error => console.log(error))
+
   }, []);
 
   // Effect for filtering results based on search input
@@ -43,9 +44,6 @@ useEffect(() => {
     setDisplayResults(sortedResults);
   }
 }, [isChecked, searchResults]); // Note: We use searchResults here, not displayResults
-
-
-  console.log(searchResults);
 
   return (
     <div className='flex flex-col items-center justify-center mb-5'>
