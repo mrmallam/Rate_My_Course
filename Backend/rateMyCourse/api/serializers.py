@@ -5,10 +5,15 @@ from .models import University, Course, Review
 
 
 class UniversitySerializer(serializers.ModelSerializer):
+    reviewNum = serializers.SerializerMethodField()
+
     class Meta:
         model = University
-        fields = ['name', 'reviews', 'image']
+        fields = ['name', 'image', 'reviewNum']
 
+    def get_reviewNum(self, obj):
+        return obj.review_count()
+    
 class CourseSerializer(serializers.ModelSerializer):
     average_workload = serializers.SerializerMethodField()
     average_difficulty = serializers.SerializerMethodField()

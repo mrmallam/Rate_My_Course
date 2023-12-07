@@ -8,6 +8,9 @@ class University(models.Model):
     reviews = models.IntegerField(null=True, blank=True)
     image = models.ImageField(upload_to='images/', default='')
 
+    def review_count(self):
+        return Review.objects.filter(university=self).count()
+
 
 class Course(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
