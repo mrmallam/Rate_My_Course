@@ -18,13 +18,13 @@ class Course(models.Model):
     description = models.CharField(max_length=500, default="No description available")
 
     def average_workload(self):
-        return self.review_set.aggregate(Avg('workload'))['workload__avg'] or 0
+        return round(self.review_set.aggregate(Avg('workload'))['workload__avg'] or 0, 2)
 
     def average_difficulty(self):
-        return self.review_set.aggregate(Avg('difficulty'))['difficulty__avg'] or 0
+        return round(self.review_set.aggregate(Avg('difficulty'))['difficulty__avg'] or 0, 2)
 
     def average_usefulness(self):
-        return self.review_set.aggregate(Avg('usefulness'))['usefulness__avg'] or 0
+        return round(self.review_set.aggregate(Avg('usefulness'))['usefulness__avg'] or 0, 2)
 
     
 class Review(models.Model):
